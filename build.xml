@@ -1,0 +1,44 @@
+<project name="JastAddTest" default="test">
+	<target name="build"
+		description="Compile the unit tests">
+		<mkdir dir="bin"/>
+		<javac debug="false" nowarn="true" destdir="bin"
+			includeantruntime="false">
+			<classpath>
+				<pathelement path="lib/junit-${junit.version}.jar"/>
+			</classpath>
+			<src path="src"/>
+		</javac>
+	</target>
+
+	<!-- BEGIN Unit testing targets -->
+	<property name="junit.version" value="4.11-SNAPSHOT"/>
+	<property name="test-src.dir" location="src/tests"/>
+	<property name="test-reports.dir" location="test-reports"/>
+
+	<target name="test" depends="test-report"
+		description="Run unit tests"/>
+
+	<target name="test-report" depends="unit-test">
+		<junitreport todir="${test-reports.dir}">
+			<fileset dir="${test-reports.dir}">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report todir="${test-reports.dir}"/>
+		</junitreport>
+	</target>
+
+	<target name="unit-test" depends="build">
+		<mkdir dir="${test-reports.dir}"/>
+		<junit fork="yes" printsummary="yes">
+			<classpath>
+				<pathelement location="bin"/>
+				<pathelement location="lib/junit-${junit.version}.jar"/>
+				<pathelement location="lib/JavaCompiler.jar"/>
+			</classpath>
+			<test name="tests.TestJJ7" todir="${test-reports.dir}"/>
+			<formatter type="xml"/>
+		</junit>
+	</target>
+	<!-- END Unit testing targets -->
+</project>

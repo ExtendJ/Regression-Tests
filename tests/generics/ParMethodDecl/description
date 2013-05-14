@@ -1,0 +1,3 @@
+Tests NPE thrown during ParMethodDecl type argument substitution
+
+http://svn.cs.lth.se/trac/jastadd-trac/ticket/86

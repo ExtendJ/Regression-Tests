@@ -1,0 +1,10 @@
+2013-01-23  Jesper Öqvist <jesper.oqvist@cs.lth.se>
+
+    * Tests can now use @TMP_DIR@ and @TEST_DIR@ to reference the
+    temporary test directory and the test source directory in the classpath
+    property
+
+2013-01-21  Jesper Öqvist <jesper.oqvist@cs.lth.se>
+
+    * The jastaddj.jar property can now be used to set the path to the
+    JastAddJ jar file

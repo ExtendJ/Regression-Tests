@@ -1,0 +1,4 @@
+Tests accessing a protected member of an enclosing class inherited from
+common superclass declared in another package
+
+http://svn.cs.lth.se/trac/jastadd-trac/ticket/52

@@ -1,0 +1,10 @@
+compiler=jastaddj
+jastaddj.jar=JJ7.jar
+
+includes:\
+    tests
+
+excludes:\
+	tests/lambda,\
+	tests/generics/constructor01,\
+    tests/type/conditional_expr02

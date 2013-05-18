@@ -1,5 +1,5 @@
 compiler=jastaddj
-jastaddj.jar=JJ7.jar
+jastaddj.jar=jastaddj.jar
 
 includes:\
     tests

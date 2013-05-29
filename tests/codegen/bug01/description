@@ -1,4 +1,5 @@
-Test for bytecode generation problem.
+Test for bytecode generation problem that caused the finally clause to
+clobber local variables.
 
 https://bitbucket.org/jastadd/jastaddj/issue/4/throwstmt-bytecode-error
 

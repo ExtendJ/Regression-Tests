@@ -7,4 +7,6 @@ fi
 
 # build JastAddJ
 (cd $1; ant jar)
+
+# run tests
 ant -Djastaddj.jar=$1/jastaddj.jar ${@:2} test

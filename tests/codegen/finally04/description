@@ -1,0 +1,2 @@
+Tests regression in code generation for nested try-finally caused by
+using NTA-finally.

@@ -12,7 +12,7 @@ import core.JJTestRunner;
 import core.Util;
 
 /**
- * A parameterized Junit test to test JastAdd 2 & 3
+ * A parameterized Junit test to test JastAddJ
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)

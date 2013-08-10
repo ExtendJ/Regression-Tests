@@ -1,4 +1,16 @@
 <project name="JastAddTest" default="test">
+	<description>Test JastAddJ
+
+Test Properties:
+    jastaddj.jar    the path to the JastAddJ jar file to test
+    includes        comma separated list of included test directories
+    excludes        comma separated list of excluded test directories
+    test            comma separated list of test directories (overrides
+                    the includes and excludes properties)
+
+Set any of the test properties to override the values for the specific test
+suites using -Dproperty=value
+</description>
 	<target name="build"
 		description="Compile the unit tests">
 		<mkdir dir="bin"/>
@@ -10,6 +22,13 @@
 			<src path="src"/>
 		</javac>
 	</target>
+
+	<property name="jastaddj.jar" value=""/>
+	<property name="includes" value=""/>
+	<property name="tests" value=""/>
+	<property name="test" value=""/>
+	<property name="excludes" value=""/>
+	<property name="skip" value=""/>
 
 	<!-- BEGIN Unit testing targets -->
 	<property name="junit.version" value="4.11-SNAPSHOT"/>
@@ -31,6 +50,10 @@
 	<target name="unit-test" depends="build">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" printsummary="yes">
+			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="includes" value="${includes}"/>
+			<sysproperty key="test" value="${test}"/>
+			<sysproperty key="excludes" value="${excludes}"/>
 			<classpath>
 				<pathelement location="bin"/>
 				<pathelement location="lib/junit-${junit.version}.jar"/>

@@ -22,15 +22,17 @@ public class Util {
 	 * @param testDirs
 	 * @param excludes 
 	 */
-	private static void addChildTestDirs(File testRoot, Collection<Object[]> testDirs, String[] excludes) {
+	private static void addChildTestDirs(File testRoot,
+			Collection<Object[]> testDirs, List<String> excludes) {
+
 		for (File child: testRoot.listFiles()) {
 			addTestDir(child, testDirs, excludes);
 		}
 	}
-	
+
 	private static void addTestDir(File dir,
-			Collection<Object[]> testDirs, String[] excludes) {
-		
+			Collection<Object[]> testDirs, List<String> excludes) {
+
 		if (dir.isDirectory()) {
 			String path = dir.getPath().replace(File.separatorChar, '/');
 			for (String exclude: excludes) {
@@ -63,27 +65,22 @@ public class Util {
 	 */
 	public static Iterable<Object[]> getTests(Properties properties) {
 		List<Object[]> testDirs = new LinkedList<Object[]>();
-		
-		String[] includes = {};
-		String includesProperty = properties.getProperty("includes", "").trim();
-		if (!includesProperty.isEmpty()) {
-			includes = includesProperty.split(",");
-			for (int i = 0; i < includes.length; ++i)
-				includes[i] = includes[i].trim().replace('\\', '/');
+
+		List<String> includes = new LinkedList<String>();
+		List<String> excludes = new LinkedList<String>();
+
+		String testProperty = properties.getProperty("test", "").trim();
+		if (!testProperty.isEmpty()) {
+			addPaths(includes, testProperty);
+		} else {
+			addPaths(includes, properties.getProperty("includes", ""));
+			addPaths(excludes, properties.getProperty("excludes", ""));
 		}
-			
-		String[] excludes = {};
-		String excludesProperty = properties.getProperty("excludes", "").trim();
-		if (!excludesProperty.isEmpty()) {
-			excludes = excludesProperty.split(",");
-			for (int i = 0; i < excludes.length; ++i)
-				excludes[i] = excludes[i].trim().replace('\\', '/');
-		}
-		
+
 		for (String include: includes) {
 			addTestDir(new File(include), testDirs, excludes);
 		}
-		
+
 		// sort the tests lexicographically
 		Collections.sort(testDirs, new Comparator<Object[]>() {
 			@Override
@@ -95,11 +92,24 @@ public class Util {
 	}
 
 	/**
+ 	 * Add comma-separated paths to list
+ 	 */
+	private static void addPaths(List<String> list, String pathList) {
+		String[] items = pathList.split(",");
+		for (String item : items) {
+			item = item.trim().replace('\\', '/');
+			if (!item.isEmpty()) {
+				list.add(item);
+			}
+		}
+	}
+
+	/**
 	 * @param propertiesFile
 	 * @return The properties loaded from the given file
 	 */
 	public static Properties getProperties(File propertiesFile) {
-		Properties properties = new Properties();
+		Properties properties = new TestProperties();
 		try {
 			FileInputStream in = new FileInputStream(propertiesFile);
 			properties.load(in);

@@ -1,2 +1,6 @@
-Tests regression in code generation for nested try-finally caused by
-using NTA-finally.
+This test provokes a stack overflow error in the code generation for
+try-statements. The stack overflow is triggerd by the return-statement in the
+finally block thinking that it's own finally block is an enclosing finally
+block.
+
+[bitbucket issue](https://bitbucket.org/jastadd/jastaddj/issue/20/recursive-finally-embedding)

@@ -1,0 +1,2 @@
+Tests insertion of exit branches after NTA-Finally blocks that don't terminate
+normally.

@@ -1,0 +1,4 @@
+
+	within the try block, a resource name may not be rededeclared as an
+	exception parameter of a try statement of the directly enclosing
+method or initializer block 

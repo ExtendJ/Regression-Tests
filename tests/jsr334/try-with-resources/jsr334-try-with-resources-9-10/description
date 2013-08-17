@@ -1,0 +1,4 @@
+
+	the name of a resource may be shadowed anywhere inside a class declaration
+	nested within the block of a try statement
+

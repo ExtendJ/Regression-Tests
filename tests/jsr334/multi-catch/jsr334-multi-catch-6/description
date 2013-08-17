@@ -1,0 +1,4 @@
+
+	the effective type of a union-type catch parameter is the lub of
+	the union types
+

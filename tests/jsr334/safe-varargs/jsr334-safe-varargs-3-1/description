@@ -1,0 +1,5 @@
+
+	the compiler warns at the declaration of a variable arity method with
+	no-reifiable variable arity parameter type that is not declared with
+	@SafeVarargs
+

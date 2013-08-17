@@ -1,0 +1,4 @@
+
+	within the try block, a resource name may not be rededeclared as a local
+	variable of the directly enclosing method or initializer
+

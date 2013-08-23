@@ -16,14 +16,20 @@ import java.util.Properties;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class Util {
+
+	/**
+	 * Root directory for all tests
+	 */
+	public static final String TEST_ROOT = "tests";
+
 	/**
 	 * Find all test directories
 	 * @param testRoot
 	 * @param testDirs
-	 * @param excludes 
+	 * @param excludes
 	 */
-	private static void addChildTestDirs(File testRoot,
-			Collection<Object[]> testDirs, List<String> excludes) {
+	private static void addChildTestDirs(File testRoot, Collection<Object[]> testDirs,
+		Collection<String> excludes) {
 
 		for (File child: testRoot.listFiles()) {
 			addTestDir(child, testDirs, excludes);
@@ -31,10 +37,12 @@ public class Util {
 	}
 
 	private static void addTestDir(File dir,
-			Collection<Object[]> testDirs, List<String> excludes) {
+			Collection<Object[]> testDirs, Collection<String> excludes) {
 
 		if (dir.isDirectory()) {
 			String path = dir.getPath().replace(File.separatorChar, '/');
+			if (path.startsWith(TEST_ROOT + "/"))
+				path = path.substring(TEST_ROOT.length()+1);
 			for (String exclude: excludes) {
 				if (path.startsWith(exclude)) {
 					return;
@@ -43,8 +51,9 @@ public class Util {
 			File resultFile = new File(dir, "Test.java");
 			File propertiesFile = new File(dir, "Test.properties");
 			if (resultFile.isFile() || propertiesFile.isFile()) {
-				if (!skipTest(dir))
+				if (!skipTest(dir)) {
 					testDirs.add(new Object[] { path });
+				}
 			} else {
 				addChildTestDirs(dir, testDirs, excludes);
 			}
@@ -60,7 +69,7 @@ public class Util {
 	}
 
 	/**
-	 * @param properties 
+	 * @param properties
 	 * @return A collection of String arrays containing the test directories
 	 */
 	public static Iterable<Object[]> getTests(Properties properties) {
@@ -77,8 +86,13 @@ public class Util {
 			addPaths(excludes, properties.getProperty("excludes", ""));
 		}
 
-		for (String include: includes) {
-			addTestDir(new File(include), testDirs, excludes);
+		if (includes.isEmpty()) {
+			addTestDir(new File(TEST_ROOT), testDirs, excludes);
+		} else {
+			for (String include: includes) {
+				addTestDir(new File(TEST_ROOT, include), testDirs,
+						excludes);
+			}
 		}
 
 		// sort the tests lexicographically

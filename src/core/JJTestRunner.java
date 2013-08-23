@@ -27,10 +27,11 @@ public class JJTestRunner {
 
 	/**
 	 * Run the unit test in testDir with the given JastAdd configuration.
-	 * @param testDir
+	 * @param testName
 	 * @param testSuiteProperties
 	 */
-	public static void runTest(String testDir, Properties testSuiteProperties) {
+	public static void runTest(String testName, Properties testSuiteProperties) {
+		String testDir = Util.TEST_ROOT + "/" + testName;
 		Properties testProperties = Util.getProperties(new File(testDir, "Test.properties"));
 		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "jastaddj"));
 		Result expected = getExpectedResult(testProperties);
@@ -279,14 +280,14 @@ public class JJTestRunner {
 		args.add("-d");
 		args.add(tmpDir.getPath());
 
+		args.add("-classpath");
+		String classpath = TEST_FRAMEWORK.getPath();
 		if (props.containsKey("classpath")) {
-			String classpath = props.getProperty("classpath");
+			classpath += File.pathSeparator + props.getProperty("classpath");
 			classpath = classpath.replaceAll("@TEST_DIR@", testDir);
 			classpath = classpath.replaceAll("@TMP_DIR@", tmpDir.getPath());
-
-			args.add("-classpath");
-			args.add(classpath);
 		}
+		args.add(classpath);
 
 		for (String sourceFile: sourceFiles) {
 			args.add(sourceFile);

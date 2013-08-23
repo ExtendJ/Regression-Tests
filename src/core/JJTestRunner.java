@@ -22,40 +22,45 @@ import static org.junit.Assert.assertEquals;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class JJTestRunner {
-	
+
+	private static File TEST_FRAMEWORK = new File("lib/runtime-framework.jar");
+
 	/**
 	 * Run the unit test in testDir with the given JastAdd configuration.
 	 * @param testDir
-	 * @param testSuiteProperties 
+	 * @param testSuiteProperties
 	 */
 	public static void runTest(String testDir, Properties testSuiteProperties) {
 		Properties testProperties = Util.getProperties(new File(testDir, "Test.properties"));
 		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "jastaddj"));
 		Result expected = getExpectedResult(testProperties);
-		
+
 		File tmpDir = setupTemporaryDirectory(testDir);
-		
+
 		Compiler compiler = getCompiler(testSuiteProperties);
-		
+
 		// Compile generated code with the selected compiler
 		compileSources(compiler, testProperties, tmpDir, testDir, expected);
-		
+
 		if (expected == Result.COMPILE_PASSED ||
 				expected == Result.COMPILE_FAILED ||
 				expected == Result.COMPILE_WARNING) {
-			
+
 			return;
 		}
-		
+
 		// Execute the compiled code
-		executeCode(testProperties, tmpDir, testDir, expected);
-		
+		String stdErr = executeCode(testProperties, tmpDir, testDir, expected);
+		if (!stdErr.isEmpty()) {
+			fail("Standard error not empty:\n" + stdErr);
+		}
+
 		if (expected == Result.EXEC_PASSED ||
 				expected == Result.EXEC_FAILED) {
-			
+
 			return;
 		}
-		
+
 		// Compare the output with the expected output
 		compareOutput(tmpDir, testDir);
 	}
@@ -80,9 +85,9 @@ public class JJTestRunner {
 		if (tmpDirName.startsWith("tests")) {
 			tmpDirName = tmpDirName.substring(6);
 		}
-		
+
 		File tmpDir = new File("tmp" + File.separator + tmpDirName);
-		
+
 		if (!tmpDir.exists()) {
 			// create directory with intermediate parent directories
 			tmpDir.mkdirs();
@@ -109,10 +114,10 @@ public class JJTestRunner {
 	}
 
 	private static Result getExpectedResult(Properties props) {
-		
+
 		if (!props.containsKey("result"))
 			return Result.OUTPUT_PASSED;
-		
+
 		String result = props.getProperty("result");
 		if (result.equals("COMPILE_PASSED") || result.equals("COMPILE_PASS"))
 			return Result.COMPILE_PASSED;
@@ -139,7 +144,7 @@ public class JJTestRunner {
 		try {
 			Scanner output;
 			Scanner expected;
-			
+
 			File outputFile = new File(tmpDir, "out");
 			if (outputFile.isFile()) {
 				output = new Scanner(outputFile);
@@ -187,22 +192,22 @@ public class JJTestRunner {
 	 * @param tmpDir
 	 * @param testDir
 	 * @param expected
+	 * @return The standard error content
 	 */
-	private static void executeCode(Properties props, File tmpDir,
+	private static String executeCode(Properties props, File tmpDir,
 			String testDir, Result expected) {
-		
+
 		StringBuffer errors = new StringBuffer();
-		
+
 		String classpath = tmpDir.getPath();
-		
+		classpath += File.pathSeparator + TEST_FRAMEWORK;
 		if (props.containsKey("classpath")) {
-			classpath = classpath + File.pathSeparator +
-					props.getProperty("classpath");
+			classpath += File.pathSeparator + props.getProperty("classpath");
 		}
-		
+
 		try {
 			Process p = Runtime.getRuntime().exec("java -classpath " +
-					classpath + " Test"); 
+					classpath + " Test");
 			// write output to file
 			InputStream in = p.getInputStream();
 			OutputStream out = new FileOutputStream(new File(tmpDir, "out"));
@@ -223,19 +228,20 @@ public class JJTestRunner {
 				if (expected == Result.EXEC_FAILED) {
 					fail("Code execution passed when expected to fail");
 				}
-				return;
+				return errors.toString();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (expected != Result.EXEC_FAILED) {
-			
 			fail("Code execution failed when expected to pass:\n" +
 					errors.toString());
 		}
+
+		return errors.toString();
 	}
 
 	/**
@@ -247,7 +253,7 @@ public class JJTestRunner {
 	 */
 	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
 			String testDir, Result expected) {
-		
+
 		String compileOrder = props.getProperty("compile_order", "");
 		if (!compileOrder.isEmpty()) {
 			// TODO!!
@@ -264,39 +270,39 @@ public class JJTestRunner {
 			compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
 		}
 	}
-		
+
 	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
 			String testDir, Result expected, Collection<String> sourceFiles) {
-		
+
 		List<String> args = new ArrayList<String>();
-		
+
 		args.add("-d");
 		args.add(tmpDir.getPath());
-		
+
 		if (props.containsKey("classpath")) {
 			String classpath = props.getProperty("classpath");
 			classpath = classpath.replaceAll("@TEST_DIR@", testDir);
 			classpath = classpath.replaceAll("@TMP_DIR@", tmpDir.getPath());
-			
+
 			args.add("-classpath");
 			args.add(classpath);
 		}
-		
+
 		for (String sourceFile: sourceFiles) {
 			args.add(sourceFile);
 		}
-		
+
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ByteArrayOutputStream err = new ByteArrayOutputStream();
-		
+
 		try {
 			String[] arguments = args.toArray(new String[args.size()]);
-			
+
 			int exitValue = -1;
 			exitValue = compiler.compile(arguments, out, err);
-			
+
 			String errors = err.toString();
-			
+
 			if (exitValue == 0) {
 				Result result = errors.isEmpty() ? Result.COMPILE_PASSED : Result.COMPILE_WARNING;
 				if (result != expected) {

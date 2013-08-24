@@ -15,6 +15,6 @@ public class Test {
 		switch (iter.next()) {
 			default:
 		}
-		assertEquals("side effects evaluated twice", true, iter.hasNext());
+		testEqual("side effects evaluated twice", true, iter.hasNext());
 	}
 }

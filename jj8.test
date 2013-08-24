@@ -1,9 +1,8 @@
 compiler=jastaddj
 jastaddj.jar=JJ8.jar
 
-includes:\
-    tests
+#includes:
 
 excludes:\
-	tests/generics/constructor01,\
-    tests/type/conditional_expr02
+	generics/constructor01,\
+    type/conditional_expr02

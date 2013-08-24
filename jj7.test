@@ -1,10 +1,9 @@
 compiler=jastaddj
 jastaddj.jar=jastaddj.jar
 
-includes:\
-    tests
+#includes:
 
 excludes:\
-	tests/lambda,\
-	tests/generics/constructor01,\
-    tests/type/conditional_expr02
+	lambda,\
+	generics/constructor01,\
+    type/conditional_expr02

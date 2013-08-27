@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import core.JJTestRunner;
+import core.TestRunner;
 import core.Util;
 
 /**
@@ -36,7 +36,7 @@ public class TestJavac {
 	 */
 	@Test
 	public void runTest() {
-		JJTestRunner.runTest(testDir, properties);
+		TestRunner.runTest(testDir, properties);
 	}
 	
 	@SuppressWarnings("javadoc")

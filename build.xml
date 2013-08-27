@@ -59,12 +59,4 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-
-	<!-- Update runtime framework - create jar file -->
-	<target name="update-runtime-framework" depends="build">
-		<jar destfile="lib/runtime-framework.jar"
-			basedir="bin"
-			includes="runtime/*.class"
-		/>
-	</target>
 </project>

@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
  * Utility methods for running JastAdd unit tests.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
-public class JJTestRunner {
+public class TestRunner {
 
-	private static File TEST_FRAMEWORK = new File("lib/runtime-framework.jar");
+	private static String TEST_FRAMEWORK = "framework";
 
 	/**
 	 * Run the unit test in testDir with the given JastAdd configuration.
@@ -201,7 +201,6 @@ public class JJTestRunner {
 		StringBuffer errors = new StringBuffer();
 
 		String classpath = tmpDir.getPath();
-		classpath += File.pathSeparator + TEST_FRAMEWORK;
 		if (props.containsKey("classpath")) {
 			classpath += File.pathSeparator + props.getProperty("classpath");
 		}
@@ -281,7 +280,7 @@ public class JJTestRunner {
 		args.add(tmpDir.getPath());
 
 		args.add("-classpath");
-		String classpath = TEST_FRAMEWORK.getPath();
+		String classpath = TEST_FRAMEWORK;
 		if (props.containsKey("classpath")) {
 			classpath += File.pathSeparator + props.getProperty("classpath");
 			classpath = classpath.replaceAll("@TEST_DIR@", testDir);

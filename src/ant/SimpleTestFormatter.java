@@ -2,6 +2,8 @@ package ant;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -20,9 +22,11 @@ public class SimpleTestFormatter implements JUnitResultFormatter {
 	private int numRun = 0;
 	private int numFail = 0;
 	private int numErr = 0;
+	private final Set<Test> failed = new HashSet<Test>();
 
 	@Override
 	public void addError(Test test, Throwable error) {
+		failed.add(test);
 		numErr += 1;
 		logResult(test, "ERR");
 		out.println(error.getMessage());
@@ -30,6 +34,7 @@ public class SimpleTestFormatter implements JUnitResultFormatter {
 
 	@Override
 	public void addFailure(Test test, AssertionFailedError failure) {
+		failed.add(test);
 		numFail += 1;
 		logResult(test, "FAIL");
 		out.println(failure.getMessage());
@@ -37,7 +42,9 @@ public class SimpleTestFormatter implements JUnitResultFormatter {
 
 	@Override
 	public void endTest(Test test) {
-		logResult(test, "PASS");
+		if (!failed.contains(test)) {
+			logResult(test, "PASS");
+		}
 	}
 
 	@Override

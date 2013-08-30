@@ -7,6 +7,7 @@ Test Properties:
     excludes        comma separated list of excluded test directories
     test            comma separated list of test directories (overrides
                     the includes and excludes properties)
+    compiler        the compiler to test (jastaddj or javac)
 
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
@@ -15,6 +16,7 @@ suites using -Dproperty=value
 	<property name="includes" value=""/>
 	<property name="excludes" value=""/>
 	<property name="test" value=""/>
+	<property name="compiler" value=""/>
 
 	<target name="build"
 		description="Compile the unit tests">
@@ -48,6 +50,7 @@ suites using -Dproperty=value
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
+			<sysproperty key="compiler" value="${compiler}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>

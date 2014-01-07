@@ -72,19 +72,11 @@ public class Util {
 	 * @param properties
 	 * @return A collection of String arrays containing the test directories
 	 */
-	public static Iterable<Object[]> getTests(Properties properties) {
+	public static Iterable<Object[]> getTests(TestProperties properties) {
 		List<Object[]> testDirs = new LinkedList<Object[]>();
 
-		List<String> includes = new LinkedList<String>();
-		List<String> excludes = new LinkedList<String>();
-
-		String testProperty = properties.getProperty("test", "").trim();
-		if (!testProperty.isEmpty()) {
-			addPaths(includes, testProperty);
-		} else {
-			addPaths(includes, properties.getProperty("includes", ""));
-			addPaths(excludes, properties.getProperty("excludes", ""));
-		}
+		Collection<String> includes = properties.includes();
+		Collection<String> excludes = properties.excludes();
 
 		if (includes.isEmpty()) {
 			addTestDir(new File(TEST_ROOT), testDirs, excludes);
@@ -103,19 +95,6 @@ public class Util {
 			}
 		});
 		return testDirs;
-	}
-
-	/**
- 	 * Add comma-separated paths to list
- 	 */
-	private static void addPaths(List<String> list, String pathList) {
-		String[] items = pathList.split(",");
-		for (String item : items) {
-			item = item.trim().replace('\\', '/');
-			if (!item.isEmpty()) {
-				list.add(item);
-			}
-		}
 	}
 
 	/**

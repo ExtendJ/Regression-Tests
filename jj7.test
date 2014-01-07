@@ -1,9 +1,0 @@
-compiler=jastaddj
-jastaddj.jar=jastaddj.jar
-
-#includes:
-
-excludes:\
-	lambda,\
-	generics/constructor01,\
-    type/conditional_expr02

@@ -1,13 +1,11 @@
-package tests;
-
-import java.io.File;
-import java.util.Properties;
+package tests.javac;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import core.TestProperties;
 import core.TestRunner;
 import core.Util;
 
@@ -16,21 +14,25 @@ import core.Util;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)
-public class TestJJ8 {
-	
-	private static final String PROPERTIES_FILE = "jj8.test";
-	private static final Properties properties =
-			Util.getProperties(new File(PROPERTIES_FILE));
+public class TestJava7 {
+
+	private static final TestProperties properties = new TestProperties();
+	static {
+		properties.setProperty("compiler", "javac");
+		properties.exclude("lambda");
+		properties.exclude("generics/constructor01", "type/conditional_expr02");
+	}
+
 	private final String testDir;
 
 	/**
 	 * Construct a new JastAdd test
 	 * @param testDir The base directory for the test
 	 */
-	public TestJJ8(String testDir) {
+	public TestJava7(String testDir) {
 		this.testDir = testDir;
 	}
-	
+
 	/**
 	 * Run the JastAdd test
 	 */
@@ -38,7 +40,7 @@ public class TestJJ8 {
 	public void runTest() {
 		TestRunner.runTest(testDir, properties);
 	}
-	
+
 	@SuppressWarnings("javadoc")
 	@Parameters(name = "{0}")
 	public static Iterable<Object[]> getTests() {

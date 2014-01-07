@@ -57,7 +57,7 @@ suites using -Dproperty=value
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
 				<pathelement location="lib/JavaCompiler.jar"/>
 			</classpath>
-			<test name="tests.TestJJ7" todir="${test-reports.dir}"/>
+			<test name="tests.jastaddj.TestJava7" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>

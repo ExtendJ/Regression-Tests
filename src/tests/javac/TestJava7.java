@@ -20,6 +20,7 @@ public class TestJava7 {
 	static {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("lambda");
+		properties.exclude("intersectioncasts");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

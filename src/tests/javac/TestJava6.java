@@ -22,6 +22,7 @@ public class TestJava6 {
 		properties.exclude("runtime/jsr334");
 		properties.exclude("jsr334");
 		properties.exclude("lambda");
+		properties.exclude("intersectioncasts");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

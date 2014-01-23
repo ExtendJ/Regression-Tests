@@ -21,12 +21,7 @@ public class TestJava6 {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("runtime/jsr334");
 		properties.exclude("jsr334");
-		properties.exclude("lambda");
-		properties.exclude("intersectioncasts");
-		properties.exclude("constructorreferences");
-		properties.exclude("methodreferences");
-		properties.exclude("defaultmethods");
-		properties.exclude("packagemodifier");
+		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

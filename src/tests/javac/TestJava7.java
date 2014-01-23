@@ -19,12 +19,7 @@ public class TestJava7 {
 	private static final TestProperties properties = new TestProperties();
 	static {
 		properties.setProperty("compiler", "javac");
-		properties.exclude("lambda");
-		properties.exclude("intersectioncasts");
-		properties.exclude("constructorreferences");
-		properties.exclude("methodreferences");
-		properties.exclude("defaultmethods");
-		properties.exclude("packagemodifier");
+		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

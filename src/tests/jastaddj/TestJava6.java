@@ -26,6 +26,8 @@ public class TestJava6 {
 		properties.exclude("intersectioncasts");
 		properties.exclude("constructorreferences");
 		properties.exclude("methodreferences");
+		properties.exclude("defaultmethods");
+		properties.exclude("packagemodifier");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

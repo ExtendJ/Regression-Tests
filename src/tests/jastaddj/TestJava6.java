@@ -20,12 +20,8 @@ public class TestJava6 {
 	static {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
-		properties.exclude("runtime/js334");
-		properties.exclude("js334");
-		properties.exclude("lambda");
-		properties.exclude("intersectioncasts");
-		properties.exclude("constructorreferences");
-		properties.exclude("methodreferences");
+		properties.exclude("jsr334");
+		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

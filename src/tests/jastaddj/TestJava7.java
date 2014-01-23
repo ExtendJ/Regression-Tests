@@ -20,10 +20,7 @@ public class TestJava7 {
 	static {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
-		properties.exclude("lambda");
-		properties.exclude("intersectioncasts");
-		properties.exclude("constructorreferences");
-		properties.exclude("methodreferences");
+		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

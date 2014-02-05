@@ -1,1 +1,1 @@
-Multi-dimensional array constructor references with generics
+Tests that names with no brackets become class references and not array references

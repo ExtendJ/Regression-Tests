@@ -1,0 +1,27 @@
+AST.CompilationUnit []
+  AST.List
+  AST.List
+    AST.ClassDecl [Test]
+      AST.Modifiers
+        AST.List
+          AST.Modifier [package]
+      AST.Opt
+      AST.List
+      AST.List
+        AST.FieldDeclaration [i]
+          AST.Modifiers
+            AST.List
+              AST.Modifier [private]
+          AST.PrimitiveTypeAccess [int]
+          AST.Opt
+        AST.ConstructorDecl
+          AST.Modifiers
+            AST.List
+          AST.List
+          AST.List
+          AST.Opt
+            AST.ExprStmt
+              AST.SuperConstructorAccess
+                AST.List
+          AST.Block
+            AST.List

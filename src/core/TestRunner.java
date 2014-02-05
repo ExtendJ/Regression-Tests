@@ -3,10 +3,12 @@ package core;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -50,6 +52,11 @@ public class TestRunner {
 			return;
 		}
 
+		if (expected == Result.TREE_PASSED) {
+			compareOutput(tmpDir, testDir);
+			return;
+		}
+		
 		// Execute the compiled code
 		String stdErr = executeCode(testProperties, tmpDir, testDir, expected);
 		if (!stdErr.isEmpty()) {
@@ -132,6 +139,8 @@ public class TestRunner {
 			return Result.EXEC_FAILED;
 		else if (result.equals("OUTPUT_PASSED") || result.equals("OUTPUT_PASS"))
 			return Result.OUTPUT_PASSED;
+		else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS"))
+			return Result.TREE_PASSED;
 		else {
 			fail("Unknown result option: " + result);
 			return Result.OUTPUT_PASSED;
@@ -276,6 +285,32 @@ public class TestRunner {
 
 		List<String> args = new ArrayList<String>();
 
+		/*
+		 * Build the tree in tmp folder for output check. 
+		 * This assumes JastAddJ is being used, do not use parse tree tests
+		 * with javac. 
+		 */
+		if(expected == Result.TREE_PASSED) {
+			if(sourceFiles.size() != 1) {
+				fail("A single file per test required for parse tests");
+			}
+			String tree = null;
+			for(String fileName : sourceFiles) {
+				tree = ((JastAddJCompiler)compiler).dumpTree(fileName);
+			}
+			
+			try {
+				PrintWriter out = new PrintWriter(tmpDir.getPath() + File.separator + "out");
+				out.print(tree.trim());
+				out.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return;
+		}
+		
 		args.add("-d");
 		args.add(tmpDir.getPath());
 

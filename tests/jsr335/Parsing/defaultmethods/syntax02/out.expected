@@ -1,0 +1,34 @@
+AST.CompilationUnit []
+  AST.List
+  AST.List
+    AST.InterfaceDecl [Test]
+      AST.Modifiers
+        AST.List
+          AST.Modifier [public]
+      AST.List
+      AST.List
+        AST.InterfaceMethodDecl [addExtension]
+          AST.Modifiers
+            AST.List
+              AST.Modifier [public]
+              AST.Modifier [static]
+              AST.Modifier [default]
+          AST.TypeAccess [, String]
+          AST.List
+            AST.ParameterDeclaration [s]
+              AST.Modifiers
+                AST.List
+              AST.TypeAccess [, String]
+          AST.List
+          AST.Opt
+            AST.Block
+              AST.List
+                AST.ExprStmt
+                  AST.AssignSimpleExpr
+                    AST.VarAccess [s]
+                    AST.AddExpr
+                      AST.VarAccess [s]
+                      AST.StringLiteral [.extension]
+                AST.ReturnStmt
+                  AST.Opt
+                    AST.VarAccess [s]

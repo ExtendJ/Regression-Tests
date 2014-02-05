@@ -31,6 +31,11 @@ public enum Result {
 	EXEC_PASSED,
 	
 	/**
+	 * The constructed parse was identical to the expected tree
+	 */
+	TREE_PASSED,
+	
+	/**
 	 * Execution succeeded and the output was identical to the expected output
 	 */
 	OUTPUT_PASSED

@@ -10,6 +10,6 @@ public class Test {
 	    			result *= i;
 	    		return result;
     		}
-    		} // Complex block body with returns
+    		}; // Complex block body with returns
     }
 }

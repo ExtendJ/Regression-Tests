@@ -41,4 +41,5 @@ public abstract class Compiler {
 	 * @return Exit value
 	 */
 	public abstract int compile(String[] arguments, OutputStream out, OutputStream err);
+	
 }

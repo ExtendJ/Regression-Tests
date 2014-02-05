@@ -1,8 +1,10 @@
 package core;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -40,6 +42,32 @@ public class JastAddJCompiler extends Compiler {
 		
 		InputStream in = new ByteArrayInputStream(new byte[0]);
 		return invoke(arguments, in, out, err);
+	}
+	
+	
+	public String dumpTree(String path) {
+		StringBuffer cmd = new StringBuffer();
+		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpTree ");
+		cmd.append(path);
+		StringBuilder tree = new StringBuilder();
+		try {
+			Process p = Runtime.getRuntime().exec(cmd.toString());
+			p.waitFor();
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		    String s = null;
+		    while ((s = stdInput.readLine()) != null) {
+		        tree.append(s);
+		        tree.append('\n');
+		    }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return tree.toString();
 	}
 	
 	/**

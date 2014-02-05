@@ -1,0 +1,71 @@
+AST.CompilationUnit []
+  AST.List
+  AST.List
+    AST.ClassDecl [Test]
+      AST.Modifiers
+        AST.List
+          AST.Modifier [public]
+      AST.Opt
+      AST.List
+      AST.List
+        AST.MethodDecl [main]
+          AST.Modifiers
+            AST.List
+              AST.Modifier [public]
+              AST.Modifier [static]
+          AST.PrimitiveTypeAccess [void]
+          AST.List
+            AST.ParameterDeclaration [args]
+              AST.Modifiers
+                AST.List
+              AST.ArrayTypeAccess
+                AST.TypeAccess [, String]
+          AST.List
+          AST.Opt
+            AST.Block
+              AST.List
+                AST.VariableDeclaration [f]
+                  AST.Modifiers
+                    AST.List
+                  AST.TypeAccess [, Object]
+                  AST.Opt
+                    AST.MethodAccess [methodCall]
+                      AST.List
+                        AST.VarAccess [a]
+                        AST.LambdaExpression
+                          AST.DeclaredLambdaParameter
+                            AST.ParameterDeclaration [x]
+                              AST.Modifiers
+                                AST.List
+                              AST.PrimitiveTypeAccess [int]
+                            AST.List
+                              AST.ParameterDeclaration [y]
+                                AST.Modifiers
+                                  AST.List
+                                AST.PrimitiveTypeAccess [int]
+                          AST.ExpressionLambdaBody
+                            AST.RShiftExpr
+                              AST.AddExpr
+                                AST.AddExpr
+                                  AST.VarAccess [x]
+                                  AST.VarAccess [y]
+                                AST.DivExpr
+                                  AST.IntegerLiteral [5]
+                                  AST.ParExpr
+                                    AST.SubExpr
+                                      AST.IntegerLiteral [5]
+                                      AST.IntegerLiteral [45]
+                              AST.IntegerLiteral [5]
+                        AST.DoubleLiteral [4.5]
+        AST.ConstructorDecl
+          AST.Modifiers
+            AST.List
+              AST.Modifier [public]
+          AST.List
+          AST.List
+          AST.Opt
+            AST.ExprStmt
+              AST.SuperConstructorAccess
+                AST.List
+          AST.Block
+            AST.List

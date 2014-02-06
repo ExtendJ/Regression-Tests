@@ -42,6 +42,11 @@ public class TestRunner {
 
 		Compiler compiler = getCompiler(testSuiteProperties);
 
+		if(expected == Result.TREE_PASSED) {
+			dumpSourceTree(compiler, tmpDir, testDir, expected);
+			compareOutput(tmpDir, testDir);
+			return;
+		}
 		// Compile generated code with the selected compiler
 		compileSources(compiler, testProperties, tmpDir, testDir, expected);
 
@@ -49,11 +54,6 @@ public class TestRunner {
 				expected == Result.COMPILE_FAILED ||
 				expected == Result.COMPILE_WARNING) {
 
-			return;
-		}
-
-		if (expected == Result.TREE_PASSED) {
-			compareOutput(tmpDir, testDir);
 			return;
 		}
 		
@@ -284,32 +284,6 @@ public class TestRunner {
 			String testDir, Result expected, Collection<String> sourceFiles) {
 
 		List<String> args = new ArrayList<String>();
-
-		/*
-		 * Build the tree in tmp folder for output check. 
-		 * This assumes JastAddJ is being used, do not use parse tree tests
-		 * with javac. 
-		 */
-		if(expected == Result.TREE_PASSED) {
-			if(sourceFiles.size() != 1) {
-				fail("A single file per test required for parse tests");
-			}
-			String tree = null;
-			for(String fileName : sourceFiles) {
-				tree = ((JastAddJCompiler)compiler).dumpTree(fileName);
-			}
-			
-			try {
-				PrintWriter out = new PrintWriter(tmpDir.getPath() + File.separator + "out");
-				out.print(tree.trim());
-				out.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return;
-		}
 		
 		args.add("-d");
 		args.add(tmpDir.getPath());
@@ -355,6 +329,36 @@ public class TestRunner {
 			// close streams
 			try { out.close(); } catch (IOException e) { }
 			try { err.close(); } catch (IOException e) { }
+		}
+	}
+	
+	/**
+	 * Build the tree in tmp folder for output check. 
+	 * This assumes JastAddJ is being used, do not use parse tree tests
+	 * with javac. 
+	 */
+	private static void dumpSourceTree(Compiler compiler, File tmpDir, String testDir, Result expected) {
+		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
+		sourceFiles.addAll(collectSourceFiles(new File(testDir)));
+		if(expected == Result.TREE_PASSED) {
+			if(sourceFiles.size() != 1) {
+				fail("A single file per test required for parse tests");
+			}
+			String tree = null;
+			for(String fileName : sourceFiles) {
+				tree = ((JastAddJCompiler)compiler).dumpTree(fileName);
+			}
+			
+			try {
+				PrintWriter out = new PrintWriter(tmpDir.getPath() + File.separator + "out");
+				out.print(tree.trim());
+				out.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return;
 		}
 	}
 

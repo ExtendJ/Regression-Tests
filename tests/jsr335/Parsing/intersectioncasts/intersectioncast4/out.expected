@@ -1,0 +1,56 @@
+AST.CompilationUnit []
+  AST.List
+  AST.List
+    AST.ClassDecl [Test]
+      AST.Modifiers
+        AST.List
+          AST.Modifier [public]
+      AST.Opt
+      AST.List
+      AST.List
+        AST.MethodDecl [main]
+          AST.Modifiers
+            AST.List
+              AST.Modifier [public]
+              AST.Modifier [static]
+          AST.PrimitiveTypeAccess [void]
+          AST.List
+            AST.ParameterDeclaration [args]
+              AST.Modifiers
+                AST.List
+              AST.ArrayTypeAccess
+                AST.TypeAccess [, String]
+          AST.List
+          AST.Opt
+            AST.Block
+              AST.List
+                AST.VariableDeclaration [f]
+                  AST.Modifiers
+                    AST.List
+                  AST.TypeAccess [, Object]
+                  AST.Opt
+                AST.VariableDeclaration [h]
+                  AST.Modifiers
+                    AST.List
+                  AST.TypeAccess [, Object]
+                  AST.Opt
+                    AST.OrBitwiseExpr
+                      AST.ParExpr
+                        AST.AndBitwiseExpr
+                          AST.AndBitwiseExpr
+                            AST.VarAccess [varA]
+                            AST.VarAccess [varB]
+                          AST.VarAccess [varC]
+                      AST.VarAccess [varD]
+        AST.ConstructorDecl
+          AST.Modifiers
+            AST.List
+              AST.Modifier [public]
+          AST.List
+          AST.List
+          AST.Opt
+            AST.ExprStmt
+              AST.SuperConstructorAccess
+                AST.List
+          AST.Block
+            AST.List

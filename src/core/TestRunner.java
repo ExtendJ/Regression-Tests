@@ -48,10 +48,18 @@ public class TestRunner {
 			return;
 		}
 		
-		if(expected == Result.FRONTEND_PASSED) {
-			checkFrontendErrors(compiler, tmpDir, testDir);
+		if(expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
+			String errors = getFrontendErrors(compiler, tmpDir, testDir);
+			if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
+				fail(errors);
+			}
+			else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
+				fail("Expected semantic errors in front end, but was none");
+			}
+			
 			return;
 		}
+		
 		
 		// Compile generated code with the selected compiler
 		compileSources(compiler, testProperties, tmpDir, testDir, expected);
@@ -149,6 +157,8 @@ public class TestRunner {
 			return Result.TREE_PASSED;
 		else if (result.equals("FRONTEND_PASSED") || result.equals("FRONTEND_PASS"))
 			return Result.FRONTEND_PASSED;
+		else if (result.equals("FRONTEND_FAILED") || result.equals("FRONTEND_FAIL"))
+			return Result.FRONTEND_FAILED;
 		else {
 			fail("Unknown result option: " + result);
 			return Result.OUTPUT_PASSED;
@@ -340,7 +350,8 @@ public class TestRunner {
 		}
 	}
 	
-	private static void checkFrontendErrors(Compiler compiler, File tmpDir, String testDir) {
+	
+	private static String getFrontendErrors(Compiler compiler, File tmpDir, String testDir) {
 		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
 		sourceFiles.addAll(collectSourceFiles(new File(testDir)));
 		if(sourceFiles.size() != 1) {
@@ -351,9 +362,7 @@ public class TestRunner {
 			errors = ((JastAddJCompiler)compiler).dumpFrontendErrors(fileName);
 		}
 		
-		if(errors.trim().length() != 0) {
-			fail(errors);
-		}
+		return errors.trim();
 	}
 	
 	/**

@@ -31,9 +31,14 @@ public enum Result {
 	EXEC_PASSED,
 	
 	/**
-	 * The constructed parse was identical to the expected tree
+	 * The constructed parse tree was identical to the expected tree
 	 */
 	TREE_PASSED,
+	
+	/**
+	 * Front end semantic analysis did not return any errors
+	 */
+	FRONTEND_PASSED,
 	
 	/**
 	 * Execution succeeded and the output was identical to the expected output

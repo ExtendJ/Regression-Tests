@@ -47,6 +47,12 @@ public class TestRunner {
 			compareOutput(tmpDir, testDir);
 			return;
 		}
+		
+		if(expected == Result.FRONTEND_PASSED) {
+			checkFrontendErrors(compiler, tmpDir, testDir);
+			return;
+		}
+		
 		// Compile generated code with the selected compiler
 		compileSources(compiler, testProperties, tmpDir, testDir, expected);
 
@@ -141,6 +147,8 @@ public class TestRunner {
 			return Result.OUTPUT_PASSED;
 		else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS"))
 			return Result.TREE_PASSED;
+		else if (result.equals("FRONTEND_PASSED") || result.equals("FRONTEND_PASS"))
+			return Result.FRONTEND_PASSED;
 		else {
 			fail("Unknown result option: " + result);
 			return Result.OUTPUT_PASSED;
@@ -329,6 +337,22 @@ public class TestRunner {
 			// close streams
 			try { out.close(); } catch (IOException e) { }
 			try { err.close(); } catch (IOException e) { }
+		}
+	}
+	
+	private static void checkFrontendErrors(Compiler compiler, File tmpDir, String testDir) {
+		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
+		sourceFiles.addAll(collectSourceFiles(new File(testDir)));
+		if(sourceFiles.size() != 1) {
+			fail("A single file per test required for parse tests");
+		}
+		String errors = null;
+		for(String fileName : sourceFiles) {
+			errors = ((JastAddJCompiler)compiler).dumpFrontendErrors(fileName);
+		}
+		
+		if(errors.trim().length() != 0) {
+			fail(errors);
 		}
 	}
 	

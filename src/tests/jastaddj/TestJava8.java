@@ -24,7 +24,7 @@ public class TestJava8 {
 		
 		//Temp excludes:
 		properties.exclude("jsr335/Parsing");
-		properties.exclude("annotation");
+		/*properties.exclude("annotation");
 		properties.exclude("codegen");
 		properties.exclude("expr");
 		properties.exclude("generics");
@@ -34,7 +34,7 @@ public class TestJava8 {
 		properties.exclude("runtime");
 		properties.exclude("stmt");
 		properties.exclude("type");
-		properties.exclude("exception");
+		properties.exclude("exception");*/
 	}
 
 	private final String testDir;

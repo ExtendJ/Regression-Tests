@@ -21,6 +21,7 @@ public class TestJava8 {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 		properties.exclude("jsr335/Parsing");
+		properties.exclude("jsr335/Semantics");
 	}
 
 	private final String testDir;

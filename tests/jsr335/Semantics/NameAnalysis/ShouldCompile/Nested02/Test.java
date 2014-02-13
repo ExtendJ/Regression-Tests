@@ -9,8 +9,10 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		NestedTestInterface t = (a, b, c) -> {
-			TestInterface t2 = (d, e, f) -> {int a = 4; };
+		int local = 3;
+		NestedTestInterface t = (int a, int b, int c) -> (d, e, f) -> {
+			if(local + a > f)
+				System.out.println("Out");
 		};
     }
 }

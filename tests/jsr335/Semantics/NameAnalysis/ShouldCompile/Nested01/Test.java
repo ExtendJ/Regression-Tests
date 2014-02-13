@@ -1,7 +1,7 @@
 
 public class Test {
 	public interface TestInterface {
-		public void functMethod(int a, int b, int c); 
+		public int functMethod(int a, int b, int c); 
 	}
 	
 	public interface NestedTestInterface {
@@ -9,8 +9,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		NestedTestInterface t = (a, b, c) -> {
-			TestInterface t2 = (d, e, f) -> {int a = 4; };
-		};
+		int local = 3;
+		NestedTestInterface t = (a, b, c) -> (d, e, f) -> local + a;
     }
 }

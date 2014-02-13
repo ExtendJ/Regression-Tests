@@ -4,8 +4,12 @@ public class Test {
 		public void functMethod(int a, int b, int c); 
 	}
 	
+	public interface NestedTestInterface {
+		public TestInterface functMethod(int a, int b, int c);
+	}
+	
 	public static void main(String[] args) {
-		TestInterface t = (a, b, c) -> {
+		NestedTestInterface t = (a, b, c) -> {
 			TestInterface t2 = (c, d, e) -> {};
 		};
     }

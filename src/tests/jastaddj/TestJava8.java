@@ -21,7 +21,20 @@ public class TestJava8 {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
+		
+		//Temp excludes:
 		properties.exclude("jsr335/Parsing");
+		properties.exclude("annotation");
+		properties.exclude("codegen");
+		properties.exclude("expr");
+		properties.exclude("generics");
+		properties.exclude("jsr334");
+		properties.exclude("name");
+		properties.exclude("os");
+		properties.exclude("runtime");
+		properties.exclude("stmt");
+		properties.exclude("type");
+		properties.exclude("exception");
 	}
 
 	private final String testDir;

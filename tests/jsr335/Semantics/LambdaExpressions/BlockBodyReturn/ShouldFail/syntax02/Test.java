@@ -4,7 +4,6 @@ public class Test {
 		public String functMethod(); 
 	}
 	
-	//Taken from JSR335 section B, 15.27.2
 	public static void main(String[] args) {
 		boolean cond = true;
 		TestInterface t = () -> { if (cond) return "done"; else return; };

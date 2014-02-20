@@ -44,7 +44,7 @@ public class JastAddJCompiler extends Compiler {
 		return invoke(arguments, in, out, err);
 	}
 	
-	// TODO use JavaDumpTree instead! /Jesper 2014-02-20
+	// TODO add -Xprint to JavaCompiler and use JastAddJ as usual! /Jesper 2014-02-20
 	/**
 	 * Returns the StructurePrettyPrinted program received by parsing the file
 	 * referred to in the argument path. 

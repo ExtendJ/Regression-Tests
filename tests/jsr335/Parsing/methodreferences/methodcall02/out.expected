@@ -1,66 +1,7 @@
-AST.CompilationUnit []
-  AST.List
-    AST.SingleTypeImportDecl
-      AST.TypeAccess [java.util.concurrent, Callable]
-  AST.List
-    AST.ClassDecl [Test]
-      AST.Modifiers
-        AST.List
-          AST.Modifier [public]
-      AST.Opt
-      AST.List
-      AST.List
-        AST.MethodDecl [main]
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-              AST.Modifier [static]
-          AST.PrimitiveTypeAccess [void]
-          AST.List
-            AST.ParameterDeclaration [args]
-              AST.Modifiers
-                AST.List
-              AST.ArrayTypeAccess
-                AST.TypeAccess [, String]
-          AST.List
-          AST.Opt
-            AST.Block
-              AST.List
-                AST.VariableDeclaration [f]
-                  AST.Modifiers
-                    AST.List
-                  AST.TypeAccess [, Object]
-                  AST.Opt
-                    AST.MethodAccess [methodCall]
-                      AST.List
-                        AST.VarAccess [a]
-                        AST.IntegerLiteral [3]
-                        AST.ReferenceTypeMethodReference
-                          AST.List
-                          AST.ParTypeAccess
-                            AST.VarAccess [Runnable]
-                            AST.List
-                              AST.ParTypeAccess
-                                AST.VarAccess [ArrayList]
-                                AST.List
-                                  AST.VarAccess [Integer]
-                              AST.ParTypeAccess
-                                AST.VarAccess [Callable]
-                                AST.List
-                                  AST.ParTypeAccess
-                                    AST.VarAccess [Map]
-                                    AST.List
-                                      AST.VarAccess [Integer]
-                                      AST.VarAccess [String]
-        AST.ConstructorDecl
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-          AST.List
-          AST.List
-          AST.Opt
-            AST.ExprStmt
-              AST.SuperConstructorAccess
-                AST.List
-          AST.Block
-            AST.List
+import java.util.concurrent.Callable;
+
+public class Test {
+  public static void main(String[] args) {
+    Object f = methodCall(a, 3, (Runnable<ArrayList<Integer>, Callable<Map<Integer, String>>>::run));
+  }
+}

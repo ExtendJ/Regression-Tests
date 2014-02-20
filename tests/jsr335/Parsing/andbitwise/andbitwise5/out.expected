@@ -1,60 +1,6 @@
-AST.CompilationUnit []
-  AST.List
-  AST.List
-    AST.ClassDecl [Test]
-      AST.Modifiers
-        AST.List
-          AST.Modifier [public]
-      AST.Opt
-      AST.List
-      AST.List
-        AST.MethodDecl [main]
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-              AST.Modifier [static]
-          AST.PrimitiveTypeAccess [void]
-          AST.List
-            AST.ParameterDeclaration [args]
-              AST.Modifiers
-                AST.List
-              AST.ArrayTypeAccess
-                AST.TypeAccess [, String]
-          AST.List
-          AST.Opt
-            AST.Block
-              AST.List
-                AST.IfStmt
-                  AST.IntersectionCastExpr
-                    AST.VarAccess [a]
-                    AST.List
-                      AST.VarAccess [b]
-                    AST.ParExpr
-                      AST.AndBitwiseExpr
-                        AST.VarAccess [c]
-                        AST.VarAccess [d]
-                  AST.ExprStmt
-                    AST.AssignSimpleExpr
-                      AST.VarAccess [var]
-                      AST.IntersectionCastExpr
-                        AST.VarAccess [e]
-                        AST.List
-                          AST.VarAccess [f]
-                        AST.MethodAccess [methodCall]
-                          AST.List
-                            AST.AndBitwiseExpr
-                              AST.VarAccess [g]
-                              AST.VarAccess [h]
-                  AST.Opt
-        AST.ConstructorDecl
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-          AST.List
-          AST.List
-          AST.Opt
-            AST.ExprStmt
-              AST.SuperConstructorAccess
-                AST.List
-          AST.Block
-            AST.List
+public class Test {
+  public static void main(String[] args) {
+    if((((a & b)(((c & d)))))) 
+      (((var = (((e & f)methodCall(((g & h)))))))++);
+  }
+}

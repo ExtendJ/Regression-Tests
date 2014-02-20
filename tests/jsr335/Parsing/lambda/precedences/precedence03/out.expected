@@ -1,61 +1,7 @@
-AST.CompilationUnit []
-  AST.List
-  AST.List
-    AST.ClassDecl [Test]
-      AST.Modifiers
-        AST.List
-          AST.Modifier [public]
-      AST.Opt
-      AST.List
-      AST.List
-        AST.MethodDecl [main]
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-              AST.Modifier [static]
-          AST.PrimitiveTypeAccess [void]
-          AST.List
-            AST.ParameterDeclaration [args]
-              AST.Modifiers
-                AST.List
-              AST.ArrayTypeAccess
-                AST.TypeAccess [, String]
-          AST.List
-          AST.Opt
-            AST.Block
-              AST.List
-                AST.VariableDeclaration [a]
-                  AST.Modifiers
-                    AST.List
-                  AST.PrimitiveTypeAccess [int]
-                  AST.Opt
-                AST.VariableDeclaration [b]
-                  AST.Modifiers
-                    AST.List
-                  AST.PrimitiveTypeAccess [int]
-                  AST.Opt
-                AST.VariableDeclaration [f]
-                  AST.Modifiers
-                    AST.List
-                  AST.TypeAccess [, Object]
-                  AST.Opt
-                    AST.CastExpr
-                      AST.TypeAccess [, Integer]
-                      AST.LambdaExpression
-                        AST.EmptyLambdaParameter
-                        AST.ExpressionLambdaBody
-                          AST.AddExpr
-                            AST.VarAccess [a]
-                            AST.VarAccess [b]
-        AST.ConstructorDecl
-          AST.Modifiers
-            AST.List
-              AST.Modifier [public]
-          AST.List
-          AST.List
-          AST.Opt
-            AST.ExprStmt
-              AST.SuperConstructorAccess
-                AST.List
-          AST.Block
-            AST.List
+public class Test {
+  public static void main(String[] args) {
+    int a;
+    int b;
+    Object f = ((Integer)(() -> (a + b)));
+  }
+}

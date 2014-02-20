@@ -1,33 +1,8 @@
-AST.CompilationUnit []
-  AST.List
-  AST.List
-    AST.InterfaceDecl [Test]
-      AST.Modifiers
-        AST.List
-          AST.Modifier [public]
-      AST.List
-      AST.List
-        AST.InterfaceMethodDecl [addNbr]
-          AST.Modifiers
-            AST.List
-              AST.Modifier [default]
-          AST.PrimitiveTypeAccess [int]
-          AST.List
-            AST.ParameterDeclaration [nbr]
-              AST.Modifiers
-                AST.List
-              AST.PrimitiveTypeAccess [int]
-          AST.List
-          AST.Opt
-            AST.Block
-              AST.List
-                AST.SwitchStmt
-                  AST.VarAccess [nbr]
-                  AST.Block
-                    AST.List
-                      AST.DefaultCase
-                      AST.ReturnStmt
-                        AST.Opt
-                          AST.AddExpr
-                            AST.VarAccess [nbr]
-                            AST.IntegerLiteral [5]
+public interface Test {
+  default int addNbr(int nbr) {
+    switch (nbr){
+      default:
+      return (nbr + 5);
+    }
+  }
+}

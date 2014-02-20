@@ -45,24 +45,24 @@ public class JastAddJCompiler extends Compiler {
 	}
 	
 	/**
-	 * Returns the parse tree constructed by parsing the program
+	 * Returns the StructurePrettyPrinted program received by parsing the file
 	 * referred to in the argument path. 
 	 * @param path to the program whose tree should be returned
 	 * @return A string representing the parse tree
 	 */
-	public String dumpTree(String path) {
+	public String dumpStructurePrint(String path) {
 		StringBuffer cmd = new StringBuffer();
-		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpTree ");
+		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpStructuredPrint ");
 		cmd.append(path);
-		StringBuilder tree = new StringBuilder();
+		StringBuilder program = new StringBuilder();
 		try {
 			Process p = Runtime.getRuntime().exec(cmd.toString());
 			p.waitFor();
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		    String s = null;
 		    while ((s = stdInput.readLine()) != null) {
-		        tree.append(s);
-		        tree.append('\n');
+		        program.append(s);
+		        program.append('\n');
 		    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +72,7 @@ public class JastAddJCompiler extends Compiler {
 			e.printStackTrace();
 		}
 		
-		return tree.toString();
+		return program.toString();
 	}
 	
 	

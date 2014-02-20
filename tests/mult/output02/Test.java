@@ -12,7 +12,7 @@ public class Test {
 		}
 	}
 
-	static @any(Set) Account accounts = [[new HashSet<Account>() { { add(new Account("Steve")); } }]];
+	static @any(Set) Account accounts = [[new HashSet<Account>(Arrays.asList(new Account("Steve")))]];
 
 	public static void main(String[] args) {
 		int numAccount = [[accounts]].size();

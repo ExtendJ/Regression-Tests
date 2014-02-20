@@ -44,6 +44,7 @@ public class JastAddJCompiler extends Compiler {
 		return invoke(arguments, in, out, err);
 	}
 	
+	// TODO use JavaDumpTree instead! /Jesper 2014-02-20
 	/**
 	 * Returns the StructurePrettyPrinted program received by parsing the file
 	 * referred to in the argument path. 
@@ -75,7 +76,7 @@ public class JastAddJCompiler extends Compiler {
 		return program.toString();
 	}
 	
-	
+	// TODO remove this /Jesper 2014-02-20
 	public String dumpFrontendErrors(String path) {
 		StringBuffer cmd = new StringBuffer();
 		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpFrontendErrors ");

@@ -1,6 +1,8 @@
 package core;
 
-import java.io.ByteArrayInputStream;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,15 +18,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-
 /**
  * Utility methods for running JastAdd unit tests.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class TestRunner {
 
+	private static String SYS_LINE_SEP = System.getProperty("line.separator");
 	private static String TEST_FRAMEWORK = "framework";
 
 	/**
@@ -33,22 +33,22 @@ public class TestRunner {
 	 * @param testSuiteProperties
 	 */
 	public static void runTest(String testName, Properties testSuiteProperties) {
-		String testDir = Util.TEST_ROOT + "/" + testName;
+		File testDir = new File(Util.TEST_ROOT, testName);
 		Properties testProperties = Util.getProperties(new File(testDir, "Test.properties"));
 		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "jastaddj"));
 		Result expected = getExpectedResult(testProperties);
 
-		File tmpDir = setupTemporaryDirectory(testDir);
+		File tmpDir = setupTemporaryDirectory(testName);
 
 		Compiler compiler = getCompiler(testSuiteProperties);
 
-		if(expected == Result.TREE_PASSED) {
+		if (expected == Result.TREE_PASSED) {
 			dumpStructurePrint(compiler, tmpDir, testDir);
 			compareOutput(tmpDir, testDir);
 			return;
 		}
-		
-		if(expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
+
+		if (expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
 			String errors = getFrontendErrors(compiler, tmpDir, testDir);
 			if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
 				fail(errors);
@@ -56,11 +56,10 @@ public class TestRunner {
 			else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
 				fail("Expected semantic errors in front end, but was none");
 			}
-			
+
 			return;
 		}
-		
-		
+
 		// Compile generated code with the selected compiler
 		compileSources(compiler, testProperties, tmpDir, testDir, expected);
 
@@ -70,7 +69,7 @@ public class TestRunner {
 
 			return;
 		}
-		
+
 		// Execute the compiled code
 		String stdErr = executeCode(testProperties, tmpDir, testDir, expected);
 		if (!stdErr.isEmpty()) {
@@ -100,15 +99,10 @@ public class TestRunner {
 	/**
 	 * Set up the temporary directory - create it if it does not exist
 	 * and clean it if it does already exist.
-	 * @param testDir The temporary directory
+	 * @param testName The temporary directory
 	 */
-	private static File setupTemporaryDirectory(String testDir) {
-		String tmpDirName = testDir;
-		if (tmpDirName.startsWith("tests")) {
-			tmpDirName = tmpDirName.substring(6);
-		}
-
-		File tmpDir = new File("tmp" + File.separator + tmpDirName);
+	private static File setupTemporaryDirectory(String testName) {
+		File tmpDir = new File(Util.TEMP_ROOT, testName);
 
 		if (!tmpDir.exists()) {
 			// create directory with intermediate parent directories
@@ -168,50 +162,45 @@ public class TestRunner {
 	/**
 	 * Compare the generated output to the expected output
 	 */
-	private static void compareOutput(File tmpDir, String testDir) {
+	private static void compareOutput(File tmpDir, File testDir) {
 		try {
-			Scanner output;
-			Scanner expected;
+			File expected = new File(testDir, "out.expected");
+			File actual = new File(tmpDir, "out");
+			assertEquals("Output files differ", readFileToString(expected),
+					readFileToString(actual));
 
-			File outputFile = new File(tmpDir, "out");
-			if (outputFile.isFile()) {
-				output = new Scanner(outputFile);
-			} else {
-				output = new Scanner(new ByteArrayInputStream(new byte[0]));
-			}
-			File expectedFile = new File(testDir, "out.expected");
-			if (expectedFile.isFile()) {
-				expected = new Scanner(expectedFile);
-			} else {
-				expected = new Scanner(new ByteArrayInputStream(new byte[0]));
-			}
-			int line = 0;
-			while (expected.hasNextLine()) {
-				line += 1;
-				if (!output.hasNextLine()) {
-					fail("Too few lines of output");
-					output.close();
-					expected.close();
-					return;
-				}
-				String outLine = output.nextLine();
-				String expectedLine = expected.nextLine();
-				if (!outLine.equals(expectedLine)) {
-					output.close();
-					expected.close();
-					assertEquals("Output differs from expected output at line " +
-							line, expectedLine, outLine);
-					return;
-				}
-			}
-			if (output.hasNextLine()) {
-				fail("Too many lines of output");
-			}
-			output.close();
-			expected.close();
+			expected = new File(testDir, "err.expected");
+			actual = new File(tmpDir, "err");
+			assertEquals("Error output files differ", readFileToString(expected),
+					readFileToString(actual));
 		} catch (IOException e) {
-			e.printStackTrace();
+			fail("IOException occurred while comparing output: " + e.getMessage());
 		}
+	}
+
+	/**
+	 * <p>Reads an entire file to a string object.
+	 *
+	 * <p>If the file does not exist an empty string is returned.
+	 *
+	 * <p>The system dependent line separator char sequence is replaced by
+	 * the newline character.
+	 *
+	 * @param file
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	private static String readFileToString(File file) throws FileNotFoundException {
+		if (!file.isFile()) {
+			return "";
+		}
+
+		Scanner scanner = new Scanner(file);
+		scanner.useDelimiter("\\Z");
+		String theString = scanner.hasNext() ? scanner.next() : "";
+		theString = theString.replace(SYS_LINE_SEP, "\n").trim();
+		scanner.close();
+		return theString;
 	}
 
 	/**
@@ -223,7 +212,7 @@ public class TestRunner {
 	 * @return The standard error content
 	 */
 	private static String executeCode(Properties props, File tmpDir,
-			String testDir, Result expected) {
+			File testDir, Result expected) {
 
 		StringBuffer errors = new StringBuffer();
 
@@ -279,7 +268,7 @@ public class TestRunner {
 	 * @param expected
 	 */
 	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
-			String testDir, Result expected) {
+			File testDir, Result expected) {
 
 		String compileOrder = props.getProperty("compile_order", "");
 		if (!compileOrder.isEmpty()) {
@@ -293,16 +282,16 @@ public class TestRunner {
 			}
 		} else {
 			Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-			sourceFiles.addAll(collectSourceFiles(new File(testDir)));
+			sourceFiles.addAll(collectSourceFiles(testDir));
 			compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
 		}
 	}
 
 	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
-			String testDir, Result expected, Collection<String> sourceFiles) {
+			File testDir, Result expected, Collection<String> sourceFiles) {
 
 		List<String> args = new ArrayList<String>();
-		
+
 		args.add("-d");
 		args.add(tmpDir.getPath());
 
@@ -310,7 +299,7 @@ public class TestRunner {
 		String classpath = TEST_FRAMEWORK;
 		if (props.containsKey("classpath")) {
 			classpath += File.pathSeparator + props.getProperty("classpath");
-			classpath = classpath.replaceAll("@TEST_DIR@", testDir);
+			classpath = classpath.replaceAll("@TEST_DIR@", testDir.getPath());
 			classpath = classpath.replaceAll("@TMP_DIR@", tmpDir.getPath());
 		}
 		args.add(classpath);
@@ -349,11 +338,10 @@ public class TestRunner {
 			try { err.close(); } catch (IOException e) { }
 		}
 	}
-	
-	
-	private static String getFrontendErrors(Compiler compiler, File tmpDir, String testDir) {
+
+	private static String getFrontendErrors(Compiler compiler, File tmpDir, File testDir) {
 		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-		sourceFiles.addAll(collectSourceFiles(new File(testDir)));
+		sourceFiles.addAll(collectSourceFiles(testDir));
 		if(sourceFiles.size() != 1) {
 			fail("A single file per test required for parse tests");
 		}
@@ -361,26 +349,31 @@ public class TestRunner {
 		for(String fileName : sourceFiles) {
 			errors = ((JastAddJCompiler)compiler).dumpFrontendErrors(fileName);
 		}
-		
+
 		return errors.trim();
 	}
-	
+
 	/**
-	 * Build the tree in tmp folder for output check. 
+	 * Build the tree in tmp folder for output check.
 	 * This assumes JastAddJ is being used, do not use parse tree tests
-	 * with javac. 
+	 * with javac.
 	 */
-	private static void dumpStructurePrint(Compiler compiler, File tmpDir, String testDir) {
+	private static void dumpStructurePrint(Compiler compiler, File tmpDir, File testDir) {
+		if (compiler instanceof JavacCompiler) {
+			fail("Can not test javac parse tree");
+			return;
+		}
 		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-		sourceFiles.addAll(collectSourceFiles(new File(testDir)));
+		sourceFiles.addAll(collectSourceFiles(testDir));
 		if(sourceFiles.size() != 1) {
 			fail("A single file per test required for parse tests");
+			return;
 		}
 		String program = null;
 		for(String fileName : sourceFiles) {
 			program = ((JastAddJCompiler)compiler).dumpStructurePrint(fileName);
 		}
-		
+
 		try {
 			PrintWriter out = new PrintWriter(tmpDir.getPath() + File.separator + "out");
 			out.print(program.trim());
@@ -389,7 +382,7 @@ public class TestRunner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return;
 	}
 

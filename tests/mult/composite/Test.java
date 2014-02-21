@@ -8,7 +8,9 @@ public class Test {
 		root.children += node;
 		node.children += new Leaf();
 		node.children += new Leaf();
-		System.out.println(root.getLeaves().size());
+		System.out.println([[root.getLeaves()]].size());
+
+
 	}
 
 }

@@ -1,4 +1,4 @@
-package tests.javac;
+package tests.jastaddj;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,15 +14,14 @@ import core.Util;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)
-public class TestJava8 {
+public class TestMult {
 
 	private static final TestProperties properties = new TestProperties();
 	static {
-		properties.setProperty("compiler", "javac");
-		properties.exclude("mult");
-		properties.exclude("generics/constructor01", "type/conditional_expr02");
-		properties.exclude("jsr335/Parsing");
-		properties.exclude("jsr335/Semantics");
+		properties.setProperty("compiler", "jastaddj");
+		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
+		
+		properties.include("mult");
 	}
 
 	private final String testDir;
@@ -31,7 +30,7 @@ public class TestJava8 {
 	 * Construct a new JastAdd test
 	 * @param testDir The base directory for the test
 	 */
-	public TestJava8(String testDir) {
+	public TestMult(String testDir) {
 		this.testDir = testDir;
 	}
 

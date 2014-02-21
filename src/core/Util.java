@@ -23,6 +23,11 @@ public class Util {
 	public static final String TEST_ROOT = "tests";
 
 	/**
+	 * Root directory for test output
+	 */
+	public static final String TEMP_ROOT = "tmp";
+
+	/**
 	 * Find all test directories
 	 * @param testRoot
 	 * @param testDirs

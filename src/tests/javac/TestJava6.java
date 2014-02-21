@@ -20,6 +20,7 @@ public class TestJava6 {
 	static {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("runtime/jsr334");
+		properties.exclude("mult");
 		properties.exclude("jsr334");
 		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");

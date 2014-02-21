@@ -22,7 +22,7 @@ public class TestJava8 {
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 		
-
+		
 	}
 
 	private final String testDir;

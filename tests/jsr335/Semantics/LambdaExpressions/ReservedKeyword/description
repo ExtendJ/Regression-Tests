@@ -1,1 +1,1 @@
-Tests that annotations on Lambda parameters require @Type(annotation.ElementType.PARAMETER)
+Tests that the underscore character can't be used in identifiers. 

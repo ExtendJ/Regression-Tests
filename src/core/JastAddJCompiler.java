@@ -48,8 +48,8 @@ public class JastAddJCompiler extends Compiler {
 	/**
 	 * Returns the StructurePrettyPrinted program received by parsing the file
 	 * referred to in the argument path. 
-	 * @param path to the program whose tree should be returned
-	 * @return A string representing the parse tree
+	 * @param path to the program whose structured print should be returned
+	 * @return A string containing the structured print of the program
 	 */
 	public String dumpStructurePrint(String path) {
 		StringBuffer cmd = new StringBuffer();

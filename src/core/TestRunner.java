@@ -354,8 +354,8 @@ public class TestRunner {
 	}
 
 	/**
-	 * Build the tree in tmp folder for output check.
-	 * This assumes JastAddJ is being used, do not use parse tree tests
+	 * Dump the structured print in tmp folder for output check.
+	 * This assumes JastAddJ is being used, do not use parse tests
 	 * with javac.
 	 */
 	private static void dumpStructurePrint(Compiler compiler, File tmpDir, File testDir) {

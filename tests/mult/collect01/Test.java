@@ -17,10 +17,13 @@ public class Test {
 			buf += string;
 			buf += ",";
 		}
-		String expected = "one,two,three,four,";
-		if (!buf.equals(expected)) {
+		check("one,two,three,four,", buf);
+	}
+
+	private static void check(String expected, String actual) {
+		if (!actual.equals(expected)) {
 			System.err.println("Error: expected \"" + expected +
-					"\" actual: \"" + buf + "\"");
+					"\" actual: \"" + actual + "\"");
 			System.exit(1);
 		}
 	}

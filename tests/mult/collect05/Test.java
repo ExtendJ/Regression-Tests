@@ -2,19 +2,23 @@ public class Test {
 	public @any String strings;
 
 	public Test(String... init) {
-		for (String str: init) {
-			strings += str;
-		}
+		strings = [[java.util.Arrays.asList(init)]];
+	}
+
+	@any String strings() {
+		return strings;
 	}
 
 	public static void main(String[] args) {
-		@option Test test = new Test("one", "two");
-		String buf = "";
-		for (String string: test.strings) {
-			buf += string;
-			buf += ",";
+		@any Test tests;
+		tests += new Test("1", "2");
+		tests += new Test("3", "M");
+		String actual = "";
+		for (String string: tests.strings()) {
+			actual += string;
+			actual += ",";
 		}
-		check("one,two,", buf);
+		check("1,2,3,M,", actual);
 	}
 
 	private static void check(String expected, String actual) {

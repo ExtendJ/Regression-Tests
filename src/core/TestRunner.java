@@ -312,6 +312,14 @@ public class TestRunner {
 		}
 		args.add(classpath);
 
+		String options = props.getProperty("options", "");
+		if (!options.isEmpty()) {
+			// add compiler options
+			for (String option : options.split(",")) {
+				args.add("-" + option);
+			}
+		}
+
 		for (String sourceFile: sourceFiles) {
 			args.add(sourceFile);
 		}

@@ -6,10 +6,13 @@ public class Test {
 		for (String str: a) {
 			buf += str;
 		}
-		if (!buf.equals("xxx")) {
-			System.err.println(
-					"Error: expected \"xxx\", but was \"" +
-					buf + "\"");
+		check("xx", buf);
+	}
+
+	private static void check(String expected, String actual) {
+		if (!actual.equals(expected)) {
+			System.err.println("Error: expected \"" + expected +
+					"\" actual: \"" + actual + "\"");
 			System.exit(1);
 		}
 	}

@@ -1,5 +1,5 @@
-import java.util.LinkedList;
+import java.util.List;
 
 abstract public class Composite {
-	abstract @any(LinkedList) Leaf getLeaves();
+	abstract @any(List) Leaf getLeaves();
 }

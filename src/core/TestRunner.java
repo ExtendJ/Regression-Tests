@@ -271,8 +271,8 @@ public class TestRunner {
 			File testDir, Result expected) {
 
 		String compileOrder = props.getProperty("compile_order", "");
+		String sourceOrder = props.getProperty("source_order", "");
 		if (!compileOrder.isEmpty()) {
-			// TODO!!
 			// Compile files in custom order
 			for (String sourceObj : compileOrder.split(",")) {
 				File sourceFile = new File(testDir, sourceObj.trim());
@@ -280,6 +280,14 @@ public class TestRunner {
 				sourceFiles.add(sourceFile.getPath());
 				compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
 			}
+		} else if (!sourceOrder.isEmpty()) {
+			// use custom source order
+			Collection<String> sourceFiles = new LinkedList<String>();
+			for (String sourceObj : sourceOrder.split(",")) {
+				File sourceFile = new File(testDir, sourceObj.trim());
+				sourceFiles.add(sourceFile.getPath());
+			}
+			compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
 		} else {
 			Collection<String> sourceFiles = collectSourceFiles(tmpDir);
 			sourceFiles.addAll(collectSourceFiles(testDir));

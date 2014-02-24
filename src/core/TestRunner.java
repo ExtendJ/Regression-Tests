@@ -33,43 +33,30 @@ public class TestRunner {
 	 * @param testSuiteProperties
 	 */
 	public static void runTest(String testName, Properties testSuiteProperties) {
-		File testDir = new File(Util.TEST_ROOT, testName);
-		Properties testProperties = Util.getProperties(new File(testDir, "Test.properties"));
-		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "jastaddj"));
-		Result expected = getExpectedResult(testProperties);
+		TestConfiguration config = new TestConfiguration(testName, testSuiteProperties);
 
-		File tmpDir = setupTemporaryDirectory(testName);
-
-		Compiler compiler = getCompiler(testSuiteProperties);
+		Result expected = config.expected;
 
 		if (expected == Result.TREE_PASSED) {
-			dumpStructurePrint(compiler, tmpDir, testDir);
-			compareOutput(tmpDir, testDir);
+			dumpStructurePrint(config.compiler, config.tmpDir, config.testDir);
+			compareOutput(config.tmpDir, config.testDir);
 			return;
 		}
 
 		if (expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
-			if(compiler instanceof JastAddJCompiler) {
-				String errors = getFrontendErrors(compiler, tmpDir, testDir);
-				if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
-					fail(errors);
-				}
-				else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
-					fail("Expected semantic errors in front end, but was none");
-				}
+			String errors = getFrontendErrors(config.compiler, config.tmpDir, config.testDir);
+			if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
+				fail(errors);
 			}
-			else {
-				if(expected == Result.FRONTEND_PASSED)
-					compileSources(compiler, testProperties, tmpDir, testDir, Result.COMPILE_PASSED);
-				else
-					compileSources(compiler, testProperties, tmpDir, testDir, Result.COMPILE_FAILED);
+			else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
+				fail("Expected semantic errors in front end, but was none");
 			}
 
 			return;
 		}
 
 		// Compile generated code with the selected compiler
-		compileSources(compiler, testProperties, tmpDir, testDir, expected);
+		compileSources(config);
 
 		if (expected == Result.COMPILE_PASSED ||
 				expected == Result.COMPILE_FAILED ||
@@ -78,8 +65,14 @@ public class TestRunner {
 			return;
 		}
 
+		if (config.expected == Result.COMPILE_ERR_OUTPUT) {
+			// TODO implement compiler output logging!!
+			compareCompileErrOutput(config.tmpDir, config.testDir);
+			return;
+		}
+
 		// Execute the compiled code
-		String stdErr = executeCode(testProperties, tmpDir, testDir, expected);
+		String stdErr = executeCode(config.testProperties, config.tmpDir, config.testDir, expected);
 		if (!stdErr.isEmpty()) {
 			fail("Standard error not empty:\n" + stdErr);
 		}
@@ -91,80 +84,34 @@ public class TestRunner {
 		}
 
 		// Compare the output with the expected output
-		compareOutput(tmpDir, testDir);
-	}
-
-	private static Compiler getCompiler(Properties props) {
-		if (props.getProperty("compiler", "jastaddj").equals("jastaddj")) {
-			// compile with jastaddj
-			return new JastAddJCompiler(props.getProperty("jastaddj.jar", "lib/JavaCompiler.jar"), true);
-		} else {
-			// compile with javac
-			return new JavacCompiler(false);
-		}
+		compareOutput(config.tmpDir, config.testDir);
 	}
 
 	/**
-	 * Set up the temporary directory - create it if it does not exist
-	 * and clean it if it does already exist.
-	 * @param testName The temporary directory
+	 * Compare the error output from JastAdd
 	 */
-	private static File setupTemporaryDirectory(String testName) {
-		File tmpDir = new File(Util.TEMP_ROOT, testName);
-
-		if (!tmpDir.exists()) {
-			// create directory with intermediate parent directories
-			tmpDir.mkdirs();
-		} else {
-			// clean temporary directory
-			cleanDirectory(tmpDir);
-		}
-		return tmpDir;
-	}
-
-	/**
-	 * Recursively remove all files and folders in a directory
-	 * @param dir The directory to nuke
-	 */
-	private static void cleanDirectory(File dir) {
-		for (File file: dir.listFiles()) {
-			if (!file.isDirectory()) {
-				file.delete();
-			} else {
-				cleanDirectory(file);
-				file.delete();
-			}
+	private static void compareCompileErrOutput(File tmpDir, File testDir) {
+		try {
+			File expected = expectedCompileErrorOutput(testDir);
+			File actual = new File(tmpDir, "compile.err");
+			assertEquals("Error output files differ",
+					readFileToString(expected),
+					readFileToString(actual));
+		} catch (IOException e) {
+			fail("IOException occurred while comparing JastAdd error output: " + e.getMessage());
 		}
 	}
 
-	private static Result getExpectedResult(Properties props) {
-
-		if (!props.containsKey("result"))
-			return Result.OUTPUT_PASSED;
-
-		String result = props.getProperty("result");
-		if (result.equals("COMPILE_PASSED") || result.equals("COMPILE_PASS"))
-			return Result.COMPILE_PASSED;
-		else if (result.equals("COMPILE_FAILED") || result.equals("COMPILE_FAIL"))
-			return Result.COMPILE_FAILED;
-		else if (result.equals("COMPILE_WARNING") || result.equals("COMPILE_WARN"))
-			return Result.COMPILE_WARNING;
-		else if (result.equals("EXEC_PASSED") || result.equals("EXEC_PASS"))
-			return Result.EXEC_PASSED;
-		else if (result.equals("EXEC_FAILED") || result.equals("EXEC_FAIL"))
-			return Result.EXEC_FAILED;
-		else if (result.equals("OUTPUT_PASSED") || result.equals("OUTPUT_PASS"))
-			return Result.OUTPUT_PASSED;
-		else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS"))
-			return Result.TREE_PASSED;
-		else if (result.equals("FRONTEND_PASSED") || result.equals("FRONTEND_PASS"))
-			return Result.FRONTEND_PASSED;
-		else if (result.equals("FRONTEND_FAILED") || result.equals("FRONTEND_FAIL"))
-			return Result.FRONTEND_FAILED;
-		else {
-			fail("Unknown result option: " + result);
-			return Result.OUTPUT_PASSED;
+	private static File expectedCompileErrorOutput(File testDir) {
+		boolean windows = System.getProperty("os.name").startsWith("Windows");
+		if (windows) {
+			// first try .win file
+			File file = new File(testDir, "compile.err.expected.win");
+			if (file.isFile())
+				return file;
 		}
+		// default file:
+		return new File(testDir, "compile.err.expected");
 	}
 
 	/**
@@ -275,42 +222,58 @@ public class TestRunner {
 	 * @param testDir
 	 * @param expected
 	 */
-	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
-			File testDir, Result expected) {
+	private static void compileSources(TestConfiguration config) {
+		Properties props = config.testProperties;
 
 		String compileOrder = props.getProperty("compile_order", "");
+		String sourceOrder = props.getProperty("source_order", "");
 		if (!compileOrder.isEmpty()) {
-			// TODO!!
 			// Compile files in custom order
 			for (String sourceObj : compileOrder.split(",")) {
-				File sourceFile = new File(testDir, sourceObj.trim());
+				File sourceFile = new File(config.testDir, sourceObj.trim());
 				Collection<String> sourceFiles = new LinkedList<String>();
 				sourceFiles.add(sourceFile.getPath());
-				compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
+				compileSources(config, sourceFiles);
 			}
+		} else if (!sourceOrder.isEmpty()) {
+			// use custom source order
+			Collection<String> sourceFiles = new LinkedList<String>();
+			for (String sourceObj : sourceOrder.split(",")) {
+				File sourceFile = new File(config.testDir, sourceObj.trim());
+				sourceFiles.add(sourceFile.getPath());
+			}
+			compileSources(config, sourceFiles);
 		} else {
-			Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-			sourceFiles.addAll(collectSourceFiles(testDir));
-			compileSources(compiler, props, tmpDir, testDir, expected, sourceFiles);
+			Collection<String> sourceFiles = collectSourceFiles(config.tmpDir);
+			sourceFiles.addAll(collectSourceFiles(config.testDir));
+			compileSources(config, sourceFiles);
 		}
 	}
 
-	private static void compileSources(Compiler compiler, Properties props, File tmpDir,
-			File testDir, Result expected, Collection<String> sourceFiles) {
-
+	private static void compileSources(TestConfiguration config, Collection<String> sourceFiles) {
 		List<String> args = new ArrayList<String>();
 
 		args.add("-d");
-		args.add(tmpDir.getPath());
+		args.add(config.tmpDir.getPath());
 
 		args.add("-classpath");
 		String classpath = TEST_FRAMEWORK;
-		if (props.containsKey("classpath")) {
-			classpath += File.pathSeparator + props.getProperty("classpath");
-			classpath = classpath.replaceAll("@TEST_DIR@", testDir.getPath());
-			classpath = classpath.replaceAll("@TMP_DIR@", tmpDir.getPath());
+		String addClasspath = config.testProperties.getProperty("classpath", "").trim();
+		if (!addClasspath.isEmpty()) {
+			addClasspath = addClasspath.replaceAll("@TEST_DIR@", config.testDir.getPath());
+			addClasspath = addClasspath.replaceAll("@TMP_DIR@", config.tmpDir.getPath());
+			addClasspath = addClasspath.replaceAll("@TEMP_DIR@", config.tmpDir.getPath());
+			classpath += File.pathSeparator + addClasspath;
 		}
 		args.add(classpath);
+
+		String options = config.testProperties.getProperty("options", "").trim();
+		if (!options.isEmpty()) {
+			// add compiler options
+			for (String option : options.split(",")) {
+				args.add("-" + option);
+			}
+		}
 
 		for (String sourceFile: sourceFiles) {
 			args.add(sourceFile);
@@ -323,20 +286,22 @@ public class TestRunner {
 			String[] arguments = args.toArray(new String[args.size()]);
 
 			int exitValue = -1;
-			exitValue = compiler.compile(arguments, out, err);
+			exitValue = config.compiler.compile(arguments, out, err);
 
 			String errors = err.toString();
 
 			if (exitValue == 0) {
 				Result result = errors.isEmpty() ? Result.COMPILE_PASSED : Result.COMPILE_WARNING;
-				if (result != expected) {
-					if (result == Result.COMPILE_WARNING)
+				if (result != config.expected) {
+					if (result == Result.COMPILE_WARNING) {
 						fail("Compilation produced unexpected warning:\n" + errors);
-					else if (expected == Result.COMPILE_FAILED)
+					} else if (config.expected == Result.COMPILE_FAILED) {
 						fail("Compilation passed when expected to fail!");
+					}
 				}
 			} else {
-				if (expected != Result.COMPILE_FAILED) {
+				if (config.expected != Result.COMPILE_FAILED &&
+					config.expected != Result.COMPILE_ERR_OUTPUT) {
 					fail("Compilation failed when expected to pass:\n" + errors);
 				}
 			}

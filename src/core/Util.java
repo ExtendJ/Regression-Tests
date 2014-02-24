@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Utility methods for JastAdd testing
@@ -106,8 +105,8 @@ public class Util {
 	 * @param propertiesFile
 	 * @return The properties loaded from the given file
 	 */
-	public static Properties getProperties(File propertiesFile) {
-		Properties properties = new TestProperties();
+	public static TestProperties getProperties(File propertiesFile) {
+		TestProperties properties = new TestProperties();
 		try {
 			FileInputStream in = new FileInputStream(propertiesFile);
 			properties.load(in);

@@ -2,6 +2,7 @@
 /*.jar
 /test-reports
 /tmp
+/export.sh
 
 # vim swap files
 *.swp

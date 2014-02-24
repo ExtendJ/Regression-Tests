@@ -20,6 +20,7 @@ public class TestJava8 {
 	static {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("mult");
+		properties.exclude("jastaddj");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 		properties.exclude("jsr335/Parsing");
 		properties.exclude("jsr335/Semantics");

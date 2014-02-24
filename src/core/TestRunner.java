@@ -290,6 +290,14 @@ public class TestRunner {
 
 			String errors = err.toString();
 
+			try {
+				PrintWriter errFile = new PrintWriter(new File(config.tmpDir, "compile.err"));
+				errFile.append(errors);
+				errFile.close();
+			} catch (IOException e) {
+				fail("Failed to write compile error output file!");
+			}
+
 			if (exitValue == 0) {
 				Result result = errors.isEmpty() ? Result.COMPILE_PASSED : Result.COMPILE_WARNING;
 				if (result != config.expected) {

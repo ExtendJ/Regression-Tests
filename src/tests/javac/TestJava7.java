@@ -19,8 +19,9 @@ public class TestJava7 {
 	private static final TestProperties properties = new TestProperties();
 	static {
 		properties.setProperty("compiler", "javac");
-		properties.exclude("jsr335");
 		properties.exclude("mult");
+		properties.exclude("jastaddj");
+		properties.exclude("jsr335");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 	}
 

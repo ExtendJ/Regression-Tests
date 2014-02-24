@@ -1,8 +1,9 @@
 
 public class Test {
 	public interface TestInterface {
-		public int functMethod(); 
+		public int functMethod(int a); 
 	}
+	
 	
 	public interface NestedTestInterface {
 		public TestInterface functMethod(int a, int b);

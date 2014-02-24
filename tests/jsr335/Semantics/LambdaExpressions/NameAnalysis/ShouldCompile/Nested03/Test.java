@@ -14,7 +14,7 @@ public class Test {
 	public static void main(String[] args) {
 		int c = 3;
 		int a = 1;
-		TestInterface t = () -> () -> {
+		NestedTestInterface t = () -> () -> {
 			if(a + b > c) {
 				System.out.println("Out1");
 			}

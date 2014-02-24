@@ -49,12 +49,20 @@ public class TestRunner {
 		}
 
 		if (expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
-			String errors = getFrontendErrors(compiler, tmpDir, testDir);
-			if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
-				fail(errors);
+			if(compiler instanceof JastAddJCompiler) {
+				String errors = getFrontendErrors(compiler, tmpDir, testDir);
+				if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
+					fail(errors);
+				}
+				else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
+					fail("Expected semantic errors in front end, but was none");
+				}
 			}
-			else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
-				fail("Expected semantic errors in front end, but was none");
+			else {
+				if(expected == Result.FRONTEND_PASSED)
+					compileSources(compiler, testProperties, tmpDir, testDir, Result.COMPILE_PASSED);
+				else
+					compileSources(compiler, testProperties, tmpDir, testDir, Result.COMPILE_FAILED);
 			}
 
 			return;

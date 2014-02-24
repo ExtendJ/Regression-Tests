@@ -2,6 +2,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		@option String s = "hello";
+		// cannot wrap option-type
 		check(1, [[s]].size());
 	}
 

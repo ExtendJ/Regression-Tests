@@ -21,33 +21,33 @@ import java.util.Scanner;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class JastAddJCompiler extends Compiler {
-	
-	private boolean newVM;
+
+	private final boolean newVM;
 	private final String jarPath;
 
 	/**
 	 * Constructor
 	 * @param jarPath Path to the JastAddJ jar
-	 * @param newVM 
+	 * @param newVM
 	 */
 	public JastAddJCompiler(String jarPath, boolean newVM) {
 		super("jastaddj", jarPath);
-		
+
 		this.newVM = newVM;
 		this.jarPath = jarPath;
 	}
-	
+
 	@Override
 	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-		
+
 		InputStream in = new ByteArrayInputStream(new byte[0]);
 		return invoke(arguments, in, out, err);
 	}
-	
+
 	// TODO add -Xprint to JavaCompiler and use JastAddJ as usual! /Jesper 2014-02-20
 	/**
 	 * Returns the StructurePrettyPrinted program received by parsing the file
-	 * referred to in the argument path. 
+	 * referred to in the argument path.
 	 * @param path to the program whose structured print should be returned
 	 * @return A string containing the structured print of the program
 	 */
@@ -72,10 +72,10 @@ public class JastAddJCompiler extends Compiler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return program.toString();
 	}
-	
+
 	// TODO remove this /Jesper 2014-02-20
 	public String dumpFrontendErrors(String path) {
 		StringBuffer cmd = new StringBuffer();
@@ -98,26 +98,26 @@ public class JastAddJCompiler extends Compiler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return errors.toString();
 	}
-	
+
 	/**
 	 * Invoke JastAddJ using reflection (in order to access main class in
 	 * default package)
-	 * 
+	 *
 	 * @param arguments
-	 * @param in 
-	 * @param outStream 
-	 * @param errStream 
+	 * @param in
+	 * @param outStream
+	 * @param errStream
 	 * @return Exit value of the compile process
 	 */
 	public int invoke(String[] arguments, InputStream in,
 			OutputStream outStream, OutputStream errStream) {
-		
+
 		final PrintStream out = new PrintStream(outStream);
 		final PrintStream err = new PrintStream(errStream);
-		
+
 		if (newVM) {
 			StringBuffer cmd = new StringBuffer();
 			cmd.append("java -Xmx2g -jar " + jarPath);
@@ -126,7 +126,7 @@ public class JastAddJCompiler extends Compiler {
 			}
 			try {
 				final Process p = Runtime.getRuntime().exec(cmd.toString());
-				
+
 				final Collection<String> stderrErrors = new LinkedList<String>();
 				new Thread() {
 					@Override
@@ -142,7 +142,7 @@ public class JastAddJCompiler extends Compiler {
 						scanner.close();
 					}
 				}.start();
-				
+
 				// some versions of JastAddJ print error messages on stdout
 				// and do not return a nozero exit code on error
 				final Collection<String> stdoutErrors = new LinkedList<String>();
@@ -171,14 +171,14 @@ public class JastAddJCompiler extends Compiler {
 			}
 			return 1;
 		}
-		
+
 		InputStream stdin = System.in;
 		PrintStream stdout = System.out;
 		PrintStream stderr = System.err;
 		System.setIn(in);
 		System.setOut(out);
 		System.setErr(err);
-		
+
 		int exitValue = 1;
 		// Warning: Lots of bad reflection Voodoo!
 		try {
@@ -186,10 +186,10 @@ public class JastAddJCompiler extends Compiler {
 			// using reflection (since it lies in the default package)
 			Class<?> jjMain = Class.forName("JavaCompiler");
 			Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
-			
+
 			// The method is not accessible, so we trick the JVM to think it is!
 			compile.setAccessible(true);
-			
+
 			boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
 			exitValue = result ? 0 : 1;
 		} catch (ClassNotFoundException e) {
@@ -211,11 +211,11 @@ public class JastAddJCompiler extends Compiler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.setIn(stdin);
 		System.setOut(stdout);
 		System.setErr(stderr);
-		
+
 		return exitValue;
 	}
 }

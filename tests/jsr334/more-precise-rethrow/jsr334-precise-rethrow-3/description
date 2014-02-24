@@ -1,4 +1,0 @@
-
-	non-effectively final catch parameters are not affected by
-	more precise rethrow
-

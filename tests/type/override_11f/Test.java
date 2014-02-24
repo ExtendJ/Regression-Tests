@@ -1,0 +1,10 @@
+interface I {
+	void m(int i);
+}
+
+interface J {
+	int m(int i);
+}
+
+abstract class Test implements I, J {
+}

@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -285,7 +284,6 @@ public class TestRunner {
 
 		try {
 			String[] arguments = args.toArray(new String[args.size()]);
-			System.out.println("args: " + Arrays.asList(arguments));
 
 			int exitValue = -1;
 			exitValue = config.compiler.compile(arguments, out, err);

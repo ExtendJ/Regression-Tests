@@ -44,7 +44,27 @@ suites using -Dproperty=value
 	<property name="test-src.dir" location="src/tests"/>
 	<property name="test-reports.dir" location="test-reports"/>
 
-	<target name="test" depends="build" description="run JastAddJ tests">
+	<target name="test-javac" depends="build" description="run Javac tests for Java 7">
+		<mkdir dir="${test-reports.dir}"/>
+		<junit fork="yes" showoutput="yes">
+			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="includes" value="${includes}"/>
+			<sysproperty key="test" value="${test}"/>
+			<sysproperty key="excludes" value="${excludes}"/>
+			<sysproperty key="compiler" value="${compiler}"/>
+			<classpath>
+				<pathelement path="bin"/>
+				<pathelement path="lib/junit-${junit.version}.jar"/>
+				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
+				<pathelement location="lib/JavaCompiler.jar"/>
+			</classpath>
+			<test name="tests.javac.TestJava7" todir="${test-reports.dir}"/>
+			<formatter type="xml"/>
+			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
+		</junit>
+	</target>
+	
+	<target name="test" depends="build" description="run JastAddJ tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
 			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>

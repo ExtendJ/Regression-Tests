@@ -84,7 +84,7 @@ public class TestRunner {
 			File actual = new File(tmpDir, "compile.err");
 			assertEquals("Error output files differ",
 					readFileToString(expected),
-					readFileToString(actual));
+					readFileToString(actual).replace('\\', '/'));
 		} catch (IOException e) {
 			fail("IOException occurred while comparing JastAdd error output: " + e.getMessage());
 		}

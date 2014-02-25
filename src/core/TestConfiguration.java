@@ -91,10 +91,6 @@ public class TestConfiguration {
 			return Result.OUTPUT_PASSED;
 		} else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS")) {
 			return Result.TREE_PASSED;
-		} else if (result.equals("FRONTEND_PASSED") || result.equals("FRONTEND_PASS")) {
-			return Result.FRONTEND_PASSED;
-		} else if (result.equals("FRONTEND_FAILED") || result.equals("FRONTEND_FAIL")) {
-			return Result.FRONTEND_FAILED;
 		} else {
 			fail("Unknown result option: " + result);
 			return Result.OUTPUT_PASSED;

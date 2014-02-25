@@ -41,16 +41,6 @@ public enum Result {
 	TREE_PASSED,
 
 	/**
-	 * Front end semantic analysis did not return any errors
-	 */
-	FRONTEND_PASSED,
-
-	/**
-	 * Front end semantic analysis returned errors
-	 */
-	FRONTEND_FAILED,
-
-	/**
 	 * Execution succeeded and the output was identical to the expected output
 	 */
 	OUTPUT_PASSED

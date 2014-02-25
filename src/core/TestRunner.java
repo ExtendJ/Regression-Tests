@@ -43,18 +43,6 @@ public class TestRunner {
 			return;
 		}
 
-		if (expected == Result.FRONTEND_PASSED || expected == Result.FRONTEND_FAILED) {
-			String errors = getFrontendErrors(config.compiler, config.tmpDir, config.testDir);
-			if(expected == Result.FRONTEND_PASSED && errors.length() != 0) {
-				fail(errors);
-			}
-			else if(expected == Result.FRONTEND_FAILED && errors.length() == 0) {
-				fail("Expected semantic errors in front end, but was none");
-			}
-
-			return;
-		}
-
 		// Compile generated code with the selected compiler
 		compileSources(config);
 
@@ -318,20 +306,6 @@ public class TestRunner {
 			try { out.close(); } catch (IOException e) { }
 			try { err.close(); } catch (IOException e) { }
 		}
-	}
-
-	private static String getFrontendErrors(Compiler compiler, File tmpDir, File testDir) {
-		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-		sourceFiles.addAll(collectSourceFiles(testDir));
-		if(sourceFiles.size() != 1) {
-			fail("A single file per test required for parse tests");
-		}
-		String errors = null;
-		for(String fileName : sourceFiles) {
-			errors = ((JastAddJCompiler)compiler).dumpFrontendErrors(fileName);
-		}
-
-		return errors.trim();
 	}
 
 	/**

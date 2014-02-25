@@ -76,32 +76,6 @@ public class JastAddJCompiler extends Compiler {
 		return program.toString();
 	}
 
-	// TODO remove this /Jesper 2014-02-20
-	public String dumpFrontendErrors(String path) {
-		StringBuffer cmd = new StringBuffer();
-		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpFrontendErrors ");
-		cmd.append(path);
-		StringBuilder errors = new StringBuilder();
-		try {
-			Process p = Runtime.getRuntime().exec(cmd.toString());
-			p.waitFor();
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		    String s = null;
-		    while ((s = stdInput.readLine()) != null) {
-		        errors.append(s);
-		        errors.append('\n');
-		    }
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return errors.toString();
-	}
-
 	/**
 	 * Invoke JastAddJ using reflection (in order to access main class in
 	 * default package)

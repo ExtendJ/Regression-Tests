@@ -1,0 +1,6 @@
+Errors:
+tests/jastaddj/err_01f/A.java:3,16:
+  Semantic Error: no visible type named List
+Errors:
+tests/jastaddj/err_01f/Test.java:3,26:
+  Semantic Error: no field named arsg is accessible

@@ -301,6 +301,10 @@ public class TestRunner {
 					fail("Compilation failed when expected to pass:\n" + errors);
 				}
 			}
+
+			if (!errors.isEmpty() && config.verbose) {
+				System.err.println(errors);
+			}
 		} finally {
 			// close streams
 			try { out.close(); } catch (IOException e) { }

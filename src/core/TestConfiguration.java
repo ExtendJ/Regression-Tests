@@ -16,6 +16,7 @@ public class TestConfiguration {
 	protected final Result expected;
 	protected final File tmpDir;
 	protected final Compiler compiler;
+	protected final boolean verbose;
 
 	/**
 	 *
@@ -27,6 +28,8 @@ public class TestConfiguration {
 		testProperties = Util.getProperties(new File(testDir, "Test.properties"));
 		expected = getExpectedResult(testProperties);
 		tmpDir = setupTemporaryDirectory(testName);
+
+		verbose = testProperties.getProperty("verbose", "").equals("true");
 
 		// set up compiler option
 		testProperties.setProperty("compiler",

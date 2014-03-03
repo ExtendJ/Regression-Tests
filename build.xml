@@ -8,6 +8,7 @@ Test Properties:
     test            comma separated list of test directories (overrides
                     the includes and excludes properties)
     compiler        the compiler to test (jastaddj or javac)
+    verbose         set to "true" to get verbose output
 
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
@@ -17,6 +18,7 @@ suites using -Dproperty=value
 	<property name="excludes" value=""/>
 	<property name="test" value=""/>
 	<property name="compiler" value=""/>
+	<property name="verbose" value=""/>
 
 	<target name="build"
 		description="Compile the unit tests">
@@ -52,6 +54,7 @@ suites using -Dproperty=value
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
+			<sysproperty key="verbose" value="${verbose}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -72,6 +75,7 @@ suites using -Dproperty=value
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
+			<sysproperty key="verbose" value="${verbose}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -92,6 +96,7 @@ suites using -Dproperty=value
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
+			<sysproperty key="verbose" value="${verbose}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -123,24 +128,25 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
 	<target name="test-java8" depends="build" description="run JastAddJ Java 8 tests">
-			<mkdir dir="${test-reports.dir}"/>
-			<junit fork="yes" showoutput="yes">
-				<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
-				<sysproperty key="includes" value="${includes}"/>
-				<sysproperty key="test" value="${test}"/>
-				<sysproperty key="excludes" value="${excludes}"/>
-				<sysproperty key="compiler" value="${compiler}"/>
-				<classpath>
-					<pathelement path="bin"/>
-					<pathelement path="lib/junit-${junit.version}.jar"/>
-					<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-					<pathelement location="lib/JavaCompiler.jar"/>
-				</classpath>
-				<test name="tests.jastaddj.TestJava8" todir="${test-reports.dir}"/>
-				<formatter type="xml"/>
-				<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
-			</junit>
-		</target>
+		<mkdir dir="${test-reports.dir}"/>
+		<junit fork="yes" showoutput="yes">
+			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="includes" value="${includes}"/>
+			<sysproperty key="test" value="${test}"/>
+			<sysproperty key="excludes" value="${excludes}"/>
+			<sysproperty key="compiler" value="${compiler}"/>
+			<sysproperty key="verbose" value="${verbose}"/>
+			<classpath>
+				<pathelement path="bin"/>
+				<pathelement path="lib/junit-${junit.version}.jar"/>
+				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
+				<pathelement location="lib/JavaCompiler.jar"/>
+			</classpath>
+			<test name="tests.jastaddj.TestJava8" todir="${test-reports.dir}"/>
+			<formatter type="xml"/>
+			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
+		</junit>
+	</target>
 </project>

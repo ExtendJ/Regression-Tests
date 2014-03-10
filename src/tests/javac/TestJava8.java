@@ -23,7 +23,25 @@ public class TestJava8 {
 		properties.exclude("jastaddj");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
 		properties.exclude("jsr335/Parsing");
-		properties.exclude("jsr335/Semantics");
+		
+		
+		//TEMP EXCLUDES
+		properties.exclude("annotation");
+		properties.exclude("codegen");
+		properties.exclude("exception");
+		properties.exclude("expr");
+		properties.exclude("generics");
+		properties.exclude("name");
+		properties.exclude("os");
+		properties.exclude("stmt");
+		properties.exclude("type");
+		properties.exclude("classes");
+		properties.exclude("jastaddj");
+		properties.exclude("jsr335/Parsing");	
+		properties.exclude("runtime");
+		properties.exclude("jsr334");
+		properties.exclude("jsr335/Semantics/LambdaExpressions/ReservedKeyword");
+		properties.exclude("jsr335/Semantics/LambdaExpressions");
 	}
 
 	private final String testDir;

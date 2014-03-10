@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Test {
 	interface X { <A, T, S extends List<A>> List<T> execute(ArrayList<S>[][] a); }

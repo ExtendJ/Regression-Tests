@@ -6,10 +6,9 @@ class Test {
 	
 	/*
 	 This test currently fails because there is a bug for generic interfaces.
-	 For Y<B> { <A> A execute(int a); }, when trying to loop up the return type
-	 from the execute-method, the type Object is returned, which is wrong (A is correct). 
-	 Some type lookup is probably handled different for generic interfaces since the
-	 problem disappears if the interface is changed to a normal interface. 
+	 For Y<B> { <A> A execute(int a); }, since not type arguments are specified
+	 for Y in the extends-clause, all the methods that Exec has access to will
+	 be erased, which also erased A even though it has nothing to do with B.
 	 */
 	@FunctionalInterface
 	interface Exec extends Y, X<Integer> { }

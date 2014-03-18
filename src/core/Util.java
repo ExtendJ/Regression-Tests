@@ -64,6 +64,60 @@ public class Util {
 		}
 	}
 
+	private static void addByPattern(File root, String pattern,
+			Collection<Object[]> testDirs, Collection<String> excludes) {
+		if (pattern.isEmpty()) {
+			addTestDir(root, testDirs, excludes);
+		} else {
+			int index = pattern.indexOf('/');
+			String part, rest;
+			if (index == -1) {
+				part = pattern;
+				rest = "";
+			} else {
+				part = pattern.substring(0, index);
+				rest = pattern.substring(index+1, pattern.length());
+			}
+			if (part.indexOf('*') == -1) {
+				addByPattern(new File(root, part), rest, testDirs, excludes);
+			} else if (part.equals("**")) {
+				addByPattern(root, rest, testDirs, excludes);
+				addByPattern(root, "*/**/" + rest, testDirs, excludes);
+			} else if (root.isDirectory()) {
+				for (File file: root.listFiles()) {
+					if (patternMatch(file.getName().toCharArray(), 0, part.toCharArray(), 0)) {
+						addByPattern(file, rest, testDirs, excludes);
+					}
+				}
+			}
+		}
+	}
+
+	private static boolean patternMatch(char[] name, int ni, char[] pattern, int pi) {
+
+		if (ni >= name.length && pi >= pattern.length) {
+			return true;
+		}
+
+		char p = pattern[pi];
+
+		if (p == '*') {
+			if (ni >= name.length) {
+				return patternMatch(name, ni, pattern, pi+1);
+			} else {
+				char n = name[ni];
+				return patternMatch(name, ni+1, pattern, pi) || patternMatch(name, ni+1, pattern, pi+1);
+			}
+		} else {
+			if (ni >= name.length) {
+				return false;
+			} else {
+				char n = name[ni];
+				return n == p && patternMatch(name, ni+1, pattern, pi+1);
+			}
+		}
+	}
+
 	/**
 	 * @param testDir
 	 * @return <code>true</code> if the test should be skipped
@@ -86,8 +140,8 @@ public class Util {
 			addTestDir(new File(TEST_ROOT), testDirs, excludes);
 		} else {
 			for (String include: includes) {
-				addTestDir(new File(TEST_ROOT, include), testDirs,
-						excludes);
+				addByPattern(new File(TEST_ROOT), include.replace('\\', '/'),
+						testDirs, excludes);
 			}
 		}
 

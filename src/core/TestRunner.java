@@ -60,18 +60,10 @@ public class TestRunner {
 		}
 
 		// Execute the compiled code
-		String stdErr = executeCode(config.testProperties, config.tmpDir, config.testDir, expected);
-		if (!stdErr.isEmpty()) {
-			fail("Standard error not empty:\n" + stdErr);
-		}
-
-		if (expected == Result.EXEC_PASSED ||
-				expected == Result.EXEC_FAILED) {
-
-			return;
-		}
+		executeCode(config.testProperties, config.tmpDir, config.testDir, expected);
 
 		// Compare the output with the expected output
+		compareErrorOutput(config.tmpDir, config.testDir);
 		compareOutput(config.tmpDir, config.testDir);
 	}
 
@@ -103,6 +95,20 @@ public class TestRunner {
 	}
 
 	/**
+	 * Compare the generated error output to the expected error output
+	 */
+	private static void compareErrorOutput(File tmpDir, File testDir) {
+		try {
+			File expected = new File(testDir, "err.expected");
+			File actual = new File(tmpDir, "err");
+			assertEquals("Error output files differ", readFileToString(expected),
+					readFileToString(actual));
+		} catch (IOException e) {
+			fail("IOException occurred while comparing error output: " + e.getMessage());
+		}
+	}
+
+	/**
 	 * Compare the generated output to the expected output
 	 */
 	private static void compareOutput(File tmpDir, File testDir) {
@@ -110,11 +116,6 @@ public class TestRunner {
 			File expected = new File(testDir, "out.expected");
 			File actual = new File(tmpDir, "out");
 			assertEquals("Output files differ", readFileToString(expected),
-					readFileToString(actual));
-
-			expected = new File(testDir, "err.expected");
-			actual = new File(tmpDir, "err");
-			assertEquals("Error output files differ", readFileToString(expected),
 					readFileToString(actual));
 		} catch (IOException e) {
 			fail("IOException occurred while comparing output: " + e.getMessage());
@@ -154,7 +155,7 @@ public class TestRunner {
 	 * @param expected
 	 * @return The standard error content
 	 */
-	private static String executeCode(Properties props, File tmpDir,
+	private static void executeCode(Properties props, File tmpDir,
 			File testDir, Result expected) {
 
 		StringBuffer errors = new StringBuffer();
@@ -187,8 +188,8 @@ public class TestRunner {
 				if (expected == Result.EXEC_FAILED) {
 					fail("Code execution passed when expected to fail");
 				}
-				return errors.toString();
 			}
+			return;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -199,8 +200,6 @@ public class TestRunner {
 			fail("Code execution failed when expected to pass:\n" +
 					errors.toString());
 		}
-
-		return errors.toString();
 	}
 
 	/**

@@ -38,10 +38,5 @@ public enum Result {
 	/**
 	 * The constructed parse tree was identical to the expected tree
 	 */
-	TREE_PASSED,
-
-	/**
-	 * Execution succeeded and the output was identical to the expected output
-	 */
-	OUTPUT_PASSED
+	TREE_PASSED
 }

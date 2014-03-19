@@ -74,7 +74,7 @@ public class TestConfiguration {
 	private static Result getExpectedResult(Properties props) {
 
 		if (!props.containsKey("result")) {
-			return Result.OUTPUT_PASSED;
+			return Result.EXEC_PASSED;
 		}
 
 		String result = props.getProperty("result");
@@ -90,13 +90,11 @@ public class TestConfiguration {
 			return Result.EXEC_PASSED;
 		} else if (result.equals("EXEC_FAILED") || result.equals("EXEC_FAIL")) {
 			return Result.EXEC_FAILED;
-		} else if (result.equals("OUTPUT_PASSED") || result.equals("OUTPUT_PASS")) {
-			return Result.OUTPUT_PASSED;
 		} else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS")) {
 			return Result.TREE_PASSED;
 		} else {
 			fail("Unknown result option: " + result);
-			return Result.OUTPUT_PASSED;
+			return Result.EXEC_PASSED;
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Test {
 	void m2(int x) {
 		int y;
 		y = 1;
-		foo(() -> x+y);
+		foo((TestInterface)() -> x+y);
 		// Legal: x and y are both effectively final.
 	}
 	

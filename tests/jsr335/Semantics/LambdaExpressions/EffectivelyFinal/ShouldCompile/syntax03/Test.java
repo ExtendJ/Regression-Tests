@@ -13,7 +13,7 @@ public class Test {
 		int y;
 		if (x == 3) y = 1;
 		else y = 2;
-		foo(() -> x+y);
+		foo((TestInterface)() -> x+y);
 		// Legal: x and y are both effectively final.
 	}
 	

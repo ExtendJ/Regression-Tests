@@ -7,6 +7,9 @@ class Test {
 	/*
 	 A should be erased to object, and thus 
 	 should this test pass. 
+	 
+	 This test currently fails though, because JastAddJ
+	 do not erase Raw types properly.
 	 */
 	@FunctionalInterface
 	interface Exec extends Y, X<Integer> { }

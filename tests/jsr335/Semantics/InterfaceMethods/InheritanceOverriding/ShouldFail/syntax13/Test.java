@@ -1,4 +1,3 @@
-
 public class Test {
 	interface A {
 		default void m(int i) { System.out.println("" + i + 1); }
@@ -7,9 +6,11 @@ public class Test {
 		default void m(int i) { A.super.m(i); }
 	}
 	
-	public class C implements B {
-		public void m() {
-			m(5);
-		}
+	interface C extends B {
+		default void m(int i) { A.super.m(i); }
+	}
+	
+	public static void main(String[] arg) {
+		
 	}
 }

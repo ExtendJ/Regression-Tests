@@ -16,9 +16,7 @@ public class Test {
 		});
 
 		t.start();
-		while(t.isAlive()) {
-			
-		}
+		t.join();
 		testTrue("Lambda", outerInt == 13);
 	}
 }

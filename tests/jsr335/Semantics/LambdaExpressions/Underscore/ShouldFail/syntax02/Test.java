@@ -1,11 +1,12 @@
 
 
 public class Test {
-	int _ = 5;
+	
+	interface A {
+		void m(int i, String s);
+	}
 	
 	public static void main(String[] args) {
-		
+		A a = (_, s) -> { };
     }
-	
-	
 }

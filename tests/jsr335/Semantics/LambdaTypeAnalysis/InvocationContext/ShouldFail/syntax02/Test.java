@@ -1,0 +1,14 @@
+
+public class Test {
+	interface A {
+		ArrayList<Integer> m(int a, int b); 
+	}
+	
+	public static void method(A a) {
+		
+	}
+	
+	public static void main(String[] args) {
+		method((int a, int b) -> a + b);
+    }
+}

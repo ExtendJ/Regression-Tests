@@ -22,10 +22,6 @@ public class TestJava8 {
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
 		properties.exclude("mult");
 		properties.exclude("generics/constructor01", "type/conditional_expr02");
-		
-		
-		//TEMP EXCLUDES:
-		properties.exclude("jsr335/Semantics");
 	}
 
 	private final String testDir;

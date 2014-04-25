@@ -6,10 +6,14 @@ public class Test {
 	public static int out = 0;
 	
 	interface A {
-		void m(int a, int b); 
+		TopClass m(); 
 	}
 	interface B {
-		void m(int a);
+		ArrayList<String> m(int a);
+	}
+	
+	public class TopClass {
+		
 	}
 	
 	public static void method(A a) {
@@ -20,9 +24,13 @@ public class Test {
 		out = 2;
 	}
 	
-	public static void main(String[] args) {
-		// Tests that only methods with types with correct arity are applicable
-		method((a, b) -> { });
+	public void testMethod() {
+		// Tests that the method with compatible return type is chosen
+		method(TopClass::new);
 		testTrue("Method overload", out == 1);
+	}
+	
+	public static void main(String[] args) {
+		new Test().testMethod();
     }
 }

@@ -6,10 +6,14 @@ public class Test {
 	public static int out = 0;
 	
 	interface A {
-		void m(int a, int b); 
+		int m(Double a, int b); 
 	}
 	interface B {
-		void m(int a);
+		int m(int a, int b);
+	}
+	
+	public static int m(int a, int b) {
+		return 4;
 	}
 	
 	public static void method(A a) {
@@ -21,8 +25,8 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		// Tests that only methods with types with correct arity are applicable
-		method((a, b) -> { });
-		testTrue("Method overload", out == 1);
+		// Tests that the method with compatible arguments is chosen
+		method(Test::m);
+		testTrue("Method overload", out == 2);
     }
 }

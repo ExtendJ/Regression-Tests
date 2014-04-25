@@ -6,10 +6,10 @@ public class Test {
 	public static int out = 0;
 	
 	interface A {
-		void m(int a, int b); 
+		Number m(int a, int b); 
 	}
 	interface B {
-		void m(int a);
+		Integer m(int a, int b);
 	}
 	
 	public static void method(A a) {
@@ -21,8 +21,8 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		// Tests that only methods with types with correct arity are applicable
-		method((a, b) -> { });
-		testTrue("Method overload", out == 1);
+		// Tests most specific method for lambdas, bullet #2
+		method((int a, int b) -> new Integer(4));
+		testTrue("Method overload", out == 2);
     }
 }

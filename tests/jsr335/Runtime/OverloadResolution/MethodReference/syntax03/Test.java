@@ -6,11 +6,12 @@ public class Test {
 	public static int out = 0;
 	
 	interface A {
-		void m(int a, int b); 
+		int m(String a); 
 	}
 	interface B {
-		void m(int a);
+		void m(String a);
 	}
+	
 	
 	public static void method(A a) {
 		out = 1;
@@ -21,8 +22,8 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		// Tests that only methods with types with correct arity are applicable
-		method((a, b) -> { });
+		// Tests choosing most specific method for method references, bullet #1
+		method(String::length);
 		testTrue("Method overload", out == 1);
     }
 }

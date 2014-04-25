@@ -6,11 +6,12 @@ public class Test {
 	public static int out = 0;
 	
 	interface A {
-		void m(int a, int b); 
+		int[] m(int a); 
 	}
 	interface B {
-		void m(int a);
+		int[][] m(int a);
 	}
+	
 	
 	public static void method(A a) {
 		out = 1;
@@ -21,8 +22,8 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		// Tests that only methods with types with correct arity are applicable
-		method((a, b) -> { });
+		// Tests that the method with compatible return type is chosen
+		method(int[]::new);
 		testTrue("Method overload", out == 1);
     }
 }

@@ -59,27 +59,33 @@ public class JavacCompiler extends Compiler {
 			}
 			try {
 				final Process p = Runtime.getRuntime().exec(cmd.toString());
-				new Thread() {
+				Thread errThread = new Thread() {
 					@Override
 					public void run() {
 						PrintStream ps = new PrintStream(err);
 						Scanner scanner = new Scanner(p.getErrorStream());
-						while (scanner.hasNextLine())
+						while (scanner.hasNextLine()) {
 							ps.println(scanner.nextLine());
+						}
 						scanner.close();
 					}
-				}.start();
-				new Thread() {
+				};
+				Thread outThread = new Thread() {
 					@Override
 					public void run() {
 						PrintStream ps = new PrintStream(out);
 						Scanner scanner = new Scanner(p.getInputStream());
-						while (scanner.hasNextLine())
+						while (scanner.hasNextLine()) {
 							ps.println(scanner.nextLine());
+						}
 						scanner.close();
 					}
-				}.start();
-				return p.waitFor();
+				};
+				errThread.start();
+				outThread.start();
+				int exitValue = p.waitFor();
+				outThread.join();
+				errThread.join();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,8 +96,15 @@ public class JavacCompiler extends Compiler {
 			return 1;
 		}
 		
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		return compiler.run(in, out, err, arguments);
+		PrintStream stdout = System.out;
+		try {
+			System.setOut(new PrintStream(out));
+			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			// simply setting out as the output stream seems to not work...
+			return compiler.run(in, null, err, arguments);
+		} finally {
+			System.setOut(stdout);
+		}
 		
 	}
 	

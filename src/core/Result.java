@@ -1,7 +1,7 @@
 package core;
 
 /**
- * Possible results for a JastAdd unit test.
+ * Expected test result for JastAddJ test.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public enum Result {
@@ -21,9 +21,14 @@ public enum Result {
 	COMPILE_WARNING,
 
 	/**
-	 * The compilation passed, but with a warning
+	 * The compilation failed, with some error message(s)
 	 */
 	COMPILE_ERR_OUTPUT,
+
+	/**
+	 * The compilation passed, with some output
+	 */
+	COMPILE_OUTPUT,
 
 	/**
 	 * Execution of the compiled code failed (exit status != 0)

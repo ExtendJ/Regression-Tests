@@ -39,12 +39,17 @@ public class TestRunner {
 
 		if (expected == Result.TREE_PASSED) {
 			dumpStructurePrint(config.compiler, config.tmpDir, config.testDir);
-			compareOutput(config.tmpDir, config.testDir);
+			compareOutput("out", config.tmpDir, config.testDir);
 			return;
 		}
 
 		// Compile generated code with the selected compiler
 		compileSources(config);
+
+		if (expected == Result.COMPILE_OUTPUT) {
+			compareOutput("compile.out", config.tmpDir, config.testDir);
+			return;
+		}
 
 		if (expected == Result.COMPILE_PASSED ||
 				expected == Result.COMPILE_FAILED ||
@@ -64,7 +69,7 @@ public class TestRunner {
 
 		// Compare the output with the expected output
 		compareErrorOutput(config.tmpDir, config.testDir);
-		compareOutput(config.tmpDir, config.testDir);
+		compareOutput("out", config.tmpDir, config.testDir);
 	}
 
 	/**
@@ -111,10 +116,10 @@ public class TestRunner {
 	/**
 	 * Compare the generated output to the expected output
 	 */
-	private static void compareOutput(File tmpDir, File testDir) {
+	private static void compareOutput(String file, File tmpDir, File testDir) {
 		try {
-			File expected = new File(testDir, "out.expected");
-			File actual = new File(tmpDir, "out");
+			File expected = new File(testDir, file + ".expected");
+			File actual = new File(tmpDir, file);
 			assertEquals("Output files differ", readFileToString(expected),
 					readFileToString(actual));
 		} catch (IOException e) {
@@ -275,21 +280,33 @@ public class TestRunner {
 			int exitValue = -1;
 			exitValue = config.compiler.compile(arguments, out, err);
 
-			String errors = err.toString();
+			if (err.size() > 0) {
+				String errors = err.toString();
+				try {
+					PrintWriter file = new PrintWriter(new File(config.tmpDir, "compile.err"));
+					file.append(errors);
+					file.close();
+				} catch (IOException e) {
+					fail("Failed to write compile error output file!");
+				}
+			}
 
-			try {
-				PrintWriter errFile = new PrintWriter(new File(config.tmpDir, "compile.err"));
-				errFile.append(errors);
-				errFile.close();
-			} catch (IOException e) {
-				fail("Failed to write compile error output file!");
+			if (config.expected == Result.COMPILE_OUTPUT && out.size() > 0) {
+				String output = out.toString();
+				try {
+					PrintWriter file = new PrintWriter(new File(config.tmpDir, "compile.out"));
+					file.append(output);
+					file.close();
+				} catch (IOException e) {
+					fail("Failed to write compile error output file!");
+				}
 			}
 
 			if (exitValue == 0) {
-				Result result = errors.isEmpty() ? Result.COMPILE_PASSED : Result.COMPILE_WARNING;
+				Result result = err.size()==0 ? Result.COMPILE_PASSED : Result.COMPILE_WARNING;
 				if (result != config.expected) {
 					if (result == Result.COMPILE_WARNING) {
-						fail("Compilation produced unexpected warning:\n" + errors);
+						fail("Compilation produced unexpected warning:\n" + err.toString());
 					} else if (config.expected == Result.COMPILE_FAILED) {
 						fail("Compilation passed when expected to fail!");
 					}
@@ -297,12 +314,12 @@ public class TestRunner {
 			} else {
 				if (config.expected != Result.COMPILE_FAILED &&
 					config.expected != Result.COMPILE_ERR_OUTPUT) {
-					fail("Compilation failed when expected to pass:\n" + errors);
+					fail("Compilation failed when expected to pass:\n" + err.toString());
 				}
 			}
 
-			if (!errors.isEmpty() && config.verbose) {
-				System.err.println(errors);
+			if (err.size()>0 && config.verbose) {
+				System.err.println(err.toString());
 			}
 		} finally {
 			// close streams

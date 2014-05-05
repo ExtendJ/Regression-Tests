@@ -90,6 +90,8 @@ public class TestConfiguration {
 			return Result.EXEC_PASSED;
 		} else if (result.equals("EXEC_FAILED") || result.equals("EXEC_FAIL")) {
 			return Result.EXEC_FAILED;
+		} else if (result.equals("COMPILE_OUT") || result.equals("COMPILE_OUTPUT")) {
+			return Result.COMPILE_OUTPUT;
 		} else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS")) {
 			return Result.TREE_PASSED;
 		} else {

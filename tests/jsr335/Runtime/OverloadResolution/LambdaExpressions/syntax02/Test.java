@@ -20,7 +20,8 @@ public class Test {
 		out = 2;
 	}
 	
-	// Javac fails this test, fairly sure it's a bug
+	// Javac 1.8.0_5 fails this test because of this bug:
+	// http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8035431
 	
 	public static void main(String[] args) {
 		// Tests that only statement expressions (not other expressions) are applicable with void return

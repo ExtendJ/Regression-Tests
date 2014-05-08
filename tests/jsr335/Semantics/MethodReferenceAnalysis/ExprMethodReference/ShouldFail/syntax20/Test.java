@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Test {
 	
 	/*
-	 * This test case currently fails, the reason is a bug in JastAddJ.
+	 * This test case currently fails, the reason is probably a bug in JastAddJ.
 	 * See issue #73 in the git bitbucket repository
 	 */
 	

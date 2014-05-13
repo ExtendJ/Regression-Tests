@@ -4,10 +4,14 @@ public class Test {
 		boolean[] out = { false, true };
 
 		for (int i = 0; i < in.length; ++i) {
-			boolean result = in[i] ? false : true;
-			if (result != out[i]) {
-				throw new Error("Incorrect conditional expression result");
+			if (op(in[i]) != out[i]) {
+				throw new Error("Incorrect conditional expression result (expected " +
+						out[i] + " but was " + op(in[i]) + ")");
 			}
 		}
+	}
+
+	private static final boolean op(boolean in) {
+		return in ? false : true;
 	}
 }

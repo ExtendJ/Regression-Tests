@@ -1,7 +1,8 @@
 public class Test {
 	interface A {
+		int a = 4;
 		default void m() {
-			String s = super.toString();
+			int b = this.a;
 		}
 	}
 }

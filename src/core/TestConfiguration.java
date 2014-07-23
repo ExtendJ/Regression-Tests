@@ -92,8 +92,6 @@ public class TestConfiguration {
 			return Result.EXEC_FAILED;
 		} else if (result.equals("COMPILE_OUT") || result.equals("COMPILE_OUTPUT")) {
 			return Result.COMPILE_OUTPUT;
-		} else if (result.equals("TREE_PASSED") || result.equals("TREE_PASS")) {
-			return Result.TREE_PASSED;
 		} else {
 			fail("Unknown result option: " + result);
 			return Result.EXEC_PASSED;

@@ -37,12 +37,6 @@ public class TestRunner {
 
 		Result expected = config.expected;
 
-		if (expected == Result.TREE_PASSED) {
-			dumpStructurePrint(config.compiler, config.tmpDir, config.testDir);
-			compareOutput("out", config.tmpDir, config.testDir);
-			return;
-		}
-
 		// Compile generated code with the selected compiler
 		compileSources(config);
 
@@ -326,39 +320,6 @@ public class TestRunner {
 			try { out.close(); } catch (IOException e) { }
 			try { err.close(); } catch (IOException e) { }
 		}
-	}
-
-	/**
-	 * Dump the structured print in tmp folder for output check.
-	 * This assumes JastAddJ is being used, do not use parse tests
-	 * with javac.
-	 */
-	private static void dumpStructurePrint(Compiler compiler, File tmpDir, File testDir) {
-		if (compiler instanceof JavacCompiler) {
-			fail("Can not test javac parse tree");
-			return;
-		}
-		Collection<String> sourceFiles = collectSourceFiles(tmpDir);
-		sourceFiles.addAll(collectSourceFiles(testDir));
-		if(sourceFiles.size() != 1) {
-			fail("A single file per test required for parse tests");
-			return;
-		}
-		String program = null;
-		for(String fileName : sourceFiles) {
-			program = ((JastAddJCompiler)compiler).dumpStructurePrint(fileName);
-		}
-
-		try {
-			PrintWriter out = new PrintWriter(tmpDir.getPath() + File.separator + "out");
-			out.print(program.trim());
-			out.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return;
 	}
 
 	/**

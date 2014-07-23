@@ -44,38 +44,6 @@ public class JastAddJCompiler extends Compiler {
 		return invoke(arguments, in, out, err);
 	}
 
-	// TODO add -Xprint to JavaCompiler and use JastAddJ as usual! /Jesper 2014-02-20
-	/**
-	 * Returns the StructurePrettyPrinted program received by parsing the file
-	 * referred to in the argument path.
-	 * @param path to the program whose structured print should be returned
-	 * @return A string containing the structured print of the program
-	 */
-	public String dumpStructurePrint(String path) {
-		StringBuffer cmd = new StringBuffer();
-		cmd.append("java -Xmx2g -cp " + jarPath + " org.jastadd.jastaddj.JavaDumpStructuredPrint ");
-		cmd.append(path);
-		StringBuilder program = new StringBuilder();
-		try {
-			Process p = Runtime.getRuntime().exec(cmd.toString());
-			p.waitFor();
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		    String s = null;
-		    while ((s = stdInput.readLine()) != null) {
-		        program.append(s);
-		        program.append('\n');
-		    }
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return program.toString();
-	}
-
 	/**
 	 * Invoke JastAddJ using reflection (in order to access main class in
 	 * default package)

@@ -32,7 +32,6 @@ public class Test {
 	public static void main(String[] args) {
 		// Tests that for most specific method for lambdas, bullet #3,
 		// every single return must be more specific 
-		// Javac fails this test, probably same bug as for test case 14
 		method((int a, int b) -> {
 			if(a < b) 
 				return (int c) -> m();

@@ -23,7 +23,6 @@ public class Test {
 	public static void main(String[] args) {
 		// Tests that when a lambda includes any implicit lambdas,
 		// phases 1-3 in the algorithm are skipped (block body)
-		// javac fails this test, probably a bug
 		method((int a, int b) -> {
 			if(a < b)
 				return c -> a + b + c;

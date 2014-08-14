@@ -13,5 +13,6 @@ public interface Tests {
 		"generics/constructor01",
 		"type/conditional_expr02",
 		"type/ambiguous_01f",
+		"type/ambiguous_03f",
 	};
 }

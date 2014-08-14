@@ -20,10 +20,9 @@ public class TestJava6 {
 	static {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
-		properties.exclude("mult");
 		properties.exclude("jsr334");
 		properties.exclude("jsr335");
-		properties.exclude("generics/constructor01", "type/conditional_expr02");
+		properties.exclude(Tests.FAILING);
 	}
 
 	private final String testDir;

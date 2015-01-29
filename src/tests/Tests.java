@@ -1,4 +1,4 @@
-package tests.jastaddj;
+package tests;
 
 /**
  * Default test sets.
@@ -13,5 +13,19 @@ public interface Tests {
 		"type/conditional_expr02",
 		"type/ambiguous_01f",
 		"type/ambiguous_03f",
+	};
+
+	/**
+ 	 * Java 7 tests
+ 	 */
+	String[] JAVA7 = {
+		"jsr334"
+	};
+
+	/**
+ 	 * Java 8 tests
+ 	 */
+	String[] JAVA8 = {
+		"jsr335"
 	};
 }

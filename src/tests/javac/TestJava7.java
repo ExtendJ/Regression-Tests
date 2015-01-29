@@ -19,11 +19,10 @@ public class TestJava7 {
 	private static final TestProperties properties = new TestProperties();
 	static {
 		properties.setProperty("compiler", "javac");
-		properties.exclude("mult");
 		properties.exclude("pretty-print");
 		properties.exclude("jastaddj");
-		properties.exclude("jsr335");
-		properties.exclude("generics/constructor01", "type/conditional_expr02");
+		properties.exclude(tests.Tests.JAVA8);
+		properties.exclude(tests.Tests.FAILING);
 	}
 
 	private final String testDir;

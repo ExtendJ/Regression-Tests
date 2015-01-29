@@ -20,8 +20,8 @@ public class TestJava7 {
 	static {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
-		properties.exclude("jsr335");
-		properties.exclude(Tests.FAILING);
+		properties.exclude(tests.Tests.JAVA8);
+		properties.exclude(tests.Tests.FAILING);
 	}
 
 	private final String testDir;

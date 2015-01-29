@@ -230,8 +230,19 @@ public class TestRunner {
 			}
 			compileSources(config, sourceFiles);
 		} else {
-			Collection<String> sourceFiles = collectSourceFiles(config.tmpDir);
-			sourceFiles.addAll(collectSourceFiles(config.testDir));
+			String sources = props.getProperty("sources", "");
+			Collection<String> sourceFiles;
+			if (sources.isEmpty()) {
+				sourceFiles = collectSourceFiles(config.tmpDir);
+				sourceFiles.addAll(collectSourceFiles(config.testDir));
+			} else {
+				sourceFiles = new LinkedList<String>();
+				// use source list from test properties
+				for (String sourceFile: sources.split(",")) {
+					sourceFile = sourceFile.replace('/', File.separatorChar);
+					sourceFiles.add(config.testDir.getPath() + File.separator + sourceFile);
+				}
+			}
 			compileSources(config, sourceFiles);
 		}
 	}
@@ -252,6 +263,15 @@ public class TestRunner {
 			classpath += File.pathSeparator + addClasspath;
 		}
 		args.add(classpath);
+
+		String sourcepath = config.testProperties.getProperty("sourcepath", "").trim();
+		if (!sourcepath.isEmpty()) {
+			args.add("-sourcepath");
+			sourcepath = sourcepath.replaceAll("@TEST_DIR@", config.testDir.getPath());
+			sourcepath = sourcepath.replaceAll("@TMP_DIR@", config.tmpDir.getPath());
+			sourcepath = sourcepath.replaceAll("@TEMP_DIR@", config.tmpDir.getPath());
+			args.add(sourcepath);
+		}
 
 		String options = config.testProperties.getProperty("options", "").trim();
 		if (!options.isEmpty()) {

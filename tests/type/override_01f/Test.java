@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 class A {
 	void m() { }
 }

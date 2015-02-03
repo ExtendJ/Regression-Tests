@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 interface I {
 	void m(int i);
 }

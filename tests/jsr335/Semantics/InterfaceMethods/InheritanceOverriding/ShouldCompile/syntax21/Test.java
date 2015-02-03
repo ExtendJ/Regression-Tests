@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	interface A {
 		default void m(int i) { System.out.println("" + i + 1); }

@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 

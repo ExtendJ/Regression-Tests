@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 class SS {
 	public SS(Object o) {
 	}

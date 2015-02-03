@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 class A {
 	void m(float f) { }
 }

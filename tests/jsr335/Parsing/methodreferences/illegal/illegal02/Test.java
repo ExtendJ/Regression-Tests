@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.util.concurrent.Callable;
 
 public class Test {

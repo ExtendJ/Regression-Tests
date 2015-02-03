@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.io.FileReader;
 
 public class Test {

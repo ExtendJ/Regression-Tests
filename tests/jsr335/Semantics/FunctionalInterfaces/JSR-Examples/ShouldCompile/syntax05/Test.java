@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 import java.util.ArrayList;
 import java.util.List;
 

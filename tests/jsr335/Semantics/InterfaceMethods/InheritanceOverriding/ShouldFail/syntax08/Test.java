@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 public class Test {
 	
 	interface B {

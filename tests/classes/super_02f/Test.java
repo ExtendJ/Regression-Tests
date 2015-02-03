@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 class SS {
 	public boolean b;
 	public SS(Object o, boolean b) {

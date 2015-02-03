@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 interface I {
 	Float m(Object o, byte b);
 }

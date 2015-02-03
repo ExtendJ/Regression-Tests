@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 class Test {
 
 	class E1 extends Exception {}

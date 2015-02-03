@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

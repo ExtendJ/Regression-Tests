@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	int    x = 0;
 	int    y = 0xE-x;

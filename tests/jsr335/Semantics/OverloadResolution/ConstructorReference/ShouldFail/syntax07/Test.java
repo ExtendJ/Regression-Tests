@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import static runtime.Test.testTrue;
 
 import java.util.*;

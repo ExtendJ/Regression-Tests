@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 import java.io.*;
 
 public class Test {

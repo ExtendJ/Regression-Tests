@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 
 @interface annot {
 	String[][] names();

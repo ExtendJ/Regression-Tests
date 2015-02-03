@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	float  _01 = 0x0.p0f;
 	double _02 = 0x0P-010;

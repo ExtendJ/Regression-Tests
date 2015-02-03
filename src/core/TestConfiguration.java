@@ -19,13 +19,12 @@ public class TestConfiguration {
 	protected final boolean verbose;
 
 	/**
-	 *
 	 * @param testName
 	 * @param testSuiteProperties
 	 */
 	public TestConfiguration(String testName, Properties testSuiteProperties) {
 		testDir = new File(Util.TEST_ROOT, testName);
-		testProperties = Util.getProperties(new File(testDir, "Test.properties"));
+		testProperties = Util.getTestProperties(testDir);
 		expected = getExpectedResult(testProperties);
 		tmpDir = setupTemporaryDirectory(testName);
 

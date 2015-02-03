@@ -1,3 +1,5 @@
+// .result=COMPILE_OUTPUT
+// .options=XstructuredPrint
 
 public interface Test {
 	public default static int addNbr(int nbr) {

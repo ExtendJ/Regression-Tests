@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 class SS {
 	public SS(Object o) {
 	}

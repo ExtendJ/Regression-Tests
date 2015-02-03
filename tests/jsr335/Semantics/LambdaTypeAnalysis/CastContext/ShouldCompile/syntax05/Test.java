@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	public interface TestInterface {
 		public String functMethod(int a, String b); 

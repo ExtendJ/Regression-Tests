@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 
 //Taken from the JSR335 part 15.28.1
 class C {

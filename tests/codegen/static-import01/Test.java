@@ -1,3 +1,7 @@
+// .result=EXEC_PASS
+// .
+// .classpath=@TEST_DIR@
+// .compile_order=Test.java
 import static p1.A.*;
 import static p2.B.m2;
 

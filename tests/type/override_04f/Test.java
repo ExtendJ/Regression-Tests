@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 abstract class A {
 	abstract void m();
 }

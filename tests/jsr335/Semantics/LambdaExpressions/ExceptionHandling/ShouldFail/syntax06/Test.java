@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;

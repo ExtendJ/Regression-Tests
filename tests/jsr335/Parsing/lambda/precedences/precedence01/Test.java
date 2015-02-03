@@ -1,3 +1,5 @@
+// .result=COMPILE_OUTPUT
+// .options=XstructuredPrint
 public class Test {
 	public static void main(String[] args) {
 		Integer[] a;

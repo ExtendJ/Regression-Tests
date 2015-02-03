@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	public interface TestInterface<T> {
 		public T functMethod(Integer a); 

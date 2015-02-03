@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.io.*;
 
 // Taken from JSR335, part A

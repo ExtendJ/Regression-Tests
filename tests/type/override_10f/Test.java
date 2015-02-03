@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 interface Test {
 	// multiple declaration with same signature is not permitted within the
 	// same interface

@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	public interface A {
 		void m();

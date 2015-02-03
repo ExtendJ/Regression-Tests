@@ -1,3 +1,4 @@
+// .result=COMPILE_PASS
 public class Test {
 	static class A {
 	}

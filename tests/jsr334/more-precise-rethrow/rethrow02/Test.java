@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 class Test {
 
 	class E1 extends Exception {}

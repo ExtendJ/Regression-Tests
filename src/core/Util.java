@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Utility methods for JastAdd testing
@@ -159,7 +161,7 @@ public class Util {
 	 * @param propertiesFile
 	 * @return The properties loaded from the given file
 	 */
-	public static TestProperties getProperties(File propertiesFile) {
+	private static TestProperties getProperties(File propertiesFile) {
 		TestProperties properties = new TestProperties();
 		try {
 			FileInputStream in = new FileInputStream(propertiesFile);
@@ -170,5 +172,57 @@ public class Util {
 			e.printStackTrace();
 		}
 		return properties;
+	}
+
+	/**
+	 * @param sourceFile
+	 * @return Test configuration loaded from comments
+	 */
+	private static TestProperties readPropertyComments(File sourceFile) {
+		TestProperties properties = new TestProperties();
+		try {
+			Scanner scanner = new Scanner(new FileInputStream(sourceFile));
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				if (line.startsWith("//")) {
+					int index = line.indexOf('.');
+					if (index == 2 || index == 3) {
+						// this is a property definition
+						String property = line.substring(index+1).trim();
+						if (!property.isEmpty()) {
+							properties.load(new StringReader(property));
+						}
+					}
+				} else {
+					break;
+				}
+			}
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return properties;
+	}
+
+	/**
+	 * Try to read the Test.properties file, if that fails read properties from
+	 * Test.java comments.
+	 * @param testDir
+	 * @return test properties
+	 */
+	public static TestProperties getTestProperties(File testDir) {
+		File propertiesFile = new File(testDir, "Test.properties");
+		if (propertiesFile.isFile()) {
+			// read test config from the .properties file
+			return Util.getProperties(propertiesFile);
+		} else {
+			File sourceFile = new File(testDir, "Test.java");
+			if (sourceFile.isFile()) {
+				// read test config from the .java file
+				return Util.readPropertyComments(sourceFile);
+			} else {
+				return new TestProperties();
+			}
+		}
 	}
 }

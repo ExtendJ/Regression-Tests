@@ -1,3 +1,4 @@
+// .result=COMPILE_FAIL
 import java.io.EOFException;
 import java.io.IOException;
 

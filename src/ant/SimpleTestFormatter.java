@@ -23,6 +23,7 @@ public class SimpleTestFormatter implements JUnitResultFormatter {
 	private int numFail = 0;
 	private int numErr = 0;
 	private final Set<Test> failed = new HashSet<Test>();
+	private static final boolean verbose = System.getProperty("verbose", "").equals("true");
 
 	@Override
 	public void addError(Test test, Throwable error) {
@@ -42,7 +43,7 @@ public class SimpleTestFormatter implements JUnitResultFormatter {
 
 	@Override
 	public void endTest(Test test) {
-		if (!failed.contains(test)) {
+		if (verbose && !failed.contains(test)) {
 			logResult(test, "PASS");
 		}
 	}

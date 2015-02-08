@@ -1,6 +1,6 @@
 // .result=COMPILE_FAIL
 abstract class A {
-	abstract void m();
+	abstract public void m();
 }
 
 interface I {
@@ -8,7 +8,7 @@ interface I {
 }
 
 public class Test extends A implements I {
-	int m() {
+	public int m() {
 		return 0;
 	}
 }

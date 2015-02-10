@@ -1,3 +1,5 @@
+// Test for definite unassignedness bug
+// https://bitbucket.org/jastadd/jastaddj/issue/51/definite-un-assignedness-for-assignment
 // .result=COMPILE_FAIL
 public class Test {
 	public void m() {

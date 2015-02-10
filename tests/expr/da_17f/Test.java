@@ -1,3 +1,5 @@
+// Test for definite unassignedness bug
+// https://bitbucket.org/jastadd/jastaddj/issue/52/methodaccess-lacks-definite-un
 // .result=COMPILE_FAIL
 public class Test {
 	public static void foo(int a) {

@@ -113,6 +113,7 @@ Each test can be configured to halt at any of the above steps by using the
 * `COMPILE_FAIL` = The generated code fails to compile
 * `COMPILE_PASS` = The generated code compiles without error
 * `COMPILE_OUTPUT` = The compiler generated the expected output
+* `COMPILE_ERR_OUTPUT` = The compiler generated the expected error message
 * `EXEC_FAIL`    = The compiled code returns with non-zero exit status when
   executed and prints nothing on standard error
 * `EXEC_PASS`    = The compiled code returns with zero exit status when

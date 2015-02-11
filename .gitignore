@@ -4,6 +4,7 @@
 /tmp
 /export.sh
 /draft
+/gentest.groovy
 
 # vim swap files
 *.swp

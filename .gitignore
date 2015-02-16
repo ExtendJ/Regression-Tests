@@ -6,5 +6,8 @@
 /draft
 /gentest.groovy
 
+# generated documentation
+/index.html
+
 # vim swap files
 *.swp

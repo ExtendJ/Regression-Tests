@@ -13,6 +13,9 @@ public interface Tests {
 		"type/conditional_expr02",
 		"type/ambiguous_01f",
 		"type/ambiguous_03f",
+		"enum/final_07f",
+		"enum/final_09f",
+		"generics/override_02f",
 	};
 
 	/**

@@ -8,7 +8,7 @@ interface I {
 }
 
 public class Test extends A implements I {
-	public int m() {
+	public int m() {// conflicts with A.m()
 		return 0;
 	}
 }

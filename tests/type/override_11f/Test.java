@@ -8,4 +8,5 @@ interface J {
 }
 
 abstract class Test implements I, J {
+	// incompatible return types for abstract methods
 }

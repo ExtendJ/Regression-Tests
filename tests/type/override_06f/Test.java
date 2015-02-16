@@ -8,4 +8,5 @@ interface J {
 }
 
 interface Test extends I, J {
+	// I.m() conflicts with J.m()
 }

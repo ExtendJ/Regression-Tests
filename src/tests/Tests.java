@@ -15,7 +15,6 @@ public interface Tests {
 		"type/ambiguous_03f",
 		"enum/final_07f",
 		"enum/final_09f",
-		"generics/override_02f",
 	};
 
 	/**

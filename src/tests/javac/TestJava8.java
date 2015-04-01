@@ -21,7 +21,8 @@ public class TestJava8 {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("pretty-print");
 		properties.exclude("jastaddj");
-		//properties.exclude("jsr335/Parsing");
+
+		properties.exclude("jsr335/Parsing");
 		//properties.exclude("jsr335/Semantics/LambdaExpressions/ReservedKeyword");
 		properties.exclude(tests.Tests.FAILING);
 	}

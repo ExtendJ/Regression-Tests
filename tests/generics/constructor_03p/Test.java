@@ -1,7 +1,7 @@
 // Tests JastAddJ bug discovered by Erik Hogeman.
 // Test case provided by Erik.
 // See bitbucket issue #74
-// .result=COMPILE_FAIL
+// .result=COMPILE_PASS
 public class Test {
         public class B {
                 public B(int i) { }

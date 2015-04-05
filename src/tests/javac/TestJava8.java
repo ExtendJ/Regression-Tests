@@ -25,6 +25,7 @@ public class TestJava8 {
 		properties.exclude("jsr335/Parsing");
 		//properties.exclude("jsr335/Semantics/LambdaExpressions/ReservedKeyword");
 		properties.exclude(tests.Tests.FAILING);
+		properties.exclude(tests.Tests.EXCLUDE_JAVA8);
 	}
 
 	private final String testDir;

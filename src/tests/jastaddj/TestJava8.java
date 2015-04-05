@@ -21,6 +21,7 @@ public class TestJava8 {
 		properties.setProperty("compiler", "jastaddj");
 		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
 		properties.exclude(tests.Tests.FAILING);
+		properties.exclude(tests.Tests.EXCLUDE_JAVA8);
 	}
 
 	private final String testDir;

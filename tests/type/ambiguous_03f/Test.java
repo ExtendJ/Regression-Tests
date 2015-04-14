@@ -1,10 +1,10 @@
-// .result=COMPILE_FAIL
+// .result=COMPILE_PASS
 import pkg.*;
 
 class Test {
 	A a;
 }
 
-// ambiguous type - conflicts with import
+// no conflict with import
 class A {
 }

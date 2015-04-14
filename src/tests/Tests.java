@@ -12,7 +12,6 @@ public interface Tests {
 		"generics/constructor_01f",
 		"type/conditional_expr02",
 		"type/ambiguous_01f",
-		"type/ambiguous_03f",
 		"enum/final_07f",
 		"enum/final_09f",
 	};

@@ -1,10 +1,8 @@
-JJTest
-======
+ExtendJ Regression Tests
+========================
 
-This project tests the JastAddJ and javac java compilers.
-
-**Note:** This README was copied from JastAddTest (the ancestor of this
-project), so some things are not completely up-to-date with JJTest.
+This project contains regression tests for the ExtendJ Java compiler. The tests
+can be verified against javac.
 
 Quick Start
 -----------
@@ -122,5 +120,3 @@ Each test can be configured to halt at any of the above steps by using the
   expected output (expected output is found in the `output.expected` file)
 
 By default the test will have the expected result `EXEC_PASS`.
-
-

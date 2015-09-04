@@ -122,19 +122,12 @@ public class ExtendJCompiler extends Compiler {
 		System.setOut(out);
 		System.setErr(err);
 
-		int exitValue = 1;
-		// Warning: Lots of bad reflection Voodoo!
 		try {
-			// The only way we can access the ExtendJ JavaCompiler class is
-			// using reflection (since it lies in the default package in older versions).
-			Class<?> jjMain = Class.forName("JavaCompiler");
+			Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler");
 			Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
 
-			// The method is not accessible, so we trick the JVM to think it is!
-			compile.setAccessible(true);
-
 			boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
-			exitValue = result ? 0 : 1;
+			return result ? 0 : 1;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,6 +152,6 @@ public class ExtendJCompiler extends Compiler {
 		System.setOut(stdout);
 		System.setErr(stderr);
 
-		return exitValue;
+		return 1;
 	}
 }

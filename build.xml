@@ -13,7 +13,7 @@ Test Properties:
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
 </description>
-	<property name="extendj.jar" value=""/>
+	<property name="extendj.jar" location="extendj.jar" />
 	<property name="includes" value=""/>
 	<property name="excludes" value=""/>
 	<property name="test" value=""/>
@@ -59,7 +59,7 @@ suites using -Dproperty=value
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-				<pathelement location="lib/JavaCompiler.jar"/>
+				<pathelement path="${extendj.jar}"/>
 			</classpath>
 			<test name="tests.javac.TestJava7" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
@@ -80,7 +80,7 @@ suites using -Dproperty=value
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-				<pathelement location="lib/JavaCompiler.jar"/>
+				<pathelement path="${extendj.jar}"/>
 			</classpath>
 			<test name="tests.javac.TestJava8" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
@@ -101,7 +101,7 @@ suites using -Dproperty=value
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-				<pathelement location="lib/JavaCompiler.jar"/>
+				<pathelement path="${extendj.jar}"/>
 			</classpath>
 			<test name="tests.extendj.TestJava6" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
@@ -122,7 +122,7 @@ suites using -Dproperty=value
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-				<pathelement location="lib/JavaCompiler.jar"/>
+				<pathelement path="${extendj.jar}"/>
 			</classpath>
 			<test name="tests.extendj.TestJava7" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
@@ -143,7 +143,7 @@ suites using -Dproperty=value
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
-				<pathelement location="lib/JavaCompiler.jar"/>
+				<pathelement path="${extendj.jar}"/>
 			</classpath>
 			<test name="tests.extendj.TestJava8" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>

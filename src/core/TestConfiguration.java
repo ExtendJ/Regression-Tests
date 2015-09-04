@@ -44,7 +44,7 @@ public class TestConfiguration {
 	private static Compiler getCompiler(Properties props) {
 		if (props.getProperty("compiler").equals("extendj")) {
 			// Compile with ExtendJ.
-			return new ExtendJCompiler(props.getProperty("extendj.jar"), true);
+			return new ExtendJCompiler(props.getProperty("extendj.jar"), false);
 		} else {
 			// Compile with javac.
 			return new JavacCompiler(false);

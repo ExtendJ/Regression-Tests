@@ -122,7 +122,7 @@ public class TestRunner {
 	}
 
 	/**
-	 * <p>Reads an entire file to a string object.
+	 * Reads an entire file to a string object.
 	 *
 	 * <p>If the file does not exist an empty string is returned.
 	 *
@@ -147,12 +147,11 @@ public class TestRunner {
 	}
 
 	/**
-	 * Run the compiled test program
+	 * Run the compiled test program.
 	 * @param props
 	 * @param tmpDir
 	 * @param testDir
 	 * @param expected
-	 * @return The standard error content
 	 */
 	private static void executeCode(Properties props, File tmpDir,
 			File testDir, Result expected) {
@@ -344,8 +343,6 @@ public class TestRunner {
 
 	/**
 	 * Collect all source file names in the test directory
-	 * @param dir
-	 * @return
 	 */
 	private static Collection<String> collectSourceFiles(File dir) {
 		Collection<String> sourceFiles = new LinkedList<String>();

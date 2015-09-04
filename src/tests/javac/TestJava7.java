@@ -10,7 +10,7 @@ import core.TestRunner;
 import core.Util;
 
 /**
- * A parameterized Junit test to test JastAdd 2 & 3
+ * A parameterized Junit test to test Javac.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)
@@ -20,7 +20,7 @@ public class TestJava7 {
 	static {
 		properties.setProperty("compiler", "javac");
 		properties.exclude("pretty-print");
-		properties.exclude("jastaddj");
+		properties.exclude("extendj");
 		properties.exclude(tests.Tests.JAVA8);
 		properties.exclude(tests.Tests.FAILING);
 	}

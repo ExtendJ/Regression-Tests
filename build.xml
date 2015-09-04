@@ -1,19 +1,19 @@
-<project name="JastAddTest" default="test">
-	<description>Test JastAddJ
+<project name="JastAddTest" default="java7">
+	<description>Regression tests for ExtendJ
 
 Test Properties:
-    jastaddj.jar    the path to the JastAddJ jar file to test
+    extendj.jar     the path to the ExtendJ jar file to test
     includes        comma separated list of included test directories
     excludes        comma separated list of excluded test directories
     test            comma separated list of test directories (overrides
                     the includes and excludes properties)
-    compiler        the compiler to test (jastaddj or javac)
+    compiler        the compiler to test (extendj or javac)
     verbose         set to "true" to get verbose output
 
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
 </description>
-	<property name="jastaddj.jar" value=""/>
+	<property name="extendj.jar" value=""/>
 	<property name="includes" value=""/>
 	<property name="excludes" value=""/>
 	<property name="test" value=""/>
@@ -46,10 +46,10 @@ suites using -Dproperty=value
 	<property name="test-src.dir" location="src/tests"/>
 	<property name="test-reports.dir" location="test-reports"/>
 
-	<target name="test-javac" depends="build" description="run Javac tests for Java 7">
+	<target name="java7-javac" depends="build" description="run Javac tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
-			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
@@ -67,10 +67,10 @@ suites using -Dproperty=value
 		</junit>
 	</target>
 	
-	<target name="test-javac8" depends="build" description="run Javac tests for Java 7">
+	<target name="java8-javac" depends="build" description="run Javac tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
-			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
@@ -88,10 +88,10 @@ suites using -Dproperty=value
 		</junit>
 	</target>
 	
-	<target name="test-jj6" depends="build" description="run JastAddJ tests for Java 7">
+	<target name="java6" depends="build" description="Run ExtendJ tests for Java 6">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
-			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
@@ -103,16 +103,16 @@ suites using -Dproperty=value
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
 				<pathelement location="lib/JavaCompiler.jar"/>
 			</classpath>
-			<test name="tests.jastaddj.TestJava6" todir="${test-reports.dir}"/>
+			<test name="tests.extendj.TestJava6" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
 	
-	<target name="test" depends="build" description="run JastAddJ tests for Java 7">
+	<target name="java7" depends="build" description="Run ExtendJ tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
-			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
@@ -124,16 +124,16 @@ suites using -Dproperty=value
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
 				<pathelement location="lib/JavaCompiler.jar"/>
 			</classpath>
-			<test name="tests.jastaddj.TestJava7" todir="${test-reports.dir}"/>
+			<test name="tests.extendj.TestJava7" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
 	
-	<target name="test-java8" depends="build" description="run JastAddJ Java 8 tests">
+	<target name="java8" depends="build" description="Run ExtendJ tests for Java 8">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
-			<sysproperty key="jastaddj.jar" value="${jastaddj.jar}"/>
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
 			<sysproperty key="includes" value="${includes}"/>
 			<sysproperty key="test" value="${test}"/>
 			<sysproperty key="excludes" value="${excludes}"/>
@@ -145,7 +145,7 @@ suites using -Dproperty=value
 				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
 				<pathelement location="lib/JavaCompiler.jar"/>
 			</classpath>
-			<test name="tests.jastaddj.TestJava8" todir="${test-reports.dir}"/>
+			<test name="tests.extendj.TestJava8" todir="${test-reports.dir}"/>
 			<formatter type="xml"/>
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>

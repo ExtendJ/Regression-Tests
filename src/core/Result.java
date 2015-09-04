@@ -1,7 +1,7 @@
 package core;
 
 /**
- * Expected test result for JastAddJ test.
+ * Expected test result for a test.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public enum Result {

@@ -1,4 +1,4 @@
-package tests.jastaddj;
+package tests.extendj;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,17 +10,16 @@ import core.TestRunner;
 import core.Util;
 
 /**
- * A parameterized Junit test to test JastAddJ
+ * A parameterized Junit test to test ExtendJ.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)
-public class TestJava6 {
+public class TestJava7 {
 
 	private static final TestProperties properties = new TestProperties();
 	static {
-		properties.setProperty("compiler", "jastaddj");
-		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
-		properties.exclude(tests.Tests.JAVA7);
+		properties.setProperty("compiler", "extendj");
+		properties.setProperty("extendj.jar", "extendj.jar"); // Default to local compiler Jar.
 		properties.exclude(tests.Tests.JAVA8);
 		properties.exclude(tests.Tests.FAILING);
 	}
@@ -31,7 +30,7 @@ public class TestJava6 {
 	 * Construct a new JastAdd test
 	 * @param testDir The base directory for the test
 	 */
-	public TestJava6(String testDir) {
+	public TestJava7(String testDir) {
 		this.testDir = testDir;
 	}
 

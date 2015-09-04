@@ -1,10 +1,8 @@
 package core;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -17,21 +15,21 @@ import java.util.Scanner;
 //import org.jastadd.jastaddj.JavaCompiler;
 
 /**
- * JastAddJ
+ * ExtendJ compiler runner.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
-public class JastAddJCompiler extends Compiler {
+public class ExtendJCompiler extends Compiler {
 
 	private final boolean newVM;
 	private final String jarPath;
 
 	/**
 	 * Constructor
-	 * @param jarPath Path to the JastAddJ jar
+	 * @param jarPath Path to the ExtendJ jar
 	 * @param newVM
 	 */
-	public JastAddJCompiler(String jarPath, boolean newVM) {
-		super("jastaddj", jarPath);
+	public ExtendJCompiler(String jarPath, boolean newVM) {
+		super("extendj", jarPath);
 
 		this.newVM = newVM;
 		this.jarPath = jarPath;
@@ -45,7 +43,7 @@ public class JastAddJCompiler extends Compiler {
 	}
 
 	/**
-	 * Invoke JastAddJ using reflection (in order to access main class in
+	 * Invoke ExtendJ using reflection (in order to access main class in
 	 * default package)
 	 *
 	 * @param arguments
@@ -85,8 +83,8 @@ public class JastAddJCompiler extends Compiler {
 					}
 				}.start();
 
-				// some versions of JastAddJ print error messages on stdout
-				// and do not return a nozero exit code on error
+				// Some versions of ExtendJ print error messages on stdout
+				// and do not return a nozero exit code on error.
 				final Collection<String> stdoutErrors = new LinkedList<String>();
 				new Thread() {
 					@Override
@@ -102,8 +100,11 @@ public class JastAddJCompiler extends Compiler {
 					}
 				}.start();
 				int exitValue = p.waitFor();
-				if (!stdoutErrors.isEmpty() || !stderrErrors.isEmpty()) return 1;
-				else return exitValue;
+				if (!stdoutErrors.isEmpty() || !stderrErrors.isEmpty()) {
+          return 1;
+				} else {
+          return exitValue;
+        }
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,8 +125,8 @@ public class JastAddJCompiler extends Compiler {
 		int exitValue = 1;
 		// Warning: Lots of bad reflection Voodoo!
 		try {
-			// The only way we can access the JastAddJ JavaCompiler class is
-			// using reflection (since it lies in the default package)
+			// The only way we can access the ExtendJ JavaCompiler class is
+			// using reflection (since it lies in the default package in older versions).
 			Class<?> jjMain = Class.forName("JavaCompiler");
 			Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
 

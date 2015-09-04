@@ -31,10 +31,9 @@ public class TestConfiguration {
 		verbose = testProperties.getProperty("verbose", "").equals("true");
 
 		// set up compiler option
-		testProperties.setProperty("compiler",
-			testSuiteProperties.getProperty("compiler", "jastaddj"));
-		testProperties.setProperty("jastaddj.jar",
-			testSuiteProperties.getProperty("jastaddj.jar", "lib/JavaCompiler.jar"));
+		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "extendj"));
+		testProperties.setProperty("extendj.jar",
+			  testSuiteProperties.getProperty("extendj.jar", "lib/JavaCompiler.jar"));
 		compiler = getCompiler(testProperties);
 	}
 
@@ -43,11 +42,11 @@ public class TestConfiguration {
 	 * @return compiler configuration
 	 */
 	private static Compiler getCompiler(Properties props) {
-		if (props.getProperty("compiler").equals("jastaddj")) {
-			// compile with jastaddj
-			return new JastAddJCompiler(props.getProperty("jastaddj.jar"), true);
+		if (props.getProperty("compiler").equals("extendj")) {
+			// Compile with ExtendJ.
+			return new ExtendJCompiler(props.getProperty("extendj.jar"), true);
 		} else {
-			// compile with javac
+			// Compile with javac.
 			return new JavacCompiler(false);
 		}
 	}

@@ -1,4 +1,4 @@
-package tests.jastaddj;
+package tests.extendj;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,7 @@ import core.TestRunner;
 import core.Util;
 
 /**
- * A parameterized Junit test to test JastAdd 2 & 3
+ * A parameterized Junit test to test ExtendJ.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 @RunWith(Parameterized.class)
@@ -18,8 +18,8 @@ public class TestJava8 {
 
 	private static final TestProperties properties = new TestProperties();
 	static {
-		properties.setProperty("compiler", "jastaddj");
-		properties.setProperty("jastaddj.jar", "jastaddj.jar");// local jastaddj.jar
+		properties.setProperty("compiler", "extendj");
+		properties.setProperty("extendj.jar", "extendj.jar"); // Default to local compiler Jar.
 		properties.exclude(tests.Tests.FAILING);
 		properties.exclude(tests.Tests.EXCLUDE_JAVA8);
 	}

@@ -107,7 +107,6 @@ public class Util {
 			if (ni >= name.length) {
 				return patternMatch(name, ni, pattern, pi+1);
 			} else {
-				char n = name[ni];
 				return patternMatch(name, ni+1, pattern, pi) || patternMatch(name, ni+1, pattern, pi+1);
 			}
 		} else {

@@ -16,30 +16,30 @@ import javax.tools.ToolProvider;
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class JavacCompiler extends Compiler {
-	
-	private boolean newVM;
+
+	private final boolean newVM;
 
 	/**
 	 * Constructor
-	 * @param newVM 
+	 * @param newVM
 	 */
 	public JavacCompiler(boolean newVM) {
 		super("javac", getVersion());
-		
+
 		this.newVM = newVM;
 	}
-	
+
 	@Override
 	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-		
+
 		String[] args = new String[arguments.length + 1];
 		System.arraycopy(arguments, 0, args, 0, arguments.length);
 		args[args.length-1] = "-Xlint:none";
-		
+
 		InputStream in = new ByteArrayInputStream(new byte[0]);
 		return invoke(args, in, out, err);
 	}
-	
+
 	/**
 	 * @param arguments
 	 * @param in
@@ -49,7 +49,7 @@ public class JavacCompiler extends Compiler {
 	 */
 	public int invoke(String[] arguments, InputStream in,
 			final OutputStream out, final OutputStream err) {
-		
+
 		if (newVM) {
 			StringBuffer cmd = new StringBuffer();
 			// TODO build the jar file
@@ -86,6 +86,7 @@ public class JavacCompiler extends Compiler {
 				int exitValue = p.waitFor();
 				outThread.join();
 				errThread.join();
+				return exitValue;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,7 +96,7 @@ public class JavacCompiler extends Compiler {
 			}
 			return 1;
 		}
-		
+
 		PrintStream stdout = System.out;
 		try {
 			System.setOut(new PrintStream(out));
@@ -105,9 +106,9 @@ public class JavacCompiler extends Compiler {
 		} finally {
 			System.setOut(stdout);
 		}
-		
+
 	}
-	
+
 	/**
 	 * @return The version of this compiler
 	 */

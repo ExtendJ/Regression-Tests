@@ -32,6 +32,6 @@ public interface Tests {
  	 * Tests that should be excluded for Java 8
  	 */
 	String[] EXCLUDE_JAVA8 = {
-		"jsr334/diamond/jsr334-type-inference-8"
+		"jsr334/diamond/diamond_18"
 	};
 }

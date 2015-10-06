@@ -152,7 +152,7 @@ public class TestRunner {
 		}
 		in.close();
 		out.close();
-		return out.toString().replace(SYS_LINE_SEP, "\n").trim();
+		return out.toString("UTF-8").replace(SYS_LINE_SEP, "\n").trim();
 	}
 
 	/**

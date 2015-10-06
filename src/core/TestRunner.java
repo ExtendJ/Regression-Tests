@@ -84,12 +84,13 @@ public class TestRunner {
 	private static File expectedCompileErrorOutput(File testDir) {
 		boolean windows = System.getProperty("os.name").startsWith("Windows");
 		if (windows) {
-			// first try .win file
+			// First try opening .win file.
 			File file = new File(testDir, "compile.err.expected.win");
-			if (file.isFile())
+			if (file.isFile()) {
 				return file;
+      }
 		}
-		// default file:
+		// Open default file.
 		return new File(testDir, "compile.err.expected");
 	}
 

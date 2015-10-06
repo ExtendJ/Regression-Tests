@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -134,17 +135,24 @@ public class TestRunner {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private static String readFileToString(File file) throws FileNotFoundException {
+	private static String readFileToString(File file) throws IOException {
 		if (!file.isFile()) {
 			return "";
 		}
 
-		Scanner scanner = new Scanner(file);
-		scanner.useDelimiter("\\Z");
-		String theString = scanner.hasNext() ? scanner.next() : "";
-		theString = theString.replace(SYS_LINE_SEP, "\n").trim();
-		scanner.close();
-		return theString;
+		FileInputStream in = new FileInputStream(file);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		byte[] buffer = new byte[4096];
+		while (true) {
+			int size = in.read(buffer);
+			if (size == -1) {
+				break;
+			}
+			out.write(buffer, 0, size);
+		}
+		in.close();
+		out.close();
+		return out.toString().replace(SYS_LINE_SEP, "\n").trim();
 	}
 
 	/**

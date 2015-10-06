@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
 
 /**
  * Utility methods for running JastAdd unit tests.

@@ -8,6 +8,7 @@
  * @author Jesper Öqvist
  */
 public class Test {
+  /** This extra documentation comment is ignored. */
   /**
    * Documentation comments should be pretty printed for type declarations and
    * class body declarations.

@@ -1,7 +1,3 @@
-// Test documentation comment pretty printing.
-// .result=COMPILE_OUT
-// .options=XprettyPrint
-
 /**
  * This test checks that documentation comments are pretty printed.
  *

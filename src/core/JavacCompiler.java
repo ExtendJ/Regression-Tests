@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.Arrays;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -31,13 +32,8 @@ public class JavacCompiler extends Compiler {
 
 	@Override
 	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-
-		String[] args = new String[arguments.length + 1];
-		System.arraycopy(arguments, 0, args, 0, arguments.length);
-		args[args.length-1] = "-Xlint:none";
-
 		InputStream in = new ByteArrayInputStream(new byte[0]);
-		return invoke(args, in, out, err);
+		return invoke(arguments, in, out, err);
 	}
 
 	/**
@@ -52,7 +48,7 @@ public class JavacCompiler extends Compiler {
 
 		if (newVM) {
 			StringBuffer cmd = new StringBuffer();
-			// TODO build the jar file
+			// TODO(jesper): build the jar file
 			cmd.append("java -jar tools/javacjar.jar");
 			for (String arg: arguments) {
 				cmd.append(" " + arg);
@@ -101,7 +97,7 @@ public class JavacCompiler extends Compiler {
 		try {
 			System.setOut(new PrintStream(out));
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			// simply setting out as the output stream seems to not work...
+			// TODO(jesper): setting out as the output stream seems to not work...
 			return compiler.run(in, null, err, arguments);
 		} finally {
 			System.setOut(stdout);

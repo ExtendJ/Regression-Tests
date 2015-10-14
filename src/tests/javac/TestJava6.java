@@ -19,6 +19,7 @@ public class TestJava6 {
 	private static final TestProperties properties = new TestProperties();
 	static {
 		properties.setProperty("compiler", "javac");
+		properties.setProperty("extraOptions", "-Xlint:none,-source,1.6,-target,1.6");
 		properties.exclude("pretty-print");
 		properties.exclude("extendj");
 		properties.exclude(tests.Tests.JAVA7);

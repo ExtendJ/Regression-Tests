@@ -37,8 +37,8 @@ public class TestRunner {
 
     Result expected = config.expected;
 
-    // Compile generated code with the selected compiler
-    compileSources(config);
+    // Compile generated code with the selected compiler.
+    compileSources(config, testSuiteProperties.getProperty("extraOptions", "").trim());
 
     if (expected == Result.COMPILE_OUTPUT) {
       compareOutput("compile.out", config.tmpDir, config.testDir);
@@ -51,15 +51,14 @@ public class TestRunner {
     }
 
     if (config.expected == Result.COMPILE_ERR_OUTPUT) {
-      // TODO implement compiler output logging!!
       compareCompileErrOutput(config.tmpDir, config.testDir);
       return;
     }
 
-    // Execute the compiled code
+    // Execute the compiled code.
     executeCode(config.testProperties, config.tmpDir, config.testDir, expected);
 
-    // Compare the output with the expected output
+    // Compare the output with the expected output.
     compareErrorOutput(config.tmpDir, config.testDir);
     compareOutput("out", config.tmpDir, config.testDir);
   }
@@ -207,12 +206,8 @@ public class TestRunner {
 
   /**
    * Compile generated source files.
-   * @param props
-   * @param tmpDir
-   * @param testDir
-   * @param expected
    */
-  private static void compileSources(TestConfiguration config) {
+  private static void compileSources(TestConfiguration config, String extraOptions) {
     Properties props = config.testProperties;
 
     String compileOrder = props.getProperty("compile_order", "");
@@ -223,7 +218,7 @@ public class TestRunner {
         File sourceFile = new File(config.testDir, sourceObj.trim());
         Collection<String> sourceFiles = new LinkedList<String>();
         sourceFiles.add(sourceFile.getPath());
-        compileSources(config, sourceFiles);
+        compileSources(config, sourceFiles, extraOptions);
       }
     } else if (!sourceOrder.isEmpty()) {
       // use custom source order
@@ -232,7 +227,7 @@ public class TestRunner {
         File sourceFile = new File(config.testDir, sourceObj.trim());
         sourceFiles.add(sourceFile.getPath());
       }
-      compileSources(config, sourceFiles);
+      compileSources(config, sourceFiles, extraOptions);
     } else {
       String sources = props.getProperty("sources", "");
       Collection<String> sourceFiles;
@@ -247,11 +242,12 @@ public class TestRunner {
           sourceFiles.add(config.testDir.getPath() + File.separator + sourceFile);
         }
       }
-      compileSources(config, sourceFiles);
+      compileSources(config, sourceFiles, extraOptions);
     }
   }
 
-  private static void compileSources(TestConfiguration config, Collection<String> sourceFiles) {
+  private static void compileSources(TestConfiguration config, Collection<String> sourceFiles,
+      String extraOptions) {
     List<String> args = new ArrayList<String>();
 
     args.add("-d");
@@ -277,9 +273,16 @@ public class TestRunner {
       args.add(sourcepath);
     }
 
+    // Add compiler options from the test suite.
+    if (!extraOptions.isEmpty()) {
+      for (String option : extraOptions.split(",")) {
+        args.add(option);
+      }
+    }
+
+    // Add compiler options from the test configuration.
     String options = config.testProperties.getProperty("options", "").trim();
     if (!options.isEmpty()) {
-      // add compiler options
       for (String option : options.split(",")) {
         args.add("-" + option);
       }

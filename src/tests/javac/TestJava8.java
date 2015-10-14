@@ -19,6 +19,7 @@ public class TestJava8 {
 	private static final TestProperties properties = new TestProperties();
 	static {
 		properties.setProperty("compiler", "javac");
+		properties.setProperty("extraOptions", "-Xlint:none");
 		properties.exclude("pretty-print");
 		properties.exclude("extendj");
 

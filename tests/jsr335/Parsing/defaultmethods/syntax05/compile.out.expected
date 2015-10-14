@@ -1,6 +1,6 @@
 public interface Test {
   public default static int addNbr(int nbr) {
-    switch (nbr){
+    switch (nbr) {
       case 1:
       return (nbr + 1);
       case 2:

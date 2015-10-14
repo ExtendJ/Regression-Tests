@@ -1,8 +1,9 @@
 public class Test {
   public static void main(String[] args) {
-    if ((a & b)) 
+    if ((a & b)) {
       methodCall();
-    else 
+    } else {
       methodCall2();
+    }
   }
 }

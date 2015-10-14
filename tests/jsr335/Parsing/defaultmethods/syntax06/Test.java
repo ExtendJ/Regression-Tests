@@ -1,3 +1,4 @@
+// Tests default methods with switch cases (since there is a potential conflict with the default keyword)
 // .result=COMPILE_OUTPUT
 // .options=XstructuredPrint
 

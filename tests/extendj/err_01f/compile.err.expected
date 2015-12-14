@@ -1,6 +1,2 @@
-Errors:
-tests/extendj/err_01f/A.java:3,16:
-  Semantic Error: no visible type named List
-Errors:
-tests/extendj/err_01f/Test.java:5,26:
-  Semantic Error: no field named arsg is accessible
+tests/extendj/err_01f/A.java:3,16: error: no visible type named List
+tests/extendj/err_01f/Test.java:5,26: error: no field named arsg is accessible

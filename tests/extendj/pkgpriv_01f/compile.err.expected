@@ -1,3 +1,1 @@
-Errors:
-tests/extendj/pkgpriv_01f/Test.java:6,2:
-  Semantic Error: p1.A in Test can not access type p1.A
+tests/extendj/pkgpriv_01f/Test.java:6,2: error: p1.A in Test can not access type p1.A

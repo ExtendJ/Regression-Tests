@@ -1,3 +1,1 @@
-
-	@SafeVarargs may not be used on variable declarations
-
+The @SafeVarargs annotation may not be used on variable declarations.

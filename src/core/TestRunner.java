@@ -158,9 +158,7 @@ public class TestRunner {
    * @param testDir
    * @param expected
    */
-  private static void executeCode(Properties props, File tmpDir,
-      File testDir, Result expected) {
-
+  private static void executeCode(Properties props, File tmpDir, File testDir, Result expected) {
     StringBuffer errors = new StringBuffer();
 
     String classpath = tmpDir.getPath();
@@ -170,7 +168,7 @@ public class TestRunner {
 
     try {
       Process p = Runtime.getRuntime().exec("java -classpath " + classpath + " Test");
-      // write output to file
+      // Write output to file.
       InputStream in = p.getInputStream();
       OutputStream out = new FileOutputStream(new File(tmpDir, "out"));
       InputStream errIn = p.getErrorStream();
@@ -341,13 +339,19 @@ public class TestRunner {
         }
       }
 
-      if (err.size()>0 && config.verbose) {
+      if (err.size() > 0 && config.verbose) {
         System.err.println(err.toString());
       }
     } finally {
-      // close streams
-      try { out.close(); } catch (IOException e) { }
-      try { err.close(); } catch (IOException e) { }
+      // Close streams.
+      try {
+        out.close();
+      } catch (IOException e) {
+      }
+      try {
+        err.close();
+      } catch (IOException e) {
+      }
     }
   }
 

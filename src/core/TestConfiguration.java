@@ -30,7 +30,7 @@ public class TestConfiguration {
 
 		verbose = testProperties.getProperty("verbose", "").equals("true");
 
-		// set up compiler option
+		// Set up compiler option.
 		testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "extendj"));
 		testProperties.setProperty("extendj.jar",
 			  testSuiteProperties.getProperty("extendj.jar", "lib/JavaCompiler.jar"));
@@ -42,9 +42,10 @@ public class TestConfiguration {
 	 * @return compiler configuration
 	 */
 	private static Compiler getCompiler(Properties props) {
-		if (props.getProperty("compiler").equals("extendj")) {
+		if (props.getProperty("compiler", "").equals("extendj")) {
 			// Compile with ExtendJ.
-			return new ExtendJCompiler(props.getProperty("extendj.jar"), false);
+			return new ExtendJCompiler(props.getProperty("extendj.jar"), false,
+          props.getProperty("debug", "").equals("true"));
 		} else {
 			// Compile with javac.
 			return new JavacCompiler(false);

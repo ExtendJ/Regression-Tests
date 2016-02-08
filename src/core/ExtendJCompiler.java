@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class ExtendJCompiler extends Compiler {
 
 	private final boolean newVM;
+  private final boolean debug;
 	private final String jarPath;
 
 	/**
@@ -28,16 +29,16 @@ public class ExtendJCompiler extends Compiler {
 	 * @param jarPath Path to the ExtendJ jar
 	 * @param newVM
 	 */
-	public ExtendJCompiler(String jarPath, boolean newVM) {
+	public ExtendJCompiler(String jarPath, boolean newVM, boolean debug) {
 		super("extendj", jarPath);
 
 		this.newVM = newVM;
+    this.debug = debug;
 		this.jarPath = jarPath;
 	}
 
 	@Override
 	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-
 		InputStream in = new ByteArrayInputStream(new byte[0]);
 		return invoke(arguments, in, out, err);
 	}
@@ -58,10 +59,14 @@ public class ExtendJCompiler extends Compiler {
 		final PrintStream out = new PrintStream(outStream);
 		final PrintStream err = new PrintStream(errStream);
 
-		if (newVM) {
+		if (newVM || debug) {
 			StringBuffer cmd = new StringBuffer();
-			cmd.append("java -Xmx2g -jar " + jarPath);
-			for (String arg: arguments) {
+			cmd.append("java -Xmx2g");
+      if (debug) {
+        cmd.append(" -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
+      }
+      cmd.append(" -jar " + jarPath);
+			for (String arg : arguments) {
 				cmd.append(" " + arg);
 			}
 			try {

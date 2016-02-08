@@ -9,6 +9,7 @@ Test Properties:
                     the includes and excludes properties)
     compiler        the compiler to test (extendj or javac)
     verbose         set to "true" to get verbose output
+    debug           set to "true" to attach debugger for each test
 
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
@@ -19,6 +20,7 @@ suites using -Dproperty=value
 	<property name="test" value=""/>
 	<property name="compiler" value=""/>
 	<property name="verbose" value=""/>
+	<property name="debug" value=""/>
 
 	<target name="build"
 		description="Compile the unit tests">
@@ -55,6 +57,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -76,6 +79,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -97,6 +101,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -118,6 +123,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -139,6 +145,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -160,6 +167,7 @@ suites using -Dproperty=value
 			<sysproperty key="excludes" value="${excludes}"/>
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>

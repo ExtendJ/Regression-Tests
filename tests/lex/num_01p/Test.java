@@ -1,3 +1,4 @@
+// Test integer literal lexing.
 // .result=COMPILE_PASS
 public class Test {
 	int    x = 0;

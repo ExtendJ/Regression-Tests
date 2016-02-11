@@ -92,7 +92,7 @@ public class TestConfiguration {
 		} else if (result.equals("COMPILE_OUT") || result.equals("COMPILE_OUTPUT")) {
 			return Result.COMPILE_OUTPUT;
 		} else {
-			fail("Unknown result option: " + result);
+			fail("Unknown expected result: " + result);
 			return Result.EXEC_PASSED;
 		}
 	}

@@ -5,6 +5,8 @@
 /export.sh
 /draft
 /gentest.groovy
+/build/
+/.gradle/
 
 # generated documentation
 /index.html

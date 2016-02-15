@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+defaultTasks 'test'
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	test {
+		java {
+			srcDirs 'src/core', 'src/tests'
+		}
+	}
+}
+
+dependencies {
+	testCompile 'junit:junit:4.12'
+}
+
+test {
+	include 'tests/extendj/TestJava8.class'
+
+	systemProperties = [
+		'extendj.jar': System.getProperty('extendj.jar', 'extendj.jar'),
+		'includes': System.getProperty('includes', ''),
+		'excludes': System.getProperty('excludes', ''),
+		'test': System.getProperty('test', ''),
+		'debug': System.getProperty('debug', 'false'),
+	]
+}

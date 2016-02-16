@@ -115,8 +115,8 @@ Each test can be configured to halt at any of the above steps by using the
 * `EXEC_FAIL`    = The compiled code returns with non-zero exit status when
   executed and prints nothing on standard error
 * `EXEC_PASS`    = The compiled code returns with zero exit status when
-  executed and prints nothing on standard error
-* `OUTPUT_PASS`  = All previous steps passed, and the output matches the
-  expected output (expected output is found in the `output.expected` file)
+  executed and prints nothing on standard error, and the output matches the
+  `out.expected` file (or is empty if `out.expected` does not exist in
+  the test directory).
 
 By default the test will have the expected result `EXEC_PASS`.

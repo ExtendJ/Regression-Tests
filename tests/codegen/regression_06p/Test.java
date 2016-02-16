@@ -8,7 +8,7 @@ public class Test {
     test(System.out);
   }
 
-  static void test(PrintStream out) {
+  static void test(final PrintStream out) {
     class Local {
       void print(String message) {
         out.println(message);

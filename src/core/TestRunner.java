@@ -166,8 +166,14 @@ public class TestRunner {
       classpath += File.pathSeparator + props.getProperty("classpath");
     }
 
+    String javaOptions = "";
+    if (props.containsKey("javaOptions")) {
+      javaOptions = " " + props.getProperty("javaOptions");
+    }
+
     try {
-      Process p = Runtime.getRuntime().exec("java -classpath " + classpath + " Test");
+      Process p = Runtime.getRuntime().exec("java -classpath " + classpath
+          + javaOptions + " Test");
       // Write output to file.
       InputStream in = p.getInputStream();
       OutputStream out = new FileOutputStream(new File(tmpDir, "out"));

@@ -33,8 +33,15 @@ public class JavacCompiler extends Compiler {
 	@Override
 	public int compile(String[] arguments, OutputStream out, OutputStream err) {
 		InputStream in = new ByteArrayInputStream(new byte[0]);
-		return invoke(arguments, in, out, err);
+		return invoke(addExtraOptions(arguments), in, out, err);
 	}
+
+  protected String[] addExtraOptions(String[] arguments) {
+    String[] result = new String[arguments.length + 1];
+    System.arraycopy(arguments, 0, result, 1, arguments.length);
+    result[0] = "-g";
+    return result;
+  }
 
 	/**
 	 * @param arguments
@@ -50,7 +57,7 @@ public class JavacCompiler extends Compiler {
 			StringBuffer cmd = new StringBuffer();
 			// TODO(jesper): build the jar file
 			cmd.append("java -jar tools/javacjar.jar");
-			for (String arg: arguments) {
+			for (String arg : arguments) {
 				cmd.append(" " + arg);
 			}
 			try {

@@ -13,7 +13,6 @@ public interface Tests {
     "type/conditional_expr02",
     "type/ambiguous_01f",
     "generics/bridge_method_04p",
-    "method/varargs_01p",
   };
 
   /**

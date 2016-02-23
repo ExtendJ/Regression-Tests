@@ -6,7 +6,7 @@ enum E {
 
   int x;
 
-  E(String x) {
-    this.x =x;
+  E(int x) {
+    this.x = x;
   }
 }

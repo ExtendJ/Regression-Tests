@@ -13,6 +13,7 @@ public interface Tests {
     "type/conditional_expr02",
     "type/ambiguous_01f",
     "generics/bridge_method_04p",
+    "pretty-print/enum_02p",
   };
 
   /**

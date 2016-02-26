@@ -1,3 +1,4 @@
+// A static method may not hide an instance method.
 // .result=COMPILE_FAIL
 public class Test {
 	interface A {

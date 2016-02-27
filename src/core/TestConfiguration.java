@@ -44,7 +44,8 @@ public class TestConfiguration {
 	private static Compiler getCompiler(Properties props) {
 		if (props.getProperty("compiler", "").equals("extendj")) {
 			// Compile with ExtendJ.
-			return new ExtendJCompiler(props.getProperty("extendj.jar"), false,
+			return new ExtendJCompiler(props.getProperty("extendj.jar"),
+          props.getProperty("fork", "").equals("true"),
           props.getProperty("debug", "").equals("true"));
 		} else {
 			// Compile with javac.

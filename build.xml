@@ -21,6 +21,7 @@ suites using -Dproperty=value
 	<property name="compiler" value=""/>
 	<property name="verbose" value=""/>
 	<property name="debug" value=""/>
+	<property name="fork" value=""/>
 
 	<target name="build"
 		description="Compile the unit tests">
@@ -58,6 +59,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -80,6 +82,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -124,6 +127,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -146,6 +150,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -168,6 +173,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>

@@ -261,9 +261,9 @@ public class TestRunner {
     String classpath = TEST_FRAMEWORK;
     String addClasspath = config.testProperties.getProperty("classpath", "").trim();
     if (!addClasspath.isEmpty()) {
-      addClasspath = addClasspath.replaceAll("@TEST_DIR@", config.testDir.getPath());
-      addClasspath = addClasspath.replaceAll("@TMP_DIR@", config.tmpDir.getPath());
-      addClasspath = addClasspath.replaceAll("@TEMP_DIR@", config.tmpDir.getPath());
+      addClasspath = addClasspath.replace("@TEST_DIR@", config.testDir.getPath());
+      addClasspath = addClasspath.replace("@TMP_DIR@", config.tmpDir.getPath());
+      addClasspath = addClasspath.replace("@TEMP_DIR@", config.tmpDir.getPath());
       classpath += File.pathSeparator + addClasspath;
     }
     args.add(classpath);
@@ -271,9 +271,9 @@ public class TestRunner {
     String sourcepath = config.testProperties.getProperty("sourcepath", "").trim();
     if (!sourcepath.isEmpty()) {
       args.add("-sourcepath");
-      sourcepath = sourcepath.replaceAll("@TEST_DIR@", config.testDir.getPath());
-      sourcepath = sourcepath.replaceAll("@TMP_DIR@", config.tmpDir.getPath());
-      sourcepath = sourcepath.replaceAll("@TEMP_DIR@", config.tmpDir.getPath());
+      sourcepath = sourcepath.replace("@TEST_DIR@", config.testDir.getPath());
+      sourcepath = sourcepath.replace("@TMP_DIR@", config.tmpDir.getPath());
+      sourcepath = sourcepath.replace("@TEMP_DIR@", config.tmpDir.getPath());
       args.add(sourcepath);
     }
 

@@ -20,143 +20,141 @@ import java.util.Scanner;
  */
 public class ExtendJCompiler extends Compiler {
 
-	private final boolean newVM;
+  private final boolean newVM;
   private final boolean debug;
-	private final String jarPath;
+  private final String jarPath;
 
-	/**
-	 * Constructor
-	 * @param jarPath Path to the ExtendJ jar
-	 * @param newVM
-	 */
-	public ExtendJCompiler(String jarPath, boolean newVM, boolean debug) {
-		super("extendj", jarPath);
+  /**
+   * Constructor
+   * @param jarPath Path to the ExtendJ jar
+   * @param newVM
+   */
+  public ExtendJCompiler(String jarPath, boolean newVM, boolean debug) {
+    super("extendj", jarPath);
 
-		this.newVM = newVM;
+    this.newVM = newVM;
     this.debug = debug;
-		this.jarPath = jarPath;
-	}
+    this.jarPath = jarPath;
+  }
 
-	@Override
-	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-		InputStream in = new ByteArrayInputStream(new byte[0]);
-		return invoke(arguments, in, out, err);
-	}
+  @Override
+  public int compile(String[] arguments, OutputStream out, OutputStream err) {
+    InputStream in = new ByteArrayInputStream(new byte[0]);
+    return invoke(arguments, in, out, err);
+  }
 
-	/**
-	 * Invoke ExtendJ using reflection (in order to access main class in
-	 * default package)
-	 *
-	 * @param arguments
-	 * @param in
-	 * @param outStream
-	 * @param errStream
-	 * @return Exit value of the compile process
-	 */
-	public int invoke(String[] arguments, InputStream in,
-			OutputStream outStream, OutputStream errStream) {
+  /**
+   * Invoke ExtendJ using reflection (in order to access main class in
+   * default package)
+   *
+   * @param arguments
+   * @param in
+   * @param outStream
+   * @param errStream
+   * @return Exit value of the compile process
+   */
+  public int invoke(String[] arguments, InputStream in,
+      OutputStream outStream, OutputStream errStream) {
 
-		final PrintStream out = new PrintStream(outStream);
-		final PrintStream err = new PrintStream(errStream);
+    final PrintStream out = new PrintStream(outStream);
+    final PrintStream err = new PrintStream(errStream);
 
-		if (newVM || debug) {
-			StringBuffer cmd = new StringBuffer();
-			cmd.append("java -Xmx2g");
+    if (newVM || debug) {
+      StringBuffer cmd = new StringBuffer();
+      cmd.append("java -Xmx2g");
       if (debug) {
         cmd.append(" -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
       }
       cmd.append(" -jar " + jarPath);
-			for (String arg : arguments) {
-				cmd.append(" " + arg);
-			}
-			try {
-				final Process p = Runtime.getRuntime().exec(cmd.toString());
+      for (String arg : arguments) {
+        cmd.append(" " + arg);
+      }
+      try {
+        final Process p = Runtime.getRuntime().exec(cmd.toString());
 
-				final Collection<String> stderrErrors = new LinkedList<String>();
-				new Thread() {
-					@Override
-					public void run() {
-						Scanner scanner = new Scanner(p.getErrorStream());
-						while (scanner.hasNextLine()) {
-							String line = scanner.nextLine();
-							if (stderrErrors.isEmpty() &&
-									line.equals("java.lang.NullPointerException"))
-								stderrErrors.add(line);
-							err.println(line);
-						}
-						scanner.close();
-					}
-				}.start();
+        final Collection<String> stderrErrors = new LinkedList<String>();
+        new Thread() {
+          @Override
+          public void run() {
+            Scanner scanner = new Scanner(p.getErrorStream());
+            while (scanner.hasNextLine()) {
+              String line = scanner.nextLine();
+              if (stderrErrors.isEmpty() &&
+                  line.equals("java.lang.NullPointerException"))
+                stderrErrors.add(line);
+              err.println(line);
+            }
+            scanner.close();
+          }
+        }.start();
 
-				// Some versions of ExtendJ print error messages on stdout
-				// and do not return a nozero exit code on error.
-				final Collection<String> stdoutErrors = new LinkedList<String>();
-				new Thread() {
-					@Override
-					public void run() {
-						Scanner scanner = new Scanner(p.getInputStream());
-						while (scanner.hasNextLine()) {
-							String line = scanner.nextLine();
-							if (stdoutErrors.isEmpty() && line.equals("Errors:"))
-								stdoutErrors.add(line);
-							out.println(line);
-						}
-						scanner.close();
-					}
-				}.start();
-				int exitValue = p.waitFor();
-				if (!stdoutErrors.isEmpty() || !stderrErrors.isEmpty()) {
+        // Some versions of ExtendJ print error messages on stdout
+        // and do not return a nozero exit code on error.
+        final Collection<String> stdoutErrors = new LinkedList<String>();
+        new Thread() {
+          @Override
+          public void run() {
+            Scanner scanner = new Scanner(p.getInputStream());
+            while (scanner.hasNextLine()) {
+              String line = scanner.nextLine();
+              if (stdoutErrors.isEmpty() && line.equals("Errors:"))
+                stdoutErrors.add(line);
+              out.println(line);
+            }
+            scanner.close();
+          }
+        }.start();
+        int exitValue = p.waitFor();
+        if (!stdoutErrors.isEmpty() || !stderrErrors.isEmpty()) {
           return 1;
-				} else {
+        } else {
           return exitValue;
         }
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return 1;
-		}
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      return 1;
+    }
 
-		InputStream stdin = System.in;
-		PrintStream stdout = System.out;
-		PrintStream stderr = System.err;
-		System.setIn(in);
-		System.setOut(out);
-		System.setErr(err);
+    InputStream stdin = System.in;
+    PrintStream stdout = System.out;
+    PrintStream stderr = System.err;
+    System.setIn(in);
+    System.setOut(out);
+    System.setErr(err);
 
-		try {
-			Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler");
-			Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
+    try {
+      Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler");
+      Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
 
-			boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
-			return result ? 0 : 1;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.setIn(stdin);
-		System.setOut(stdout);
-		System.setErr(stderr);
-
-		return 1;
-	}
+      boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
+      return result ? 0 : 1;
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SecurityException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (NoSuchMethodException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IllegalArgumentException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    System.setIn(stdin);
+    System.setOut(stdout);
+    System.setErr(stderr);
+    return 1;
+  }
 }

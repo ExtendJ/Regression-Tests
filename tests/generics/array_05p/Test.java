@@ -2,5 +2,5 @@
 // https://bitbucket.org/jastadd/jastaddj/issue/108/creating-array-using-type-variable-as
 // .result=COMPILE_PASS
 public class Test<U, V> {
-	Test<?, ?>[] array = new Test<?, ?>[10];// okay: wildcard type params reifiable
+  Test<?, ?>[] array = new Test<?, ?>[10];// Okay: wildcard type params are reifiable.
 }

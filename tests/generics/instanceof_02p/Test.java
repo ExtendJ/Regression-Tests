@@ -3,7 +3,7 @@
 // https://bitbucket.org/jastadd/jastaddj/issue/109/comparing-to-non-reifiable-type-in
 // .result=COMPILE_PASS
 public class Test<U> {
-	public boolean test(U u) {
-		return (u instanceof Test<?>);// Test<?> is reifiable
-	}
+  public boolean test(U u) {
+    return (u instanceof Test<?>); // Test<?> is reifiable.
+  }
 }

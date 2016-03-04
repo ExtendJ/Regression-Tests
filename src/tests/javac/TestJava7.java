@@ -16,37 +16,37 @@ import core.Util;
 @RunWith(Parameterized.class)
 public class TestJava7 {
 
-	private static final TestProperties properties = new TestProperties();
-	static {
-		properties.setProperty("compiler", "javac");
-		properties.setProperty("extraOptions", "-Xlint:none,-source,1.7,-target,1.7");
-		properties.exclude("pretty-print");
-		properties.exclude("extendj");
-		properties.exclude(tests.Tests.JAVA8);
-		properties.exclude(tests.Tests.FAILING);
-	}
+  private static final TestProperties properties = new TestProperties();
+  static {
+    properties.setProperty("compiler", "javac");
+    properties.setProperty("extraOptions", "-Xlint:none,-source,1.7,-target,1.7");
+    properties.exclude("pretty-print");
+    properties.exclude(tests.Tests.JAVA8);
+    properties.exclude(tests.Tests.FAILING);
+    properties.exclude(tests.Tests.EXTENDJ_ONLY);
+  }
 
-	private final String testDir;
+  private final String testDir;
 
-	/**
-	 * Construct a new JastAdd test
-	 * @param testDir The base directory for the test
-	 */
-	public TestJava7(String testDir) {
-		this.testDir = testDir;
-	}
+  /**
+   * Construct a new JastAdd test
+   * @param testDir The base directory for the test
+   */
+  public TestJava7(String testDir) {
+    this.testDir = testDir;
+  }
 
-	/**
-	 * Run the JastAdd test
-	 */
-	@Test
-	public void runTest() {
-		TestRunner.runTest(testDir, properties);
-	}
+  /**
+   * Run the JastAdd test
+   */
+  @Test
+  public void runTest() {
+    TestRunner.runTest(testDir, properties);
+  }
 
-	@SuppressWarnings("javadoc")
-	@Parameters(name = "{0}")
-	public static Iterable<Object[]> getTests() {
-		return Util.getTests(properties);
-	}
+  @SuppressWarnings("javadoc")
+  @Parameters(name = "{0}")
+  public static Iterable<Object[]> getTests() {
+    return Util.getTests(properties);
+  }
 }

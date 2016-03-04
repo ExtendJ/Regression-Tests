@@ -56,7 +56,7 @@ public class TestRunner {
     }
 
     // Execute the compiled code.
-    executeCode(config.testProperties, config.tmpDir, config.testDir, expected);
+    executeCode(config, expected);
 
     // Compare the output with the expected output.
     compareErrorOutput(config.tmpDir, config.testDir);
@@ -153,17 +153,25 @@ public class TestRunner {
 
   /**
    * Run the compiled test program.
-   * @param props
-   * @param tmpDir
-   * @param testDir
+   * @param config
    * @param expected
    */
-  private static void executeCode(Properties props, File tmpDir, File testDir, Result expected) {
+  private static void executeCode(TestConfiguration config, Result expected) {
+    Properties props = config.testProperties;
+    File tmpDir = config.tmpDir;
+    File testDir = config.testDir;
     StringBuffer errors = new StringBuffer();
 
     String classpath = tmpDir.getPath();
     if (props.containsKey("classpath")) {
-      classpath += File.pathSeparator + props.getProperty("classpath");
+      String addClasspath = config.testProperties.getProperty("classpath", "").trim();
+      if (!addClasspath.isEmpty()) {
+        addClasspath = addClasspath.replace("@TEST_DIR@", testDir.getPath());
+        addClasspath = addClasspath.replace("@TMP_DIR@", tmpDir.getPath());
+        addClasspath = addClasspath.replace("@TEMP_DIR@", tmpDir.getPath());
+        addClasspath = addClasspath.replace("@EXTENDJ_LIB@", config.extendjJar());
+        classpath += File.pathSeparator + addClasspath;
+      }
     }
 
     String javaOptions = "";
@@ -264,6 +272,7 @@ public class TestRunner {
       addClasspath = addClasspath.replace("@TEST_DIR@", config.testDir.getPath());
       addClasspath = addClasspath.replace("@TMP_DIR@", config.tmpDir.getPath());
       addClasspath = addClasspath.replace("@TEMP_DIR@", config.tmpDir.getPath());
+      addClasspath = addClasspath.replace("@EXTENDJ_LIB@", config.extendjJar());
       classpath += File.pathSeparator + addClasspath;
     }
     args.add(classpath);

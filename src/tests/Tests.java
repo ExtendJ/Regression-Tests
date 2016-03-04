@@ -35,4 +35,12 @@ public interface Tests {
   String[] EXCLUDE_JAVA8 = {
     "jsr334/diamond/diamond_18"
   };
+
+  /**
+   * Tests that test ExtendJ-specific behaviour (error messages, pretty printing, api).
+   */
+  String[] EXTENDJ_ONLY = {
+    "extendj",
+    "api"
+  };
 }

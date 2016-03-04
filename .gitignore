@@ -7,6 +7,7 @@
 /gentest.groovy
 /build/
 /.gradle/
+/traces/
 
 # generated documentation
 /index.html

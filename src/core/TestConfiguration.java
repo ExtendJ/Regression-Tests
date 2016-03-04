@@ -112,4 +112,8 @@ public class TestConfiguration {
 			}
 		}
 	}
+
+  public String extendjJar() {
+		return testProperties.getProperty("extendj.jar");
+  }
 }

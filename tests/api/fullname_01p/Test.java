@@ -23,10 +23,6 @@ import static runtime.Test.fail;
 
 public class Test {
   public static void main(String[] args) {
-    test();
-  }
-
-  static void test() {
     String code = "package p;\n"
         + "interface Comparator<T> {"
         + "  <U> Comparator<T> thenComparing(Comparator<? super U> b);\n"
@@ -34,7 +30,8 @@ public class Test {
     CompilationUnit cu = parseCompilationUnit(code);
     GenericMethodDecl method = (GenericMethodDecl) cu.getTypeDecl(0).getBodyDecl(0);
     TypeVariable var = method.getTypeParameter(0);
-    testEqual("p.U", var.fullName());
+    testEqual("thenComparing(p.Comparator)", method.signature());
+    testEqual("p.Comparator.thenComparing(p.Comparator)@U", var.fullName());
   }
 
   /**

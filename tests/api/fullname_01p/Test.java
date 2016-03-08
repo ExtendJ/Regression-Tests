@@ -1,8 +1,6 @@
 // Test the fullName() attribute evaluated on a TypeVariable.
 // .result=EXEC_PASS
 // .classpath=@EXTENDJ_LIB@
-import org.extendj.ast.BytecodeParser;
-import org.extendj.ast.BytecodeReader;
 import org.extendj.ast.CompilationUnit;
 import org.extendj.ast.FileClassSource;
 import org.extendj.ast.GenericMethodDecl;
@@ -11,11 +9,6 @@ import org.extendj.ast.Program;
 import org.extendj.ast.SourceFolderPath;
 import org.extendj.ast.TypeVariable;
 
-import org.extendj.ast.ASTNode;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.ByteArrayInputStream;
 
 import static runtime.Test.testEqual;
@@ -39,22 +32,9 @@ public class Test {
    */
   static CompilationUnit parseCompilationUnit(String code) {
     try {
-      JavaParser sourceParser = new JavaParser() {
-        @Override
-        public CompilationUnit parse(java.io.InputStream is, String fileName)
-            throws IOException, beaver.Parser.Exception {
-          return new org.extendj.parser.JavaParser().parse(is, fileName);
-        }
-      };
-      BytecodeReader bytecodeParser = new BytecodeReader() {
-        @Override
-        public CompilationUnit read(InputStream is, String fullName, Program p)
-            throws FileNotFoundException, IOException {
-          return new BytecodeParser(is, fullName).parse(null, null, p);
-        }
-      };
       Program program = new Program();
-      program.initBytecodeReader(bytecodeParser);
+      program.initBytecodeReader(Program.defaultBytecodeReader());
+      JavaParser sourceParser = Program.defaultJavaParser();
       program.initJavaParser(sourceParser);
       CompilationUnit unit = sourceParser.parse(
           new ByteArrayInputStream(code.getBytes("UTF-8")), "<no path>");

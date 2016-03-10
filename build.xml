@@ -185,4 +185,8 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
+
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
 </project>

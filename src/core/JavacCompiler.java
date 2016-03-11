@@ -1,3 +1,31 @@
+/* Copyright (c) 2013-2016, Jesper Öqvist <jesper.oqvist@cs.lth.se>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright notice,
+ *      this list of conditions and the following disclaimer in the documentation
+ *      and/or other materials provided with the distribution.
+ *
+ *   3. Neither the name of the copyright holder nor the names of its contributors
+ *      may be used to endorse or promote products derived from this software
+ *      without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package core;
 
 import java.io.ByteArrayInputStream;
@@ -18,23 +46,23 @@ import javax.tools.ToolProvider;
  */
 public class JavacCompiler extends Compiler {
 
-	private final boolean newVM;
+  private final boolean newVM;
 
-	/**
-	 * Constructor
-	 * @param newVM
-	 */
-	public JavacCompiler(boolean newVM) {
-		super("javac", getVersion());
+  /**
+   * Constructor
+   * @param newVM
+   */
+  public JavacCompiler(boolean newVM) {
+    super("javac", getVersion());
 
-		this.newVM = newVM;
-	}
+    this.newVM = newVM;
+  }
 
-	@Override
-	public int compile(String[] arguments, OutputStream out, OutputStream err) {
-		InputStream in = new ByteArrayInputStream(new byte[0]);
-		return invoke(addExtraOptions(arguments), in, out, err);
-	}
+  @Override
+  public int compile(String[] arguments, OutputStream out, OutputStream err) {
+    InputStream in = new ByteArrayInputStream(new byte[0]);
+    return invoke(addExtraOptions(arguments), in, out, err);
+  }
 
   protected String[] addExtraOptions(String[] arguments) {
     String[] result = new String[arguments.length + 1];
@@ -43,84 +71,84 @@ public class JavacCompiler extends Compiler {
     return result;
   }
 
-	/**
-	 * @param arguments
-	 * @param in
-	 * @param out
-	 * @param err
-	 * @return Exit value of the compile process
-	 */
-	public int invoke(String[] arguments, InputStream in,
-			final OutputStream out, final OutputStream err) {
+  /**
+   * @param arguments
+   * @param in
+   * @param out
+   * @param err
+   * @return Exit value of the compile process
+   */
+  public int invoke(String[] arguments, InputStream in,
+      final OutputStream out, final OutputStream err) {
 
-		if (newVM) {
-			StringBuffer cmd = new StringBuffer();
-			// TODO(jesper): build the jar file
-			cmd.append("java -jar tools/javacjar.jar");
-			for (String arg : arguments) {
-				cmd.append(" " + arg);
-			}
-			try {
-				final Process p = Runtime.getRuntime().exec(cmd.toString());
-				Thread errThread = new Thread() {
-					@Override
-					public void run() {
-						PrintStream ps = new PrintStream(err);
-						Scanner scanner = new Scanner(p.getErrorStream());
-						while (scanner.hasNextLine()) {
-							ps.println(scanner.nextLine());
-						}
-						scanner.close();
-					}
-				};
-				Thread outThread = new Thread() {
-					@Override
-					public void run() {
-						PrintStream ps = new PrintStream(out);
-						Scanner scanner = new Scanner(p.getInputStream());
-						while (scanner.hasNextLine()) {
-							ps.println(scanner.nextLine());
-						}
-						scanner.close();
-					}
-				};
-				errThread.start();
-				outThread.start();
-				int exitValue = p.waitFor();
-				outThread.join();
-				errThread.join();
-				return exitValue;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return 1;
-		}
+    if (newVM) {
+      StringBuffer cmd = new StringBuffer();
+      // TODO(jesper): build the jar file
+      cmd.append("java -jar tools/javacjar.jar");
+      for (String arg : arguments) {
+        cmd.append(" " + arg);
+      }
+      try {
+        final Process p = Runtime.getRuntime().exec(cmd.toString());
+        Thread errThread = new Thread() {
+          @Override
+          public void run() {
+            PrintStream ps = new PrintStream(err);
+            Scanner scanner = new Scanner(p.getErrorStream());
+            while (scanner.hasNextLine()) {
+              ps.println(scanner.nextLine());
+            }
+            scanner.close();
+          }
+        };
+        Thread outThread = new Thread() {
+          @Override
+          public void run() {
+            PrintStream ps = new PrintStream(out);
+            Scanner scanner = new Scanner(p.getInputStream());
+            while (scanner.hasNextLine()) {
+              ps.println(scanner.nextLine());
+            }
+            scanner.close();
+          }
+        };
+        errThread.start();
+        outThread.start();
+        int exitValue = p.waitFor();
+        outThread.join();
+        errThread.join();
+        return exitValue;
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      return 1;
+    }
 
-		PrintStream stdout = System.out;
-		try {
-			System.setOut(new PrintStream(out));
-			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			// TODO(jesper): setting out as the output stream seems to not work...
-			return compiler.run(in, null, err, arguments);
-		} finally {
-			System.setOut(stdout);
-		}
+    PrintStream stdout = System.out;
+    try {
+      System.setOut(new PrintStream(out));
+      JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+      // TODO(jesper): setting out as the output stream seems to not work...
+      return compiler.run(in, null, err, arguments);
+    } finally {
+      System.setOut(stdout);
+    }
 
-	}
+  }
 
-	/**
-	 * @return The version of this compiler
-	 */
-	public static String getVersion() {
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		InputStream in = new ByteArrayInputStream(new byte[0]);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ByteArrayOutputStream err = new ByteArrayOutputStream();
-		compiler.run(in, out, err, new String[] { "-version" });
-		return err.toString().trim();
-	}
+  /**
+   * @return The version of this compiler
+   */
+  public static String getVersion() {
+    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+    InputStream in = new ByteArrayInputStream(new byte[0]);
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    ByteArrayOutputStream err = new ByteArrayOutputStream();
+    compiler.run(in, out, err, new String[] { "-version" });
+    return err.toString().trim();
+  }
 }

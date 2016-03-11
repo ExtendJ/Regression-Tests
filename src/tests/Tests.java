@@ -41,8 +41,6 @@ public interface Tests {
     "type/conditional_expr02",
     "type/ambiguous_01f",
     "generics/bridge_method_04p",
-    "generics/inference_01p",
-    "generics/inference_02p",
   };
 
   /**
@@ -71,6 +69,7 @@ public interface Tests {
    */
   String[] EXTENDJ_ONLY = {
     "extendj",
-    "api"
+    "api",
+    "generics/override_14p", // Unchecked warning not present in ExtendJ.
   };
 }

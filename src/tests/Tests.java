@@ -37,9 +37,7 @@ public interface Tests {
    * Tests expected to fail.
    */
   String[] FAILING = {
-    "generics/constructor_01f",
     "type/ambiguous_01f",
-    "generics/bridge_method_04p",
   };
 
   /**
@@ -57,7 +55,8 @@ public interface Tests {
   };
 
   /**
-   * Tests that should be excluded for Java 8.
+   * Tests that should be excluded for Java 8, because they test features that
+   * changed since Java 7 and no longer work the same way.
    */
   String[] EXCLUDE_JAVA8 = {
     "jsr334/diamond/diamond_18"

@@ -240,12 +240,12 @@ public class Util {
   public static TestProperties getTestProperties(File testDir) {
     File propertiesFile = new File(testDir, "Test.properties");
     if (propertiesFile.isFile()) {
-      // read test config from the .properties file
+      // Read test config from the .properties file.
       return Util.getProperties(propertiesFile);
     } else {
       File sourceFile = new File(testDir, "Test.java");
       if (sourceFile.isFile()) {
-        // read test config from the .java file
+        // Read test config from the .java file.
         return Util.readPropertyComments(sourceFile);
       } else {
         return new TestProperties();

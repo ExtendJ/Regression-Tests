@@ -38,7 +38,6 @@ public interface Tests {
    */
   String[] FAILING = {
     "generics/constructor_01f",
-    "type/conditional_expr_02p",
     "type/ambiguous_01f",
     "generics/bridge_method_04p",
   };

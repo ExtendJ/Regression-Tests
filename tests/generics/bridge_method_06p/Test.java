@@ -7,7 +7,7 @@
 public class Test {
   @SuppressWarnings("unchecked")
   public static void main(String[] args) {
-    Taxicab<Integer> sr = new Taxicab<Integer>() {
+    TaxiCab<Integer> sr = new TaxiCab<Integer>() {
       public Integer number() {
         return 1729;
       }
@@ -22,6 +22,6 @@ public class Test {
   }
 }
 
-interface Taxicab<T> {
+interface TaxiCab<T> {
   T number();
 }

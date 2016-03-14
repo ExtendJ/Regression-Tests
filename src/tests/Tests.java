@@ -38,6 +38,7 @@ public interface Tests {
    */
   String[] FAILING = {
     "type/ambiguous_01f",
+    "generics/conditional_expr_04p",
   };
 
   /**

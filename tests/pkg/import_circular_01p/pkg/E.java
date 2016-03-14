@@ -1,6 +1,8 @@
 package pkg;
 
-public class E {
-  public interface IE {
+public interface E {
+  public interface X {
+    public interface I {
+    }
   }
 }

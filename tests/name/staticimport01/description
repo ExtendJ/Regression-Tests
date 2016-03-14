@@ -1,4 +1,0 @@
-Tests a bug in name analysis that incorrectly reports several most specific
-methods.
-
-Bitbucket issue: https://bitbucket.org/jastadd/jastaddj/issue/8/incorrect-several-most-specific-methods

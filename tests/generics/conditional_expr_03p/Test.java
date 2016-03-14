@@ -1,8 +1,5 @@
 // Test conditional expression type analysis.
 // .result=COMPILE_PASS
-import java.util.Collection;
-import java.util.List;
-
 public class Test {
   S<?> test(boolean a, C1 b, C2 c) {
     return a ? b : c;

@@ -4,13 +4,13 @@
 // https://bitbucket.org/jastadd/jastaddj/issue/87/inherited-methods-with-incompatible-return
 // .result=COMPILE_FAIL
 interface I {
-    int f();
+  int f();
 }
 
 class C {
-    public String f() {
-        return "x";
-    }
+  public String f() {
+    return "x";
+  }
 }
 
 abstract class Test extends C implements I {

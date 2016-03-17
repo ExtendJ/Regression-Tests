@@ -39,6 +39,7 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "pkg/import_circular_01p",
+    "tests/expr/conditional_expr_01p",
   };
 
   /**

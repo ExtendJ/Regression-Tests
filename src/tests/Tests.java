@@ -40,6 +40,7 @@ public interface Tests {
     "type/ambiguous_01f",
     "pkg/import_circular_01p",
     "generics/substitution_01p",
+    "generics/substitution_02p",
   };
 
   /**

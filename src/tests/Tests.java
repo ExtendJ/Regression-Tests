@@ -62,7 +62,8 @@ public interface Tests {
    * changed since Java 7 and no longer work the same way.
    */
   String[] EXCLUDE_JAVA8 = {
-    "jsr334/diamond/diamond_18"
+    "pkg/import_06f", // Multiple static imports of the same type name.
+    "jsr334/diamond/diamond_18",
   };
 
   /**

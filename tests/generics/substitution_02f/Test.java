@@ -1,5 +1,5 @@
 // Test parameter type substitution and type lookup.
-// .result=COMPILE_PASS
+// .result=COMPILE_FAIL
 class Combined<U, V> {
   public Combined(U u, V v) {
   }
@@ -12,7 +12,7 @@ class Test<A> {
       return (val.new Op<B>()).combine(x.val);
     }
     Combined<A, B> combine(Test<B> x) {
-      return new Combined<A, B>(val, x.val);
+      return new Combined<A, B>(val, x.val); // Incompatible argumen types.
     }
   }
 }

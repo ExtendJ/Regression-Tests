@@ -1,12 +1,10 @@
 // .result=COMPILE_FAIL
 import java.util.*;
 
+interface X { void execute(Number a); }
+interface Y { void execute(Integer a); }
 
-class Test {
-	
-	interface X { void execute(Number a); }
-	interface Y { void execute(Integer a); }
-		
-	@FunctionalInterface
-	interface Exec extends X, Y { }
+public class Test {
+  @FunctionalInterface
+  interface Exec extends X, Y { }
 }

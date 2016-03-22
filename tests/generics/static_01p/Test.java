@@ -1,4 +1,4 @@
-// Test that accessing a static field in a raw type works as it should.
+// Test a static field can be accessed using a raw type qualifier.
 // .result=COMPILE_PASS
 class Test {
   int m() {

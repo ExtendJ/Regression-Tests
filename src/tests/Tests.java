@@ -42,6 +42,7 @@ public interface Tests {
     "generics/substitution_01p",
     "generics/substitution_02f",
     "generics/substitution_03p",
+    "generics/static_02f",
   };
 
   /**

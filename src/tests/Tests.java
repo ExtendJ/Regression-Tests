@@ -73,6 +73,5 @@ public interface Tests {
   String[] EXTENDJ_ONLY = {
     "extendj",
     "api",
-    "generics/override_14p", // Unchecked warning not present in ExtendJ.
   };
 }

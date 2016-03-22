@@ -9,12 +9,14 @@ public class Test {
   }
 
   static C builder = new C() {
+    @SuppressWarnings("unchecked")
     public void test(Collection<Integer> a) {
-      y = a;
+      y = a; // Unchecked warning.
     }
   };
 
+  @SuppressWarnings("unchecked")
   void test(C c, Collection<Number> a) {
-    c.y = a;
+    c.y = a; // Unchecked warning.
   }
 }

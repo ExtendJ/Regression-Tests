@@ -48,7 +48,6 @@ public class TestJava7 {
   static {
     properties.setProperty("compiler", "javac");
     properties.setProperty("extraOptions", "-Xlint:none,-source,1.7,-target,1.7");
-    properties.exclude("pretty-print");
     properties.exclude(tests.Tests.JAVA8);
     properties.exclude(tests.Tests.FAILING);
     properties.exclude(tests.Tests.EXTENDJ_ONLY);

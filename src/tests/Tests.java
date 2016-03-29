@@ -73,5 +73,7 @@ public interface Tests {
   String[] EXTENDJ_ONLY = {
     "extendj",
     "api",
+    "pretty-print",
+    "jsr335/Parsing", // ExtendJ-specific tests.
   };
 }

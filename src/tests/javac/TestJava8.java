@@ -48,13 +48,15 @@ public class TestJava8 {
   static {
     properties.setProperty("compiler", "javac");
     properties.setProperty("extraOptions", "-Xlint:none");
-    properties.exclude("pretty-print");
-
-    properties.exclude("jsr335/Parsing");
-    //properties.exclude("jsr335/Semantics/LambdaExpressions/ReservedKeyword");
     properties.exclude(tests.Tests.FAILING);
     properties.exclude(tests.Tests.EXCLUDE_JAVA8);
     properties.exclude(tests.Tests.EXTENDJ_ONLY);
+
+    // Javac bugs cause these tests to crash the javac compiler:
+    properties.exclude("jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldCompile/syntax22");
+    properties.exclude("jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldCompile/syntax05");
+    properties.exclude("jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldCompile/syntax06");
+    properties.exclude("jsr335/Semantics/LambdaTypeAnalysis/AssignmentContext/ShouldCompile/syntax28");
   }
 
   private final String testDir;

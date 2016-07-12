@@ -39,6 +39,7 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
+    "generics/inference_06p", // https://bitbucket.org/extendj/extendj/issues/172/nullpointerexception-in-method-type
   };
 
   /**

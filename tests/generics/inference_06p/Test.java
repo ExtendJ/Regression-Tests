@@ -2,7 +2,7 @@
 // inference. See https://bitbucket.org/extendj/extendj/issues/172/nullpointerexception-in-method-type
 // .result=COMPILE_PASS
 public class Test {
-    private static final int i = 0;
+    int i = 0;
 
     public <T extends Test> T a() {
         return b();

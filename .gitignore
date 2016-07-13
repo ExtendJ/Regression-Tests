@@ -1,6 +1,7 @@
 /bin
 /*.jar
-/test-reports
+/test-reports/
+/reports/
 /tmp
 /export.sh
 /draft

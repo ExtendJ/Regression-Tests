@@ -75,7 +75,8 @@ that particular test. These options are available:
 
 * `result` - defines the expected test result
 * `classpath` - defines the classpath to be used when compiling and executing
-  the test code
+  the test code. You can use the variable `@TMP_DIR@` to reference the
+temporary directory, or `@TEST_DIR@` to reference the test source directory.
 * `options` - defines sets of options to be added to the JastAdd configuration
   just for this test. See below for details.
 * `sources` - a comma separated list of source files to be passed to JastAdd.
@@ -88,6 +89,7 @@ also be tested with different flags that are separated with the operator `|`,
 for example,
 
     options = tracing=compute | tracing=compute componentCheck
+
 
 Test Running
 ------------

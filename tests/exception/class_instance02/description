@@ -1,4 +1,0 @@
-Tests exception checking for anonymous class instance expressions.
-
-Bitbucket ticket:
-https://bitbucket.org/jastadd/jastaddj/issue/10/exception-checking-error-for-anonymous

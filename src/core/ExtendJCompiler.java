@@ -39,9 +39,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-// can't use this if we want to benchmark older JJ versions
-//import org.jastadd.jastaddj.JavaCompiler;
-
 /**
  * ExtendJ compiler runner.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
@@ -53,9 +50,9 @@ public class ExtendJCompiler extends Compiler {
   private final String jarPath;
 
   /**
-   * Constructor
    * @param jarPath Path to the ExtendJ jar
-   * @param newVM
+   * @param newVM set to {@code true} if a new JVM should be started
+   * @param debug set to {@code true} if remote debuggin should be enabled
    */
   public ExtendJCompiler(String jarPath, boolean newVM, boolean debug) {
     super("extendj", jarPath);
@@ -73,12 +70,8 @@ public class ExtendJCompiler extends Compiler {
 
   /**
    * Invoke ExtendJ using reflection (in order to access main class in
-   * default package)
+   * default package).
    *
-   * @param arguments
-   * @param in
-   * @param outStream
-   * @param errStream
    * @return Exit value of the compile process
    */
   public int invoke(String[] arguments, InputStream in,

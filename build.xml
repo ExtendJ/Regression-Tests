@@ -28,7 +28,7 @@ suites using -Dproperty=value
 		<mkdir dir="bin"/>
 		<javac
 			encoding="utf-8"
-			debug="false"
+			debug="true"
 			source="1.6"
 			target="1.6"
 			nowarn="true"
@@ -71,7 +71,7 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
 	<target name="java7-javac" depends="build" description="run Javac tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
@@ -94,7 +94,7 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
 	<target name="java8-javac" depends="build" description="run Javac tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
@@ -116,7 +116,30 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
+	<target name="java5" depends="build" description="Run ExtendJ tests for Java 6">
+		<mkdir dir="${test-reports.dir}"/>
+		<junit fork="yes" showoutput="yes">
+			<sysproperty key="extendj.jar" value="${extendj.jar}"/>
+			<sysproperty key="includes" value="${includes}"/>
+			<sysproperty key="test" value="${test}"/>
+			<sysproperty key="excludes" value="${excludes}"/>
+			<sysproperty key="compiler" value="${compiler}"/>
+			<sysproperty key="verbose" value="${verbose}"/>
+			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="fork" value="${fork}"/>
+			<classpath>
+				<pathelement path="bin"/>
+				<pathelement path="lib/junit-${junit.version}.jar"/>
+				<pathelement path="lib/hamcrest-core-${hamcrest.version}.jar"/>
+				<pathelement path="${extendj.jar}"/>
+			</classpath>
+			<test name="tests.extendj.TestJava5" todir="${test-reports.dir}"/>
+			<formatter type="xml"/>
+			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
+		</junit>
+	</target>
+
 	<target name="java6" depends="build" description="Run ExtendJ tests for Java 6">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
@@ -139,7 +162,7 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
 	<target name="java7" depends="build" description="Run ExtendJ tests for Java 7">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">
@@ -162,7 +185,7 @@ suites using -Dproperty=value
 			<formatter classname="ant.SimpleTestFormatter" usefile="false"/>
 		</junit>
 	</target>
-	
+
 	<target name="java8" depends="build" description="Run ExtendJ tests for Java 8">
 		<mkdir dir="${test-reports.dir}"/>
 		<junit fork="yes" showoutput="yes">

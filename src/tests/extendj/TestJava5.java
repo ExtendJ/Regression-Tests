@@ -26,64 +26,51 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package tests;
+package tests.extendj;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import core.TestProperties;
+import core.TestRunner;
+import core.Util;
 
 /**
- * Default test sets.
+ * A parameterized JUnit test harness for testing ExtendJ.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
-public interface Tests {
-  /**
-   * Tests expected to fail.
-   */
-  String[] FAILING = {
-    "type/ambiguous_01f",
-    "generics/static_02f",
-  };
+@RunWith(Parameterized.class)
+public class TestJava5 {
+
+  private static final TestProperties properties = new TestProperties();
+  static {
+    properties.setProperty("compiler", "extendj");
+    properties.setProperty("extendj.jar", "extendj.jar"); // Default to local compiler Jar.
+    properties.exclude(tests.Tests.JAVA6);
+    properties.exclude(tests.Tests.JAVA7);
+    properties.exclude(tests.Tests.JAVA8);
+    properties.exclude(tests.Tests.FAILING);
+  }
+
+  private final String testDir;
 
   /**
-   * Java 6 specific tests.
-   *
-   * <p>These are tests that use the @Override annotaiton on interface
-   * declared methods. This is not allowed in Java 5.
+   * @param testDir base directory for the test
    */
-  String[] JAVA6 = {
-    "classes/super_01p",  // Overriding Runnable.run().
-    "generics/override_15p",  // Overriding Map.entrySet().
-    "generics/override_18p",  // Overriding custom interface method.
-    "pkg/static_import_02p",  // Overriding Runnable.run().
-  };
+  public TestJava5(String testDir) {
+    this.testDir = testDir;
+  }
 
-  /**
-   * Java 7 tests.
-   */
-  String[] JAVA7 = {
-    "jsr334"
-  };
+  @Test
+  public void runTest() {
+    TestRunner.runTest(testDir, properties);
+  }
 
-  /**
-   * Java 8 tests.
-   */
-  String[] JAVA8 = {
-    "jsr335"
-  };
-
-  /**
-   * Tests that should be excluded for Java 8, because they test features that
-   * changed since Java 7 and no longer work the same way.
-   */
-  String[] EXCLUDE_JAVA8 = {
-    "pkg/import_06f", // Multiple static imports of the same type name.
-    "jsr334/diamond/diamond_18",
-  };
-
-  /**
-   * Tests that test ExtendJ-specific behaviour (error messages, pretty printing, api).
-   */
-  String[] EXTENDJ_ONLY = {
-    "extendj",
-    "api",
-    "pretty-print",
-    "jsr335/Parsing", // ExtendJ-specific tests.
-  };
+  @SuppressWarnings("javadoc")
+  @Parameters(name = "{0}")
+  public static Iterable<Object[]> getTests() {
+    return Util.getTests(properties);
+  }
 }

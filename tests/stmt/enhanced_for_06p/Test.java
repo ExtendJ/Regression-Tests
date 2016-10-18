@@ -3,7 +3,6 @@
 // .result=COMPILE_PASS
 public class Test {
   public static class MyList implements Iterable {
-    @Override
     public java.util.Iterator iterator() {
       return null;
     }

@@ -32,7 +32,8 @@ public class TestRunner {
    * @param testName
    * @param testSuiteProperties
    */
-  public static void runTest(String testName, Properties testSuiteProperties) {
+  public static void runTest(String testName, Properties testSuiteProperties)
+      throws IOException {
     TestConfiguration config = new TestConfiguration(testName, testSuiteProperties);
 
     Result expected = config.expected;
@@ -40,42 +41,59 @@ public class TestRunner {
     // Compile generated code with the selected compiler.
     compileSources(config, testSuiteProperties.getProperty("extraOptions", "").trim());
 
-    if (expected == Result.COMPILE_OUTPUT) {
-      compareOutput("compile.out", config.tmpDir, config.testDir);
-      return;
+    switch (expected) {
+      case COMPILE_OUTPUT:
+        compareOutput("compile.out", config.tmpDir, config.testDir);
+        return;
+      case COMPILE_PASSED:
+      case COMPILE_WARNING:
+        return;
+      case COMPILE_FAILED:
+        if (config.compiler.name.equals("extendj")) {
+          checkExtendJErrorOutput(config.tmpDir, config.testDir);
+        }
+        return;
+      case COMPILE_ERR_OUTPUT:
+        compareCompileErrOutput(config.tmpDir, config.testDir);
+        return;
+      case EXEC_PASSED:
+      case EXEC_FAILED:
+        // Execute the compiled code.
+        executeCode(config, expected);
+
+        // Compare the output with the expected output.
+        compareErrorOutput(config.tmpDir, config.testDir);
+        compareOutput("out", config.tmpDir, config.testDir);
+        return;
     }
-
-    if (expected == Result.COMPILE_PASSED || expected == Result.COMPILE_FAILED
-        || expected == Result.COMPILE_WARNING) {
-      return;
-    }
-
-    if (config.expected == Result.COMPILE_ERR_OUTPUT) {
-      compareCompileErrOutput(config.tmpDir, config.testDir);
-      return;
-    }
-
-    // Execute the compiled code.
-    executeCode(config, expected);
-
-    // Compare the output with the expected output.
-    compareErrorOutput(config.tmpDir, config.testDir);
-    compareOutput("out", config.tmpDir, config.testDir);
   }
 
   /**
-   * Compare the error output from JastAdd
+   * Check if there is an extendj.err.expected file in the test directory,
+   * if so we assert that the compiler error output equals the content of
+   * that file.
    */
-  private static void compareCompileErrOutput(File tmpDir, File testDir) {
-    try {
-      File expected = expectedCompileErrorOutput(testDir);
+  private static void checkExtendJErrorOutput(File tmpDir, File testDir)
+      throws IOException {
+    File expected = new File(testDir, "extendj.err.expected");
+    if (expected.isFile()) {
       File actual = new File(tmpDir, "compile.err");
       assertEquals("Error output files differ",
           readFileToString(expected),
           readFileToString(actual).replace('\\', '/'));
-    } catch (IOException e) {
-      fail("IOException occurred while comparing JastAdd error output: " + e.getMessage());
     }
+  }
+
+  /**
+   * Compare the error output from the compiler against the expected error output.
+   */
+  private static void compareCompileErrOutput(File tmpDir, File testDir)
+      throws IOException {
+    File expected = expectedCompileErrorOutput(testDir);
+    File actual = new File(tmpDir, "compile.err");
+    assertEquals("Error output files differ",
+        readFileToString(expected),
+        readFileToString(actual).replace('\\', '/'));
   }
 
   private static File expectedCompileErrorOutput(File testDir) {

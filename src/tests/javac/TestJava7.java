@@ -28,6 +28,8 @@
  */
 package tests.javac;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -67,7 +69,7 @@ public class TestJava7 {
    * Run the JastAdd test
    */
   @Test
-  public void runTest() {
+  public void runTest() throws IOException {
     TestRunner.runTest(testDir, properties);
   }
 

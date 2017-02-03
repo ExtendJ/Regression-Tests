@@ -46,6 +46,7 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/type_inf_01p",
+    "generics/inference_07p",
     "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
   };
 

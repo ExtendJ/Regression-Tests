@@ -46,8 +46,7 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/type_inf_01p",
-    "jsr335/lambda/type_inf_01p",
-    "jsr335/lambda/type_inf_02p",
+    "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
     "jsr335/methodref/type_inf_01p",
     "jsr335/methodref/type_inf_02p",
   };

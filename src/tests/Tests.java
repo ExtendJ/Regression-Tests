@@ -29,16 +29,26 @@
 package tests;
 
 /**
- * Default test sets.
+ * This class defines the default test sets.
+ *
+ * Some tests are excluded when running higher versions
+ * of Java because they test features that behave slightly
+ * differently than in the lower version.
+ *
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public interface Tests {
   /**
    * Tests expected to fail.
+   * These expose bugs in ExtendJ that should be fixed.
    */
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
+    "jsr335/type_inf_01p",
+    "jsr335/lambda/type_inf_01p",
+    "jsr335/methodref/type_inf_01p",
+    "jsr335/methodref/type_inf_02p",
   };
 
   /**

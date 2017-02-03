@@ -2,11 +2,11 @@
 // type analysis and diamond type inference.
 // https://bitbucket.org/extendj/extendj/issues/176/lambda-expression-stackoverflowerror
 // .result=COMPILE_PASS
-public class LambdaExpr01<T> {
-  public LambdaExpr01(LambdaExprDataProvider<T> t) {}
+public class Test<T> {
+  public Test(LambdaExprDataProvider<T> t) {}
 
   public static void main(String[] args) {
-    LambdaExpr01<Object> a = new LambdaExpr01<>(
+    Test<Object> a = new Test<>(
         () -> LambdaExprObjectProducer.produce(Object.class)
         );
   }

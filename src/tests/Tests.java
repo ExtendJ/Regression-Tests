@@ -47,6 +47,7 @@ public interface Tests {
     "generics/static_02f",
     "jsr335/type_inf_01p",
     "jsr335/lambda/type_inf_01p",
+    "jsr335/lambda/type_inf_02p",
     "jsr335/methodref/type_inf_01p",
     "jsr335/methodref/type_inf_02p",
   };

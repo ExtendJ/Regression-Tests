@@ -1,5 +1,5 @@
 // Tricky type inference scenario which ExtendJ does not handle correctly.
-// This is a standalone test case based on tests/jsr335/type_inf_01p
+// This is a self-contained version of jsr335/inference/method_01p.
 // .result=COMPILE_PASS
 
 interface List<T> {

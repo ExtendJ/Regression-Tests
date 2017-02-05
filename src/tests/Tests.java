@@ -45,10 +45,7 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
-    "jsr335/type_inf_01p",
-    "generics/inference_07p",
-    "generics/inference_08p",
-    "generics/inference_09p",
+    "jsr335/inference", // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
     "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
   };
 
@@ -86,6 +83,7 @@ public interface Tests {
   String[] EXCLUDE_JAVA8 = {
     "pkg/import_06f", // Multiple static imports of the same type name.
     "jsr334/diamond/diamond_18",
+    "generics/inference_07f",
   };
 
   /**

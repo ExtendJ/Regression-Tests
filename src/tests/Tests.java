@@ -67,6 +67,7 @@ public interface Tests {
    */
   String[] JAVA7 = {
     "jsr334"
+    "pretty-print/jsr334"
   };
 
   /**

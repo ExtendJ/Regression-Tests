@@ -47,6 +47,7 @@ public interface Tests {
     "generics/static_02f",
     "jsr335/inference", // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
     "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
+    "lex/num_16p", // https://bitbucket.org/extendj/extendj/issues/186/lexing-errors-in-integer-literals-lack
   };
 
   /**

@@ -1,3 +1,4 @@
+// Test various legal numeric literals.
 // .result=COMPILE_PASS
 public class Test {
 	float  _01 = 0x0.p0f;

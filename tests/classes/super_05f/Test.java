@@ -1,5 +1,5 @@
-// A default constructor can not be generated for a non-inner class
-// extending an inner class.
+// A default constructor can not be generated for a class
+// extending an inner class, with different direct supertypes.
 // .result=COMPILE_FAIL
 public class Test {
   public class Inner {

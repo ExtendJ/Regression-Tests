@@ -60,6 +60,7 @@ public interface Tests {
     "generics/override_15p",  // Overriding Map.entrySet().
     "generics/override_18p",  // Overriding custom interface method.
     "pkg/static_import_02p",  // Overriding Runnable.run().
+    "method/infinite_01p",  // Overriding Runnable.run().
   };
 
   /**

@@ -1,10 +1,8 @@
 // Several literals with underscore.
 // .result=COMPILE_PASS
 
-public class T5 {
-  T5 (){}
+public class Test {
   public static void main(String[] args) {
-
     long foo, O_O;
     double bar;
 
@@ -47,6 +45,5 @@ public class T5 {
     bar = 0x4.A_B_CP1_4;
     bar = 0xF_000.P1_____4;
     bar = 0xC_a_f_e.B_a_b_eP1;
-
   }
 }

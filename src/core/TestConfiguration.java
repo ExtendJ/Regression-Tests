@@ -46,10 +46,6 @@ public class TestConfiguration {
   protected final Compiler compiler;
   protected final boolean verbose;
 
-  /**
-   * @param testName
-   * @param testSuiteProperties
-   */
   public TestConfiguration(String testName, Properties testSuiteProperties) {
     testDir = new File(Util.TEST_ROOT, testName);
     testProperties = Util.getTestProperties(testDir);
@@ -61,14 +57,10 @@ public class TestConfiguration {
     // Set up compiler option.
     testProperties.setProperty("compiler", testSuiteProperties.getProperty("compiler", "extendj"));
     testProperties.setProperty("extendj.jar",
-        testSuiteProperties.getProperty("extendj.jar", "lib/JavaCompiler.jar"));
+        testSuiteProperties.getProperty("extendj.jar", "extendj.jar"));
     compiler = getCompiler(testProperties);
   }
 
-  /**
-   * @param props
-   * @return compiler configuration
-   */
   private static Compiler getCompiler(Properties props) {
     if (props.getProperty("compiler", "").equals("extendj")) {
       // Compile with ExtendJ.

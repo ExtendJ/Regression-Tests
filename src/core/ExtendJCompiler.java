@@ -29,12 +29,16 @@
 package core;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -149,11 +153,17 @@ public class ExtendJCompiler extends Compiler {
     System.setErr(err);
 
     try {
-      Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler");
+      File jarFile = new File(jarPath);
+      URL jarUrl = jarFile.toURI().toURL();
+      URLClassLoader classLoader = new URLClassLoader(new URL[] { jarUrl });
+      Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler", true, classLoader);
       Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
 
       boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
       return result ? 0 : 1;
+    } catch (MalformedURLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     } catch (ClassNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

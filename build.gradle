@@ -20,6 +20,7 @@ dependencies {
 }
 
 test {
+	dependsOn 'cleanTest'
 	include 'tests/extendj/TestJava8.class'
 
 	systemProperties = [
@@ -27,6 +28,7 @@ test {
 		'includes': System.getProperty('includes', ''),
 		'excludes': System.getProperty('excludes', ''),
 		'test': System.getProperty('test', ''),
+		'fork': System.getProperty('fork', 'false'),
 		'debug': System.getProperty('debug', 'false'),
 	]
 }

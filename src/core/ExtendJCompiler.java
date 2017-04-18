@@ -40,8 +40,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * ExtendJ compiler runner.
@@ -52,6 +56,10 @@ public class ExtendJCompiler extends Compiler {
   private final boolean newVM;
   private final boolean debug;
   private final String jarPath;
+
+  /** Memoization map for used compiler classes. */
+  private static final ConcurrentMap<String, Class<?>> classMap =
+      new ConcurrentHashMap<String, Class<?>>();
 
   /**
    * @param jarPath Path to the ExtendJ jar
@@ -145,6 +153,8 @@ public class ExtendJCompiler extends Compiler {
       return 1;
     }
 
+    // Start new ExtendJ compilation in this JVM.
+    // First, redirect I/O streams:
     InputStream stdin = System.in;
     PrintStream stdout = System.out;
     PrintStream stderr = System.err;
@@ -153,39 +163,42 @@ public class ExtendJCompiler extends Compiler {
     System.setErr(err);
 
     try {
-      File jarFile = new File(jarPath);
-      URL jarUrl = jarFile.toURI().toURL();
-      URLClassLoader classLoader = new URLClassLoader(new URL[] { jarUrl });
-      Class<?> jjMain = Class.forName("org.jastadd.extendj.JavaCompiler", true, classLoader);
-      Method compile = jjMain.getMethod("compile", new Class[] { String[].class } );
+      if (!classMap.containsKey(jarPath)) {
+        // Dynamically load ExtendJ class from Jar file.
+        try {
+          File jarFile = new File(jarPath);
+          URL jarUrl = jarFile.toURI().toURL();
+          URLClassLoader classLoader =
+              new URLClassLoader(new URL[] { jarUrl }, getClass().getClassLoader());
+          Class<?> exjMain = Class.forName("org.extendj.JavaCompiler", true, classLoader);
+          // Memoize result:
+          classMap.putIfAbsent(jarPath, exjMain);
+        } catch (MalformedURLException e) {
+          throw new Error(e);
+        } catch (ClassNotFoundException e) {
+          throw new Error(e);
+        } catch (SecurityException e) {
+          throw new Error(e);
+        }
+      }
 
+      // Invoke compile method on the main compiler class:
+      Class<?> exjMain = classMap.get(jarPath);
+      Method compile = exjMain.getMethod("compile", new Class[] { String[].class } );
       boolean result = (Boolean) compile.invoke(null, new Object[] { arguments });
       return result ? 0 : 1;
-    } catch (MalformedURLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SecurityException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     } catch (NoSuchMethodException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new Error(e);
     } catch (IllegalArgumentException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new Error(e);
     } catch (IllegalAccessException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new Error(e);
     } catch (InvocationTargetException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new Error(e);
+    } finally {
+      System.setIn(stdin);
+      System.setOut(stdout);
+      System.setErr(stderr);
     }
-    System.setIn(stdin);
-    System.setOut(stdout);
-    System.setErr(stderr);
-    return 1;
   }
 }

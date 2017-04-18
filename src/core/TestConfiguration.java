@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Configuration for a single test - includes info about the test to run, the
- * test root directory, and JastAdd configuration for the test run.
+ * test root directory, and compiler configuration for the test run.
  * @author Jesper Öqvist <jesper.oqvist@cs.lth.se>
  */
 public class TestConfiguration {

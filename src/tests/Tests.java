@@ -46,13 +46,14 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/inference", // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
-    "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
     "pkg/typename_01f", // https://bitbucket.org/extendj/extendj/issues/192/missing-error-for-class-extending-package
     "pkg/typename_02f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
     "pkg/typename_03f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
     "expr/classinst_01f", // https://bitbucket.org/extendj/extendj/issues/194/unknown-typename-in-class-instance
     "class/local_01f", // https://bitbucket.org/extendj/extendj/issues/195/local-class-should-not-be-accessible-from
     "type/unknown_01f", // https://bitbucket.org/extendj/extendj/issues/196/no-error-reported-when-using-unknown-type
+    "generics/bounds_03f", // https://bitbucket.org/extendj/extendj/issues/197/too-permissive-type-argument-bounds
+    "generics/bounds_04f", // https://bitbucket.org/extendj/extendj/issues/197/too-permissive-type-argument-bounds
   };
 
   /**
@@ -81,7 +82,8 @@ public interface Tests {
    * Java 8 tests.
    */
   String[] JAVA8 = {
-    "jsr335"
+    "jsr335",
+    "extendj/jsr335",
   };
 
   /**

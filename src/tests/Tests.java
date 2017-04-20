@@ -48,6 +48,7 @@ public interface Tests {
     "jsr335/inference", // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
     "jsr335/lambda/type_inf_03f", // Lacks proper error messages.
     "pkg/typename_01f", // https://bitbucket.org/extendj/extendj/issues/192/missing-error-for-class-extending-package
+    "pkg/typename_02f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
   };
 
   /**

@@ -1,5 +1,5 @@
 // Various lambda type inference uses.
-// .result=COMPILE_FAIL
+// .result=COMPILE_ERR_OUTPUT
 public class Test {
   Fun1<String, String>      fun1a = s -> "a";
   Fun1<? extends String, ?> fun1b = s -> "b"; // Error.

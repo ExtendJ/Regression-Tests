@@ -92,6 +92,7 @@ public interface Tests {
     "pkg/import_06f", // Multiple static imports of the same type name.
     "jsr334/diamond/diamond_18",
     "generics/inference_07f",
+    "generics/method_17p",
   };
 
   /**

@@ -3,16 +3,11 @@
 
 interface Muffin {}
 
-interface Oven {
-  <T> T bake();
-}
-
 public class Test {
+  abstract <T> T bake();
   void eat(Muffin m) { }
 
-  void go(Oven oven) {
-    // ExtendJ should infer the target type Muffin for oven.bake(),
-    // however infers java.lang.Object.
-    eat(oven.bake());
+  void go() {
+    eat(bake());  // Works in Java 8, not Java 7 or below.
   }
 }

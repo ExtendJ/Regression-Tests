@@ -45,7 +45,6 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
-    "jsr335/inference", // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
     "pkg/typename_01f", // https://bitbucket.org/extendj/extendj/issues/192/missing-error-for-class-extending-package
     "pkg/typename_02f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
     "pkg/typename_03f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
@@ -91,7 +90,7 @@ public interface Tests {
   String[] EXCLUDE_JAVA8 = {
     "pkg/import_06f", // Multiple static imports of the same type name.
     "jsr334/diamond/diamond_18",
-    "generics/inference_07f",
+    "generics/inference_07f", // More powerful type inference in Java 8.
     "generics/method_17p",
   };
 

@@ -52,6 +52,7 @@ public interface Tests {
     "expr/classinst_01f", // https://bitbucket.org/extendj/extendj/issues/194/unknown-typename-in-class-instance
     "class/local_01f", // https://bitbucket.org/extendj/extendj/issues/195/local-class-should-not-be-accessible-from
     "type/unknown_01f", // https://bitbucket.org/extendj/extendj/issues/196/no-error-reported-when-using-unknown-type
+    "generics/method_18p", // https://bitbucket.org/extendj/extendj/issues/174/class-typed-method-parameter-no-method
   };
 
   /**

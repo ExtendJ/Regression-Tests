@@ -10,6 +10,8 @@
 /.gradle/
 /traces/
 
+/scratch/
+
 # generated documentation
 /index.html
 

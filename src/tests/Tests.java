@@ -45,12 +45,12 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
-    "pkg/typename_01f", // https://bitbucket.org/extendj/extendj/issues/192/missing-error-for-class-extending-package
-    "pkg/typename_02f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
-    "pkg/typename_03f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
-    "expr/classinst_01f", // https://bitbucket.org/extendj/extendj/issues/194/unknown-typename-in-class-instance
-    "class/local_01f", // https://bitbucket.org/extendj/extendj/issues/195/local-class-should-not-be-accessible-from
-    "type/unknown_01f", // https://bitbucket.org/extendj/extendj/issues/196/no-error-reported-when-using-unknown-type
+    //"pkg/typename_01f", // https://bitbucket.org/extendj/extendj/issues/192/missing-error-for-class-extending-package
+    //"pkg/typename_02f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
+    //"pkg/typename_03f", // https://bitbucket.org/extendj/extendj/issues/193/missing-error-for-class-implementing
+    //"expr/classinst_01f", // https://bitbucket.org/extendj/extendj/issues/194/unknown-typename-in-class-instance
+    //"class/local_01f", // https://bitbucket.org/extendj/extendj/issues/195/local-class-should-not-be-accessible-from
+    //"type/unknown_01f", // https://bitbucket.org/extendj/extendj/issues/196/no-error-reported-when-using-unknown-type
   };
 
   /**

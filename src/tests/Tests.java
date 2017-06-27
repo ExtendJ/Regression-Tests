@@ -45,7 +45,6 @@ public interface Tests {
   String[] FAILING = {
     "type/ambiguous_01f",
     "generics/static_02f",
-    "jsr334/diamond/diamond_24p", // https://bitbucket.org/extendj/extendj/issues/173/
     "jsr335/lambda/type_inf_04p", // https://bitbucket.org/extendj/extendj/issues/203/stack-overflow-caused-by-parsename-rewrite
   };
 
@@ -69,6 +68,7 @@ public interface Tests {
   String[] JAVA7 = {
     "jsr334",
     "pretty-print/jsr334",
+    "method/overload_04p",  // Uses @SafeVarargs annotation introduced in Java 7.
   };
 
   /**
@@ -77,6 +77,7 @@ public interface Tests {
   String[] JAVA8 = {
     "jsr335",
     "extendj/jsr335",
+    "jsr334/diamond/diamond_24p", // https://bitbucket.org/extendj/extendj/issues/173/
   };
 
   /**

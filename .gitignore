@@ -17,3 +17,7 @@
 
 # vim swap files
 *.swp
+
+# IntelliJ
+/.idea/
+*.iml

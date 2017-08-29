@@ -1,3 +1,4 @@
+// All finally blocks are reached even if one of them does not complete normally.
 // .result=EXEC_PASS
 public class Test {
  

@@ -9,7 +9,7 @@ class T7_4 {
 		public void close() {}
 	}
 
-	public void foo() {
+	public void pass() {
 		try (NonInitializableResource r = new NonInitializableResource()) {
 		} catch (ResourceInitializationException e) {
 		}

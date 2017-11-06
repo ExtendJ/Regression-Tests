@@ -9,7 +9,7 @@ class T11_4 {
 		public void close() {}
 	}
 
-	public void foo() {
+	public void pass() {
 		try {
 			try (NonInitializableResource r = new NonInitializableResource()) {
 			}

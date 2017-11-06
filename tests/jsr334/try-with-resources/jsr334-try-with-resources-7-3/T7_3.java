@@ -9,7 +9,7 @@ class T7_3 {
 		public void close() {}
 	}
 
-	public void foo() {
+	public void fail() {
 		try (NonInitializableResource r = new NonInitializableResource()) {
 		}
 	}

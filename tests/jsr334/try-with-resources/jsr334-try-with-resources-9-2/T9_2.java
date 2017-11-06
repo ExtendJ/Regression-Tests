@@ -1,7 +1,7 @@
 
 class T9_2 {
-    
-	public void foo(Object r) {
+
+	public void fail(Object r) {
 		try (java.io.PrintStream r = System.out) {
 		}
 	}

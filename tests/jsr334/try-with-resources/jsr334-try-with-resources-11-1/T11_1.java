@@ -1,10 +1,7 @@
 // Unreachable statement test.
 
 public class T11_1 {
-  T11_1 () {
-  }
-
-  public static void main(String[] args) {
+  void fail() {
     try (java.io.PrintStream r = System.out) {
       return;
     }

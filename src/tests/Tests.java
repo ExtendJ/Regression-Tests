@@ -46,6 +46,7 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/lambda/type_inf_04p", // https://bitbucket.org/extendj/extendj/issues/203/stack-overflow-caused-by-parsename-rewrite
+    "jsr334/twr/no_initializer_01f", // Should not allow missing initializer.
   };
 
   /**

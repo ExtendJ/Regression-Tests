@@ -46,6 +46,7 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/lambda/type_inf_04p", // https://bitbucket.org/extendj/extendj/issues/203/stack-overflow-caused-by-parsename-rewrite
+    "generics/method_20p", // https://bitbucket.org/extendj/extendj/issues/213/unused-type-variable-causes-type-inference
   };
 
   /**

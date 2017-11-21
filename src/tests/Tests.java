@@ -46,6 +46,8 @@ public interface Tests {
     "type/ambiguous_01f",
     "generics/static_02f",
     "jsr335/lambda/type_inf_04p", // https://bitbucket.org/extendj/extendj/issues/203/stack-overflow-caused-by-parsename-rewrite
+    "jsr335/lambda/stream_01p", // https://bitbucket.org/extendj/extendj/issues/216/issue-with-lambdas
+    "jsr335/lambda/type_inf_06p", // https://bitbucket.org/extendj/extendj/issues/217/failure-in-lambda-return-type-inference
     "generics/method_20p", // https://bitbucket.org/extendj/extendj/issues/213/unused-type-variable-causes-type-inference
     "generics/method_22p", // https://bitbucket.org/extendj/extendj/issues/213/unused-type-variable-causes-type-inference
   };

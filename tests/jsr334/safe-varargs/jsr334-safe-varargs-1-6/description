@@ -1,4 +1,0 @@
-
-	@SafeVarargs may not be used on methods that are not declared
-	final or static
-

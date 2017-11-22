@@ -52,28 +52,6 @@ public class TestJava8 {
     properties.setProperty("extendj.jar", "extendj.jar"); // Default to local compiler Jar.
     properties.exclude(tests.Tests.FAILING);
     properties.exclude(tests.Tests.EXCLUDE_JAVA8);
-
-    // TODO(joqvist): These are bugs in ExtendJ that need to be fixed, but it is not helpful
-    // to see the test failures for each run. That could potentially hide new regressions.
-    properties.exclude("enum/final_07f");
-    properties.exclude("enum/final_09f");
-    properties.exclude("generics/override_02f");
-    properties.exclude("generics/override_10f");
-    properties.exclude("generics/override_12f");
-    properties.exclude("jsr335/Semantics/ConstructorReferenceAnalysis/ClassReferences/ShouldFail/syntax03");
-    properties.exclude("jsr335/Semantics/ConstructorReferenceAnalysis/ClassReferences/ShouldFail/syntax04");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldCompile/syntax22");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldFail/syntax11");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldFail/syntax12");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/Signature/ShouldCompile/syntax08");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/Signature/ShouldCompile/syntax12");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/Signature/ShouldFail/syntax08");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldFail/syntax02");
-    properties.exclude("jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldFail/syntax03");
-    properties.exclude("jsr335/Semantics/LambdaTypeAnalysis/AssignmentContext/ShouldCompile/syntax28");
-    properties.exclude("jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax10");
-    properties.exclude("jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax11");
-    properties.exclude("jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax12");
   }
 
   private final String testDir;

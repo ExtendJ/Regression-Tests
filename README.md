@@ -7,12 +7,15 @@ can be verified against javac.
 Quick Start
 -----------
 
+Note: the tests can be run with either Apache Ant or Gradle. If you use Gradle,
+just replace `ant` with `gradle` in the commands below.
+
 1. Copy `jastaddj.jar` into the JJTest root directory.
 2. Run tests from the command line:
     * run all default tests (the TestShouldPass suite):
-        `$ ant`
+        `ant`
     * or, run some specific test(s):
-        `$ ant -Dtest=ast/flush01`
+        `ant -Dtest=ast/flush01`
 3. Run tests from Eclipse:
     * Select a test suite, e.g., `src/tests/jastaddj/TestJava7.java`
     * Select `Popup-menu->Run As->JUnit Test`
@@ -23,7 +26,7 @@ Quick Start
 5. Add your own test suite:
     * Copy an existing test suite.
     * Change it to include and exclude parts of the full test suite.
-     
+
 Test Organization
 -----------------
 

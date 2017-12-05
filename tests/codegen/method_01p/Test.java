@@ -1,5 +1,5 @@
 // Test different types of method/constructor code generation with respect to
-// normal completion of the method
+// normal completion of the method.
 public class Test {
 
 	public Test() {}

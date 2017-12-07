@@ -3,9 +3,9 @@
 // .result: COMPILE_FAIL
 public class Test {
   void fail() {
-	  try (AutoCloseable r) {
+    try (AutoCloseable r) {
       r = System.out;
-	  } catch (Exception r) {
-	  }
+    } catch (Exception r) {
+    }
   }
 }

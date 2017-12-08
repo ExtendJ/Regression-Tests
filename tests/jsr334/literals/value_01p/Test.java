@@ -17,14 +17,14 @@ public class Test {
 
     System.out.println("Octal integers:");
     System.out.println(0_0);
-    System.out.println(0_127);
+    System.out.println(-0_127);
     System.out.println(012_7);
     System.out.println();
 
     System.out.println("Binary integers:");
     System.out.println(0b00_1L);
     System.out.println(0b1_0);
-    System.out.println(0b1111_00__00L);
+    System.out.println(-0b1111_00__00L);
     System.out.println(0b100000000000000000000000000000000000000000000000000000000000000L);
     System.out.println(0b1000000000000000000000000000000000000000000000000000000000000000L);
     System.out.println();
@@ -41,12 +41,12 @@ public class Test {
     System.out.println(1_0f);
     System.out.println(0.1__0D);
     System.out.println(1_2.f);
-    System.out.println(1_2.3);
+    System.out.println(-1_2.3);
     System.out.println();
 
     System.out.println("Hexadecimal floats:");
     System.out.println(0xA.F_FP1F);
-    System.out.println(0x4.A_B_CP1_4);
+    System.out.println(-0x4.A_B_CP1_4);
     System.out.println(0xF_000.P1_____4);
     System.out.println(0xC_a_f_e.B_a_b_eP1);
     System.out.println(0x12.34P42d);

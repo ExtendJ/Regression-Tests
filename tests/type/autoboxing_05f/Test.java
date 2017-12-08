@@ -1,4 +1,5 @@
 // Illegal autoboxing conversion.
+// https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
 // .result: COMPILE_FAIL
 class Test {
   public static void main(String[] args) {

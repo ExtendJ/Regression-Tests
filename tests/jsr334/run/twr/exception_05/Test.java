@@ -1,8 +1,7 @@
 import static runtime.Test.*;
 
 /**
- * This test tests part of the new suppressed exceptions
- * semantics.
+ * This test tests part of the new suppressed exceptions semantics.
  */
 public class Test {
 	static class ResourceClosingException extends Exception {}

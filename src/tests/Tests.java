@@ -70,6 +70,8 @@ public interface Tests {
     "jsr335/Semantics/InterfaceMethods/MethodDeclarations/ShouldCompile/syntax04", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
     "type/autoboxing_02f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
+    "pkg/static_import_03p", // TODO: add issue for this.
+    "run/conditional_03", // TODO: add issue for this.
   };
 
   /**
@@ -117,7 +119,6 @@ public interface Tests {
    * changed since Java 7 and no longer work the same way.
    */
   String[] EXCLUDE_JAVA8 = {
-    "pkg/import_06f", // Multiple static imports of the same type name.
     "jsr334/diamond/diamond_18",
     "generics/inference_07f", // More powerful type inference in Java 8.
     "generics/method_17p",

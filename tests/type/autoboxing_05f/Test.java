@@ -1,5 +1,5 @@
-// Test autoboxing.
-// .result=EXEC_PASS
+// Illegal autoboxing conversion.
+// .result: COMPILE_FAIL
 class Test {
   public static void main(String[] args) {
     if (f(100L) != 100L) {
@@ -7,6 +7,6 @@ class Test {
     }
   }
   static long f(Object o) {
-    return (long) o; // Autoboxing conversion Long->long.
+    return (long) o; // Can't convert Object->long.
   }
 }

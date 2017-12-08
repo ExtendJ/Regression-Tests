@@ -68,6 +68,8 @@ public interface Tests {
     "jsr335/iface", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
     "jsr335/Semantics/InterfaceMethods/InheritanceOverriding/ShouldCompile/syntax06", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
     "jsr335/Semantics/InterfaceMethods/MethodDeclarations/ShouldCompile/syntax04", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
+    "type/autoboxing_02f",
+    "type/autoboxing_05f",
   };
 
   /**

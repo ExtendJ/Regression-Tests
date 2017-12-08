@@ -1,5 +1,5 @@
-// Test autoboxing.
-// .result=EXEC_PASS
+// Illegal autoboxing conversion.
+// .result: COMPILE_FAIL
 
 class Test {
   public static void main(String[] args) {

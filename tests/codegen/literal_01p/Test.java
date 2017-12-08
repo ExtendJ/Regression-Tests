@@ -8,6 +8,7 @@ public class Test {
     System.out.println(Float.MAX_VALUE);
     System.out.println(Float.NEGATIVE_INFINITY);
     System.out.println(Float.POSITIVE_INFINITY);
+    System.out.println(Float.NaN);
     System.out.println();
 
     System.out.println("Double:");
@@ -15,6 +16,7 @@ public class Test {
     System.out.println(Double.MAX_VALUE);
     System.out.println(Double.NEGATIVE_INFINITY);
     System.out.println(Double.POSITIVE_INFINITY);
+    System.out.println(Double.NaN);
     System.out.println();
 
     System.out.println("Integer:");

@@ -3,12 +3,14 @@ Float:
 3.4028235E38
 -Infinity
 Infinity
+NaN
 
 Double:
 4.9E-324
 1.7976931348623157E308
 -Infinity
 Infinity
+NaN
 
 Integer:
 -2147483648

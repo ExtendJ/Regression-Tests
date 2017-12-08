@@ -7,6 +7,6 @@ class Test {
   }
 
   static int f(Object i) {
-    return (int) i; // Autoboxing conversion Integer->int.
+    return (int) i; // Can't convert Object->int.
   }
 }

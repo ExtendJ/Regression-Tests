@@ -85,6 +85,14 @@ public interface Tests {
   };
 
   /**
+   * Tests that should be excluded for Java 8, because they test features that
+   * changed since Java 7 and no longer work the same way.
+   */
+  String[] EXCLUDE_JAVA7 = {
+    "exception/rethrow_01f", // Rethrowing Throwable gives an error.
+  };
+
+  /**
    * Java 7 tests.
    */
   String[] JAVA7 = {

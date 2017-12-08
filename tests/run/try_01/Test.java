@@ -2,7 +2,7 @@ public class Test {
   public static void main(String[] args) {
     try {
       g();
-    } catch (Throwable t) {
+    } catch (Error t) {
       throw t;
     }
   }

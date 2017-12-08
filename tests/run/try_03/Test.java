@@ -12,7 +12,7 @@ public class Test {
       i += 64 * a[6];
       System.out.println(i);
       System.out.println(77);
-    } catch (Throwable t) {
+    } catch (Error t) {
       throw t;
     }
   }

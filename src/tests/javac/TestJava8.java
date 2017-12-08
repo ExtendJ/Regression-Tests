@@ -51,6 +51,7 @@ public class TestJava8 {
     properties.setProperty("compiler", "javac");
     properties.setProperty("extraOptions", "-Xlint:none");
     properties.exclude(tests.Tests.FAILING);
+    properties.exclude(tests.Tests.EXCLUDE_JAVA7);
     properties.exclude(tests.Tests.EXCLUDE_JAVA8);
     properties.exclude(tests.Tests.EXTENDJ_ONLY);
 

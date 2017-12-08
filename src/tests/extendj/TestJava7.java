@@ -50,6 +50,7 @@ public class TestJava7 {
   static {
     properties.setProperty("compiler", "extendj");
     properties.setProperty("extendj.jar", "extendj.jar"); // Default to local compiler Jar.
+    properties.exclude(tests.Tests.EXCLUDE_JAVA7);
     properties.exclude(tests.Tests.JAVA8);
     properties.exclude(tests.Tests.FAILING);
   }

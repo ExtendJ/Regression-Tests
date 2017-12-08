@@ -2,6 +2,7 @@
 // https://bitbucket.org/extendj/extendj/issues/214/type-inference-regression
 // .result: COMPILE_PASS
 public abstract class Test {
+  @SuppressWarnings("unchecked")
   <T extends Note> T get(Class<T> note) {
     // The initial constraints for get(note) are:
     // * T <: Note

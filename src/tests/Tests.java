@@ -70,8 +70,8 @@ public interface Tests {
     "jsr335/Semantics/InterfaceMethods/MethodDeclarations/ShouldCompile/syntax04", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
     "type/autoboxing_02f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
-    "pkg/static_import_03p", // TODO: add issue for this.
-    "run/conditional_03", // TODO: add issue for this.
+    "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused
+    "run/conditional_03", // https://bitbucket.org/extendj/extendj/issues/226/missing-autoboxing-in-generated-code-for
   };
 
   /**

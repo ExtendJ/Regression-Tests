@@ -64,10 +64,6 @@ public interface Tests {
     "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax10",
     "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax11",
     "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax12",
-    "jsr335/stream/intstream_01p", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
-    "jsr335/iface", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
-    "jsr335/Semantics/InterfaceMethods/InheritanceOverriding/ShouldCompile/syntax06", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
-    "jsr335/Semantics/InterfaceMethods/MethodDeclarations/ShouldCompile/syntax04", // https://bitbucket.org/extendj/extendj/issues/220/intstream-and-doublestream-does-not-work
     "type/autoboxing_02f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused

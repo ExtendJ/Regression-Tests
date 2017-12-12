@@ -53,17 +53,8 @@ public interface Tests {
     "jsr335/Semantics/ConstructorReferenceAnalysis/ClassReferences/ShouldFail/syntax03",
     "jsr335/Semantics/ConstructorReferenceAnalysis/ClassReferences/ShouldFail/syntax04",
     "jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldCompile/syntax22",
-    "jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldFail/syntax11",
-    "jsr335/Semantics/FunctionalInterfaces/ReturnTypeSubstitutable/ShouldFail/syntax12",
-    "jsr335/Semantics/FunctionalInterfaces/Signature/ShouldCompile/syntax08",
-    "jsr335/Semantics/FunctionalInterfaces/Signature/ShouldCompile/syntax12",
     "jsr335/Semantics/FunctionalInterfaces/Signature/ShouldFail/syntax08",
-    "jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldFail/syntax02",
-    "jsr335/Semantics/FunctionalInterfaces/TypeParameters/ShouldFail/syntax03",
     "jsr335/Semantics/LambdaTypeAnalysis/AssignmentContext/ShouldCompile/syntax28",
-    "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax10",
-    "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax11",
-    "jsr335/Semantics/MethodReferenceAnalysis/TypeMethodReference/ShouldCompile/syntax12",
     "type/autoboxing_02f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused

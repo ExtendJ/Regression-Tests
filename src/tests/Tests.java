@@ -67,6 +67,7 @@ public interface Tests {
     "type/autoboxing_02f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused
+    "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
   };
 
   /**

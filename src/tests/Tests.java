@@ -59,6 +59,8 @@ public interface Tests {
     "type/autoboxing_05f", // https://bitbucket.org/extendj/extendj/issues/225/illegal-autoboxing-conversion-is
     "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused
     "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
+    "curious", // Curious type inference problems in Java 8. Don't even work with javac.
+    "jsr335/inference/method_07p", // https://bitbucket.org/extendj/extendj/issues/229/broken-bytecode-when-using-java-8-return
   };
 
   /**

@@ -61,7 +61,6 @@ public interface Tests {
     "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/inference/method_07p", // https://bitbucket.org/extendj/extendj/issues/229/broken-bytecode-when-using-java-8-return
-    "run/builder_01", // https://bitbucket.org/extendj/extendj/issues/231/illegal-private-field-access-for-field-of
   };
 
   /**

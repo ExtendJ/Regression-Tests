@@ -4,7 +4,7 @@ public class Test {
   public static final Test DEFAULT_ACTION =
       builder()
       .withAction(new Action() {
-        @Override public void doThing() {
+        public void doThing() {
           System.out.println("thing done");
         }
       })

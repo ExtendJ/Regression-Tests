@@ -62,6 +62,9 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/inference/method_07p", // https://bitbucket.org/extendj/extendj/issues/229/broken-bytecode-when-using-java-8-return
     "generics/array_erasure_01p", // https://bitbucket.org/extendj/extendj/issues/233/bad-stack-map-frame-when-using-conditional
+    "annotation/deprecated_01p", // https://bitbucket.org/extendj/extendj/issues/235/deprecation-warnings-inside-deprecated
+    "run/conditional_04", // https://bitbucket.org/extendj/extendj/issues/236/bad-stack-map-frame-when-using-conditional
+    "classes/super_07p", // https://bitbucket.org/extendj/extendj/issues/234/broken-constructor-signature-for-anonymous
   };
 
   /**

@@ -8,7 +8,8 @@ Quick Start
 -----------
 
 Note: the tests can be run with either Apache Ant or Gradle. If you use Gradle,
-just replace `ant` with `gradle` in the commands below.
+just replace `ant` with `gradle` in the commands below.  Note that Gradle can
+only be used with Java 7 or higher. For Java 5 or 6 you must use Ant.
 
 1. Copy `jastaddj.jar` into the JJTest root directory.
 2. Run tests from the command line:

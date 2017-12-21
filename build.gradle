@@ -19,7 +19,25 @@ dependencies {
 	testCompile 'junit:junit:4.12'
 }
 
-test {
+// Default test set is for Java 8.
+test.dependsOn 'test8'
+
+task test7(type: Test) {
+	dependsOn 'cleanTest'
+	include 'tests/extendj/TestJava7.class'
+	ignoreFailures = true // Needed for Jenkins pipeline to generate test report.
+
+	systemProperties = [
+		'extendj.jar': System.getProperty('extendj.jar', 'extendj.jar'),
+		'includes': System.getProperty('includes', ''),
+		'excludes': System.getProperty('excludes', ''),
+		'test': System.getProperty('test', ''),
+		'fork': System.getProperty('fork', 'false'),
+		'debug': System.getProperty('debug', 'false'),
+	]
+}
+
+task test8(type: Test) {
 	dependsOn 'cleanTest'
 	include 'tests/extendj/TestJava8.class'
 	ignoreFailures = true // Needed for Jenkins pipeline to generate test report.
@@ -36,5 +54,5 @@ test {
 
 // Set the Gradle wrapper version:
 task wrapper(type: Wrapper) {
-  gradleVersion = '3.4.1'
+	gradleVersion = '3.4.1'
 }

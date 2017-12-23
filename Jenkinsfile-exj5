@@ -13,9 +13,12 @@ node {
 	}
 
 	stage('Copy Artifact') {
+		// https://stackoverflow.com/a/42058990/1250278
+		def upstream = currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause)
+		def upstreamName = (upstream?.getUpstreamProject()) ?: 'ExtendJ Gradle Build'
 		copyArtifacts filter: 'java5/extendj.jar',
 				fingerprintArtifacts: true,
-				projectName: 'ExtendJ Gradle Build',
+				projectName: upstreamName,
 				selector: lastSuccessful(),
 				flatten: true
 	}

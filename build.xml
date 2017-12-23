@@ -14,7 +14,7 @@ Test Properties:
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
 </description>
-	<property name="extendj.jar" location="extendj.jar" />
+	<property name="extendj.jar" location="${basedir}/extendj.jar" />
 	<property name="includes" value=""/>
 	<property name="excludes" value=""/>
 	<property name="test" value=""/>

@@ -39,9 +39,12 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
@@ -93,23 +96,26 @@ public class ExtendJCompiler extends Compiler {
     final PrintStream err = new PrintStream(errStream);
 
     if (newVM || debug) {
-      StringBuffer cmd = new StringBuffer();
-      cmd.append("java -Xmx2g");
+      List<String> cmd = new ArrayList<String>();
+      cmd.add("java");
+      cmd.add("-Xmx2g");
       if (debug) {
-        cmd.append(" -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
+        cmd.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
       }
-      cmd.append(" -jar " + jarPath);
+      cmd.add("-jar");
+      cmd.add(jarPath);
       for (String arg : arguments) {
-        cmd.append(" " + arg);
+        cmd.add(arg);
       }
       try {
-        final Process p = Runtime.getRuntime().exec(cmd.toString());
+        String[] cmdArray = cmd.toArray(new String[cmd.size()]);
+        final Process proc = Runtime.getRuntime().exec(cmdArray);
 
         final Collection<String> stderrErrors = new LinkedList<String>();
         new Thread() {
           @Override
           public void run() {
-            Scanner scanner = new Scanner(p.getErrorStream());
+            Scanner scanner = new Scanner(proc.getErrorStream());
             while (scanner.hasNextLine()) {
               String line = scanner.nextLine();
               if (stderrErrors.isEmpty() &&
@@ -127,7 +133,7 @@ public class ExtendJCompiler extends Compiler {
         new Thread() {
           @Override
           public void run() {
-            Scanner scanner = new Scanner(p.getInputStream());
+            Scanner scanner = new Scanner(proc.getInputStream());
             while (scanner.hasNextLine()) {
               String line = scanner.nextLine();
               if (stdoutErrors.isEmpty() && line.equals("Errors:"))
@@ -137,7 +143,7 @@ public class ExtendJCompiler extends Compiler {
             scanner.close();
           }
         }.start();
-        int exitValue = p.waitFor();
+        int exitValue = proc.waitFor();
         if (!stdoutErrors.isEmpty() || !stderrErrors.isEmpty()) {
           return 1;
         } else {

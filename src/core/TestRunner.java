@@ -171,8 +171,6 @@ public class TestRunner {
 
   /**
    * Run the compiled test program.
-   * @param config
-   * @param expected
    */
   private static void executeCode(TestConfiguration config, Result expected) {
     Properties props = config.testProperties;
@@ -192,18 +190,24 @@ public class TestRunner {
       }
     }
 
-    String javaOptions = "";
+    List<String> cmd = new ArrayList<String>();
+    cmd.add("java");
+    cmd.add("-classpath");
+    cmd.add(classpath);
+
     if (props.containsKey("javaOptions")) {
-      javaOptions = " " + props.getProperty("javaOptions");
+      cmd.add(props.getProperty("javaOptions"));
     }
 
+    cmd.add("Test");
+
     try {
-      Process p = Runtime.getRuntime().exec("java -classpath " + classpath
-          + javaOptions + " Test");
+      String[] cmdArray = cmd.toArray(new String[cmd.size()]);
+      Process proc = Runtime.getRuntime().exec(cmdArray);
       // Write output to file.
-      InputStream in = p.getInputStream();
+      InputStream in = proc.getInputStream();
       OutputStream out = new FileOutputStream(new File(tmpDir, "out"));
-      InputStream errIn = p.getErrorStream();
+      InputStream errIn = proc.getErrorStream();
       OutputStream errOut = new FileOutputStream(new File(tmpDir, "err"));
       int data;
       while ((data = in.read()) != -1) {
@@ -215,7 +219,7 @@ public class TestRunner {
         errors.append((char) data);
       }
       errOut.close();
-      int exitValue = p.waitFor();
+      int exitValue = proc.waitFor();
       if (exitValue == 0) {
         if (expected == Result.EXEC_FAILED) {
           fail("Code execution passed when expected to fail");

@@ -34,8 +34,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -72,29 +75,29 @@ public class JavacCompiler extends Compiler {
   }
 
   /**
-   * @param arguments
-   * @param in
-   * @param out
-   * @param err
+   * Runs the configured javac compiler.
    * @return Exit value of the compile process
    */
   public int invoke(String[] arguments, InputStream in,
       final OutputStream out, final OutputStream err) {
 
     if (newVM) {
-      StringBuffer cmd = new StringBuffer();
+      List<String> cmd = new ArrayList<String>();
+      cmd.add("java");
       // TODO(jesper): build the jar file
-      cmd.append("java -jar tools/javacjar.jar");
+      cmd.add("-jar");
+      cmd.add("tools/javacjar.jar");
       for (String arg : arguments) {
-        cmd.append(" " + arg);
+        cmd.add(arg);
       }
       try {
-        final Process p = Runtime.getRuntime().exec(cmd.toString());
+        String[] cmdArray = cmd.toArray(new String[cmd.size()]);
+        final Process proc = Runtime.getRuntime().exec(cmdArray);
         Thread errThread = new Thread() {
           @Override
           public void run() {
             PrintStream ps = new PrintStream(err);
-            Scanner scanner = new Scanner(p.getErrorStream());
+            Scanner scanner = new Scanner(proc.getErrorStream());
             while (scanner.hasNextLine()) {
               ps.println(scanner.nextLine());
             }
@@ -105,7 +108,7 @@ public class JavacCompiler extends Compiler {
           @Override
           public void run() {
             PrintStream ps = new PrintStream(out);
-            Scanner scanner = new Scanner(p.getInputStream());
+            Scanner scanner = new Scanner(proc.getInputStream());
             while (scanner.hasNextLine()) {
               ps.println(scanner.nextLine());
             }
@@ -114,7 +117,7 @@ public class JavacCompiler extends Compiler {
         };
         errThread.start();
         outThread.start();
-        int exitValue = p.waitFor();
+        int exitValue = proc.waitFor();
         outThread.join();
         errThread.join();
         return exitValue;

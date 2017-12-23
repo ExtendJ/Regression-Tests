@@ -13,9 +13,10 @@ node {
 	}
 
 	stage('Copy Artifact') {
+		// Figure out the upstream job name.
+		// Compressed into a single line to avoid serializability problems.
 		// https://stackoverflow.com/a/42058990/1250278
-		def upstream = currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause)
-		def upstreamName = (upstream?.getUpstreamProject()) ?: 'ExtendJ Gradle Build'
+		def upstreamName = (currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause)?.getUpstreamProject()) ?: 'ExtendJ Gradle Build'
 		copyArtifacts filter: 'java6/extendj.jar',
 				fingerprintArtifacts: true,
 				projectName: upstreamName,

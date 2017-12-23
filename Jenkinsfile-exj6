@@ -1,0 +1,27 @@
+#!/usr/bin/env groovy
+
+// To test ExtendJ6, we have to use Ant.
+// Gradle can only be run with a Java7+ JVM.
+
+node {
+	env.JAVA_HOME="${tool 'oracle-jdk-6'}"
+	env.ANT_HOME="${tool 'ant-1.8.4'}"
+	env.PATH="${env.JAVA_HOME}/bin:${env.ANT_HOME}/bin:${env.PATH}"
+
+	stage('Checkout') {
+		checkout scm
+	}
+
+	stage('Copy Artifact') {
+		copyArtifacts filter: 'java6/extendj.jar',
+				fingerprintArtifacts: true,
+				projectName: 'ExtendJ Gradle Build',
+				selector: lastSuccessful(),
+				flatten: true
+	}
+
+	stage('Test') {
+		sh "ant java6"
+		junit 'reports/**/*.xml'
+	}
+}

@@ -71,6 +71,17 @@ suite properties are used to configure JastAdd2 for the entire test suite and
 include/exclude individual tests. Test properties on the other hand configure a
 single test.
 
+
+Test Folder Structure
+---------------------
+
+The test folder must contain a file named `Test.java` or `Test.properties`.
+Additional test metadata files:
+
+* `out.expected` - expected standard output.
+* `err.expected` - expected standard error output.
+* `extendj.err.expected` - expected standard error output when compiling with ExtendJ.
+
 Test Properties
 ---------------
 
@@ -108,8 +119,11 @@ file.
 test directory.
 3. The Test class is run with `stdout` redirected to the `out` file in the `tmp`
 directory, and `stderr` redirected to the `err` file in the `tmp` directory.
-4. If the `err` file is non-empty, the test case fails.  The `out` file is
-compared to the `out.expected` file located in the test directory.
+4. If the `err` file is non-empty: if the current compiler is ExtendJ,
+the error output is compared to the test file `extendj.err.expected`.
+Otherwise, it is compared to `err.expected`.
+5. If the `err` file is empty, then the `out` file is
+compared to the file `out.expected`.
 
 Each test can be configured to halt at any of the above steps by using the
 `result` option in the `Test.properties` file:

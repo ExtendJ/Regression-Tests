@@ -1,2 +1,1 @@
-tests/generics/method_25f/Test.java:7: error: no method named assertEqulas(int, Unknown) in Test matches.
-tests/generics/method_25f/Test.java:7: error: no method named ident(java.lang.String) in Test matches. However, there is a method ident(Test.ident(java.lang.Object)@U)
+tests/generics/method_25f/Test.java:7: error: no method named assertEqulas(int, java.lang.Object) in Test matches.

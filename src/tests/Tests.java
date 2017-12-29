@@ -110,6 +110,7 @@ public interface Tests {
     "jsr334/diamond/diamond_18",
     "generics/inference_07f", // More powerful type inference in Java 8.
     "generics/method_17p",
+    "generics/method_25f", // Changed error message.
   };
 
   /**

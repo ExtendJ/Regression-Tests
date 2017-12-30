@@ -9,6 +9,7 @@
 /build/
 /.gradle/
 /traces/
+/runtime/
 
 /scratch/
 

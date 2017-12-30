@@ -1,4 +1,5 @@
 // Test that most applicable method selection works with bounded type variables.
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 class Container<T> { }

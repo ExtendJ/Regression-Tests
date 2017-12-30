@@ -1,6 +1,6 @@
 // Test the fullName() attribute evaluated on a TypeVariable.
 // .result=EXEC_PASS
-// .classpath=@EXTENDJ_LIB@
+// .classpath=@EXTENDJ_LIB@:@RUNTIME_CLASSES@
 import org.extendj.ast.CompilationUnit;
 import org.extendj.ast.FileClassSource;
 import org.extendj.ast.GenericMethodDecl;

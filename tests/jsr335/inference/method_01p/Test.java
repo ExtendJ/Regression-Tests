@@ -4,6 +4,7 @@
 // Simplified versions of this test are in the tests method_02p, method_03p, and method_04p.
 // https://bitbucket.org/extendj/extendj/issues/182/wrong-target-type-for-inferred-method
 // .result=COMPILE_PASS
+// .classpath: @RUNTIME_CLASSES@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;

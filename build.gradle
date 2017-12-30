@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-defaultTasks 'test'
+defaultTasks 'test8'
 
 repositories {
 	mavenCentral()
@@ -13,14 +13,31 @@ sourceSets {
 			srcDirs 'src/core', 'src/tests'
 		}
 	}
+	runtimeClasses {
+		java {
+			srcDir file('framework')
+		}
+	}
 }
 
 dependencies {
 	testCompile 'junit:junit:4.12'
 }
 
-// Default test set is for Java 8.
-test.dependsOn 'test8'
+task compileRuntimeClasses(type: JavaCompile) {
+	classpath = sourceSets.runtimeClasses.compileClasspath
+	destinationDir = project.file('runtime/classes')
+	source sourceSets.runtimeClasses.java
+}
+
+sourceCompatibility = targetCompatibility = '1.6'
+
+// Ensure that the runtime classes are always built.
+compileJava.dependsOn 'compileRuntimeClasses'
+
+// Disable the default test task as it would otherwise run all test suites.
+// A test suite must be explicitly selected (test7 or test8).
+test.onlyIf { false }
 
 task test7(type: Test) {
 	dependsOn 'cleanTest'

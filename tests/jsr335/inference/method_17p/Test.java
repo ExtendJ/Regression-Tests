@@ -1,5 +1,6 @@
 // Test that most applicable method selection works with bounded type variables.
 // This test works differently in Java 7 and below.
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 class Container<T> { }

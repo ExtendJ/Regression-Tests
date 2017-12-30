@@ -1,4 +1,5 @@
 // https://bitbucket.org/extendj/extendj/issues/222/lambda-expression-causes-unused-class-to
+// .classpath: @RUNTIME_CLASSES@
 import java.util.*;
 import static runtime.Test.*;
 

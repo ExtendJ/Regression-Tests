@@ -1,3 +1,4 @@
+// .classpath: @RUNTIME_CLASSES@
 import static java.lang.String.valueOf;
 import static runtime.Test.*;
 

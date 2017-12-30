@@ -1,6 +1,6 @@
 // Test parameterized type construction and using the Parameterization.getArg(int) method.
 // .result=EXEC_PASS
-// .classpath=@EXTENDJ_LIB@
+// .classpath=@EXTENDJ_LIB@:@RUNTIME_CLASSES@
 import org.extendj.ast.CompilationUnit;
 import org.extendj.ast.FileClassSource;
 import org.extendj.ast.GenericInterfaceDecl;

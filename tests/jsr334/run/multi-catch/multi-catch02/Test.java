@@ -1,3 +1,4 @@
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 import java.io.*;

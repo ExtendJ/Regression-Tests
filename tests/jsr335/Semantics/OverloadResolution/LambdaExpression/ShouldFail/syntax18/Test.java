@@ -1,6 +1,6 @@
 // .result=COMPILE_FAIL
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.testTrue;
-
 
 public class Test {
 	

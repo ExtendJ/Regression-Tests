@@ -1,5 +1,6 @@
 // Test type inference for simple generic method access.
 // https://bitbucket.org/extendj/extendj/issues/198/generic-method-type-inference-failure-in
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 public class Test {

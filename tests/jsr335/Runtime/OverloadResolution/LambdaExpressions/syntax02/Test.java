@@ -1,3 +1,6 @@
+// javac version 1.8.0_05 fails this test because of a bug:
+// http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8035431
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 import java.util.*;

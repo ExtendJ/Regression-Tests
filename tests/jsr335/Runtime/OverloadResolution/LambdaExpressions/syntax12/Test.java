@@ -1,6 +1,7 @@
 // Tests that when finding most specific method with variable arity parameters
 // the the last parameter of the most specific method is a subtype of the
 // trailing parameters of the other method.
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 public class Test {

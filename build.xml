@@ -42,6 +42,17 @@ suites using -Dproperty=value
 			</classpath>
 			<src path="src"/>
 		</javac>
+		<mkdir dir="runtime/classes"/>
+		<javac
+			encoding="utf-8"
+			debug="true"
+			source="1.6"
+			target="1.6"
+			nowarn="true"
+			destdir="runtime/classes"
+			includeantruntime="false">
+			<src path="framework/runtime"/>
+		</javac>
 	</target>
 
 	<property name="junit.version" value="4.11"/>
@@ -204,5 +215,6 @@ suites using -Dproperty=value
 
 	<target name="clean">
 		<delete dir="bin"/>
+		<delete dir="runtime"/>
 	</target>
 </project>

@@ -25,7 +25,7 @@ import java.util.Properties;
 public class TestRunner {
 
   private static String SYS_LINE_SEP = System.getProperty("line.separator");
-  private static String TEST_FRAMEWORK = "framework";
+  private static String RUNTIME_CLASSES = "runtime/classes";
 
   /**
    * Run the unit test in testDir with the given JastAdd configuration.
@@ -182,6 +182,7 @@ public class TestRunner {
     if (props.containsKey("classpath")) {
       String addClasspath = config.testProperties.getProperty("classpath", "").trim();
       if (!addClasspath.isEmpty()) {
+        addClasspath = addClasspath.replace("@RUNTIME_CLASSES@", RUNTIME_CLASSES);
         addClasspath = addClasspath.replace("@TEST_DIR@", testDir.getPath());
         addClasspath = addClasspath.replace("@TMP_DIR@", tmpDir.getPath());
         addClasspath = addClasspath.replace("@TEMP_DIR@", tmpDir.getPath());
@@ -288,14 +289,13 @@ public class TestRunner {
     args.add(config.tmpDir.getPath());
 
     args.add("-classpath");
-    String classpath = TEST_FRAMEWORK;
-    String addClasspath = config.testProperties.getProperty("classpath", "").trim();
-    if (!addClasspath.isEmpty()) {
-      addClasspath = addClasspath.replace("@TEST_DIR@", config.testDir.getPath());
-      addClasspath = addClasspath.replace("@TMP_DIR@", config.tmpDir.getPath());
-      addClasspath = addClasspath.replace("@TEMP_DIR@", config.tmpDir.getPath());
-      addClasspath = addClasspath.replace("@EXTENDJ_LIB@", config.extendjJar());
-      classpath += File.pathSeparator + addClasspath;
+    String classpath = config.testProperties.getProperty("classpath", "").trim();
+    if (!classpath.isEmpty()) {
+      classpath = classpath.replace("@RUNTIME_CLASSES@", RUNTIME_CLASSES);
+      classpath = classpath.replace("@TEST_DIR@", config.testDir.getPath());
+      classpath = classpath.replace("@TMP_DIR@", config.tmpDir.getPath());
+      classpath = classpath.replace("@TEMP_DIR@", config.tmpDir.getPath());
+      classpath = classpath.replace("@EXTENDJ_LIB@", config.extendjJar());
     }
     args.add(classpath);
 

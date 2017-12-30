@@ -2,7 +2,7 @@
 // constant folding with enum constants.
 // https://bitbucket.org/extendj/extendj/issues/191/constant-folding-does-not-work-for-enum
 // .result=EXEC_PASS
-
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.*;
 
 public class Test {

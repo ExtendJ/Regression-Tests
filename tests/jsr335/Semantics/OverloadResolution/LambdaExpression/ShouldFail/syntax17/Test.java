@@ -1,6 +1,8 @@
+// javac version 1.8.0_05 fails this test because of a bug:
+// http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8042759
 // .result=COMPILE_FAIL
+// .classpath: @RUNTIME_CLASSES@
 import static runtime.Test.testTrue;
-
 
 public class Test {
 	public static int out = 0;

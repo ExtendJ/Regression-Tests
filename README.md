@@ -92,6 +92,7 @@ that particular test. These options are available:
 * `classpath` - defines the classpath to be used when compiling and executing
   the test code. You can use the variable `@TMP_DIR@` to reference the
 temporary directory, or `@TEST_DIR@` to reference the test source directory.
+The `@RUNTIME_CLASSES@` variable is used to link with the runtime test framework.
 * `options` - defines sets of options to be added to the JastAdd configuration
   just for this test. See below for details.
 * `sources` - a comma separated list of source files to be passed to JastAdd.

@@ -1,7 +1,7 @@
 // The MethodDecl.isFinal() attribute should be false for methods that don't
 // use the final modifier.
 // .result=EXEC_PASS
-// .classpath=@EXTENDJ_LIB@
+// .classpath=@EXTENDJ_LIB@:@RUNTIME_CLASSES@
 import org.extendj.ast.CompilationUnit;
 import org.extendj.ast.FileClassSource;
 import org.extendj.ast.MethodDecl;

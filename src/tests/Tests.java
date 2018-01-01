@@ -60,6 +60,7 @@ public interface Tests {
     "pkg/static_import_03p", // https://bitbucket.org/extendj/extendj/issues/227/error-should-not-be-generated-for-unused
     "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
+    "generics/wildcard_10p", // https://bitbucket.org/extendj/extendj/issues/259/method-applicability-error-for-generic
   };
 
   /**

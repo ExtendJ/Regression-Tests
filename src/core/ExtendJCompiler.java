@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2016, Jesper Öqvist <jesper.oqvist@cs.lth.se>
+/* Copyright (c) 2013-2018, Jesper Öqvist <jesper.oqvist@cs.lth.se>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,13 +39,11 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -104,9 +102,7 @@ public class ExtendJCompiler extends Compiler {
       }
       cmd.add("-jar");
       cmd.add(jarPath);
-      for (String arg : arguments) {
-        cmd.add(arg);
-      }
+      Collections.addAll(cmd, arguments);
       try {
         String[] cmdArray = cmd.toArray(new String[cmd.size()]);
         final Process proc = Runtime.getRuntime().exec(cmdArray);

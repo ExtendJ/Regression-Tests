@@ -1,3 +1,31 @@
+/* Copyright (c) 2013-2018, Jesper Öqvist <jesper.oqvist@cs.lth.se>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright notice,
+ *      this list of conditions and the following disclaimer in the documentation
+ *      and/or other materials provided with the distribution.
+ *
+ *   3. Neither the name of the copyright holder nor the names of its contributors
+ *      may be used to endorse or promote products derived from this software
+ *      without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package core;
 
 import static org.junit.Assert.assertEquals;
@@ -29,8 +57,6 @@ public class TestRunner {
 
   /**
    * Run the unit test in testDir with the given JastAdd configuration.
-   * @param testName
-   * @param testSuiteProperties
    */
   public static void runTest(String testName, Properties testSuiteProperties)
       throws IOException {
@@ -145,8 +171,6 @@ public class TestRunner {
    * <p>The system dependent line separator char sequence is replaced by
    * the newline character.
    *
-   * @param file
-   * @return
    * @throws FileNotFoundException
    */
   private static String readFileToString(File file) throws IOException {
@@ -288,16 +312,16 @@ public class TestRunner {
     args.add("-d");
     args.add(config.tmpDir.getPath());
 
-    args.add("-classpath");
     String classpath = config.testProperties.getProperty("classpath", "").trim();
     if (!classpath.isEmpty()) {
+      args.add("-classpath");
       classpath = classpath.replace("@RUNTIME_CLASSES@", RUNTIME_CLASSES);
       classpath = classpath.replace("@TEST_DIR@", config.testDir.getPath());
       classpath = classpath.replace("@TMP_DIR@", config.tmpDir.getPath());
       classpath = classpath.replace("@TEMP_DIR@", config.tmpDir.getPath());
       classpath = classpath.replace("@EXTENDJ_LIB@", config.extendjJar());
+      args.add(classpath);
     }
-    args.add(classpath);
 
     String sourcepath = config.testProperties.getProperty("sourcepath", "").trim();
     if (!sourcepath.isEmpty()) {
@@ -323,9 +347,7 @@ public class TestRunner {
       }
     }
 
-    for (String sourceFile: sourceFiles) {
-      args.add(sourceFile);
-    }
+    args.addAll(sourceFiles);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     ByteArrayOutputStream err = new ByteArrayOutputStream();
@@ -333,8 +355,7 @@ public class TestRunner {
     try {
       String[] arguments = args.toArray(new String[args.size()]);
 
-      int exitValue = -1;
-      exitValue = config.compiler.compile(arguments, out, err);
+      int exitValue = config.compiler.compile(arguments, out, err);
 
       if (err.size() > 0) {
         try {

@@ -11,14 +11,14 @@ Note: the tests can be run with either Apache Ant or Gradle. If you use Gradle,
 just replace `ant` with `gradle` in the commands below.  Note that Gradle can
 only be used with Java 7 or higher. For Java 5 or 6 you must use Ant.
 
-1. Copy `jastaddj.jar` into the JJTest root directory.
+1. Copy `extendj.jar` into the regression-tests root directory (where `build.xml` is).
 2. Run tests from the command line:
     * run all default tests (the TestShouldPass suite):
         `ant`
     * or, run some specific test(s):
         `ant -Dtest=ast/flush01`
 3. Run tests from Eclipse:
-    * Select a test suite, e.g., `src/tests/jastaddj/TestJava7.java`
+    * Select a test suite, e.g., `src/tests/extendj/TestJava7.java`
     * Select `Popup-menu->Run As->JUnit Test`
 4. Add a new test case:
     * A test case is a directory with `.java .jrag .ast .description`, etc. files

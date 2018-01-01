@@ -1,4 +1,5 @@
-// Test parameterized type construction and using the Parameterization.getArg(int) method.
+// Test method binding for implicit close() method access in try-with-resources.
+// https://bitbucket.org/extendj/extendj/issues/260/flaky-compilation-failures-with-java-7-twr
 // .result=EXEC_PASS
 // .classpath=@EXTENDJ_LIB@:@RUNTIME_CLASSES@
 import org.extendj.ast.CompilationUnit;
@@ -11,9 +12,11 @@ import org.extendj.ast.RawInterfaceDecl;
 import org.extendj.ast.SourceFolderPath;
 import org.extendj.ast.TypeVariable;
 import org.extendj.ast.TypeDecl;
+import org.extendj.ast.TryWithResources;
+import org.extendj.ast.MethodDecl;
+import org.extendj.ast.Access;
 
 import java.io.ByteArrayInputStream;
-import java.util.Arrays;
 import java.util.Collections;
 
 import static runtime.Test.testSame;
@@ -21,20 +24,27 @@ import static runtime.Test.fail;
 
 public class Test {
   public static void main(String[] args) {
-    String code = "interface Interface<U, V> { }";
-    CompilationUnit cu = parseCompilationUnit(code);
-    GenericInterfaceDecl decl = (GenericInterfaceDecl) cu.getTypeDecl(0);
-    TypeDecl typeObject = cu.lookupType("java.lang", "Object");
-    TypeDecl typeNumber = cu.lookupType("java.lang", "Number");
-    TypeDecl typeString = cu.lookupType("java.lang", "String");
-    ParInterfaceDecl par1 = (ParInterfaceDecl) decl.lookupParTypeDecl(
-        Arrays.asList(typeNumber, typeString));
-    RawInterfaceDecl par2 = (RawInterfaceDecl) decl.lookupParTypeDecl(
-        Collections.<TypeDecl>emptyList());
-    testSame(typeNumber, par1.getParameterization().getArg(0));
-    testSame(typeString, par1.getParameterization().getArg(1));
-    testSame(typeObject, par2.getParameterization().getArg(0));
-    testSame(typeObject, par2.getParameterization().getArg(1));
+    // Repeat a few times to catch flaky error.
+    for (int i = 0; i < 4; ++i) {
+      String code =
+        "import java.nio.channels.ReadableByteChannel;"
+        + "import java.io.IOException;"
+        + "class Foo {"
+        + "  public void m(ReadableByteChannel in) throws IOException {"
+        + "    try (ReadableByteChannel res = in) {"
+        + "    }"
+        + "  }"
+        + "}";
+      CompilationUnit cu = parseCompilationUnit(code);
+      MethodDecl method = (MethodDecl) cu.getTypeDecl(0).getBodyDecl(0);
+      TryWithResources twr = (TryWithResources) method.getBlock().getStmt(0);
+      MethodDecl closeMethod = twr.getResource(0).closeAccess().decl();
+      if (!closeMethod.hostType().fullName().equals("java.nio.channels.Channel")) {
+        System.err.format("(%d) Unexpected host type for close(): %s%n",
+            i, closeMethod.hostType().fullName());
+        return;
+      }
+    }
   }
 
   /**

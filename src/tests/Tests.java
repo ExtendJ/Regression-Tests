@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2017, Jesper Öqvist <jesper.oqvist@cs.lth.se>
+/* Copyright (c) 2013-2018, Jesper Öqvist <jesper.oqvist@cs.lth.se>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,7 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr334/twr/flaky_01p", // https://bitbucket.org/extendj/extendj/issues/260/flaky-compilation-failures-with-java-7-twr
     "jsr334/twr/flaky_02p", // https://bitbucket.org/extendj/extendj/issues/260/flaky-compilation-failures-with-java-7-twr
+    "api/jsr334/autocloseable_02p", // https://bitbucket.org/extendj/extendj/issues/260/flaky-compilation-failures-with-java-7-twr
   };
 
   /**
@@ -91,6 +92,7 @@ public interface Tests {
    */
   String[] JAVA7 = {
     "jsr334",
+    "api/jsr334",
     "pretty-print/jsr334",
     "method/overload_04p",  // Uses @SafeVarargs annotation introduced in Java 7.
   };

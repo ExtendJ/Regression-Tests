@@ -39,13 +39,16 @@ compileJava.dependsOn 'compileRuntimeClasses'
 // A test suite must be explicitly selected (test7 or test8).
 test.onlyIf { false }
 
+def extendjJarPath = System.getProperty('extendj.jar', 'extendj.jar')
+
 task test7(type: Test) {
 	dependsOn 'cleanTest'
 	include 'tests/extendj/TestJava7.class'
 	ignoreFailures = true // Needed for Jenkins pipeline to generate test report.
+	inputs.file file(extendjJarPath)
 
 	systemProperties = [
-		'extendj.jar': System.getProperty('extendj.jar', 'extendj.jar'),
+		'extendj.jar': extendjJarPath,
 		'includes': System.getProperty('includes', ''),
 		'excludes': System.getProperty('excludes', ''),
 		'test': System.getProperty('test', ''),
@@ -58,9 +61,10 @@ task test8(type: Test) {
 	dependsOn 'cleanTest'
 	include 'tests/extendj/TestJava8.class'
 	ignoreFailures = true // Needed for Jenkins pipeline to generate test report.
+	inputs.file file(extendjJarPath)
 
 	systemProperties = [
-		'extendj.jar': System.getProperty('extendj.jar', 'extendj.jar'),
+		'extendj.jar': extendjJarPath,
 		'includes': System.getProperty('includes', ''),
 		'excludes': System.getProperty('excludes', ''),
 		'test': System.getProperty('test', ''),

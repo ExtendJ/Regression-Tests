@@ -206,6 +206,7 @@ public class TestRunner {
     if (props.containsKey("classpath")) {
       String addClasspath = config.testProperties.getProperty("classpath", "").trim();
       if (!addClasspath.isEmpty()) {
+        addClasspath = addClasspath.replace(':', File.pathSeparatorChar);
         addClasspath = addClasspath.replace("@RUNTIME_CLASSES@", RUNTIME_CLASSES);
         addClasspath = addClasspath.replace("@TEST_DIR@", testDir.getPath());
         addClasspath = addClasspath.replace("@TMP_DIR@", tmpDir.getPath());
@@ -314,6 +315,7 @@ public class TestRunner {
 
     String classpath = config.testProperties.getProperty("classpath", "").trim();
     if (!classpath.isEmpty()) {
+      classpath = classpath.replace(':', File.pathSeparatorChar);
       args.add("-classpath");
       classpath = classpath.replace("@RUNTIME_CLASSES@", RUNTIME_CLASSES);
       classpath = classpath.replace("@TEST_DIR@", config.testDir.getPath());
@@ -325,6 +327,7 @@ public class TestRunner {
 
     String sourcepath = config.testProperties.getProperty("sourcepath", "").trim();
     if (!sourcepath.isEmpty()) {
+      sourcepath.replace(':', File.pathSeparatorChar);
       args.add("-sourcepath");
       sourcepath = sourcepath.replace("@TEST_DIR@", config.testDir.getPath());
       sourcepath = sourcepath.replace("@TMP_DIR@", config.tmpDir.getPath());

@@ -45,6 +45,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Collections;
+import java.util.Arrays;
 
 /**
  * Utility methods for running JastAdd unit tests.
@@ -104,9 +106,9 @@ public class TestRunner {
     File expected = new File(testDir, "extendj.err.expected");
     if (expected.isFile()) {
       File actual = new File(tmpDir, "compile.err");
-      assertEquals("Error output files differ",
-          readFileToString(expected),
-          readFileToString(actual).replace('\\', '/'));
+      // Use containsExactly to ignore error message order:
+      TestUtil.testThat(readErrorMessages(actual))
+          .containsExactly("Compile errors differ.", readErrorMessages(expected));
     }
   }
 
@@ -117,9 +119,9 @@ public class TestRunner {
       throws IOException {
     File expected = expectedCompileErrorOutput(testDir);
     File actual = new File(tmpDir, "compile.err");
-    assertEquals("Error output files differ",
-        readFileToString(expected),
-        readFileToString(actual).replace('\\', '/'));
+    // Use containsExactly to ignore error message order:
+    TestUtil.testThat(readErrorMessages(actual))
+        .containsExactly("Compile errors differ.", readErrorMessages(expected));
   }
 
   private static File expectedCompileErrorOutput(File testDir) {
@@ -156,7 +158,8 @@ public class TestRunner {
     try {
       File expected = new File(testDir, file + ".expected");
       File actual = new File(tmpDir, file);
-      assertEquals("Output files differ", readFileToString(expected),
+      assertEquals("Output files differ",
+          readFileToString(expected),
           readFileToString(actual));
     } catch (IOException e) {
       fail("IOException occurred while comparing output: " + e.getMessage());
@@ -191,6 +194,23 @@ public class TestRunner {
     in.close();
     out.close();
     return out.toString("UTF-8").replace(SYS_LINE_SEP, "\n").trim();
+  }
+
+  /**
+   * Reads compile errors to a list of strings.
+   *
+   * <p>Backslashes are replaced by forward slashes.
+   *
+   * <p>The system dependent line separator char sequence is replaced by
+   * the newline character.
+   */
+  private static List<String> readErrorMessages(File file) throws IOException {
+    String data = readFileToString(file).replace('\\', '/');
+    if (data.isEmpty()) {
+      return Collections.emptyList();
+    }
+    // TODO: remove empty lines.
+    return Arrays.asList(data.split("\n"));
   }
 
   /**

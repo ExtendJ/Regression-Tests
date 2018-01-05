@@ -61,9 +61,6 @@ public interface Tests {
     "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
-    "run/generics/container_01", // https://bitbucket.org/extendj/extendj/issues/270/broken-bytecode-when-using-generic-type-in
-    "run/generics/container_02", // https://bitbucket.org/extendj/extendj/issues/271/broken-bytecode-when-using-generic-type-in
-    "run/generics/container_03", // https://bitbucket.org/extendj/extendj/issues/272/broken-bytecode-when-using-generic-type-in
     "run/generics/container_04", // https://bitbucket.org/extendj/extendj/issues/273/broken-bytecode-when-using-generic
   };
 

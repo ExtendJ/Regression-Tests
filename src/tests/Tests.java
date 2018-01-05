@@ -62,6 +62,10 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
     "jsr335/diamond/nested_01p", // https://bitbucket.org/extendj/extendj/issues/266/stack-overflow-caused-by-nested-diamond
+    "run/generics/container_01", // https://bitbucket.org/extendj/extendj/issues/270/broken-bytecode-when-using-generic-type-in
+    "run/generics/container_02", // https://bitbucket.org/extendj/extendj/issues/271/broken-bytecode-when-using-generic-type-in
+    "run/generics/container_03", // https://bitbucket.org/extendj/extendj/issues/272/broken-bytecode-when-using-generic-type-in
+    "run/generics/container_04", // https://bitbucket.org/extendj/extendj/issues/273/broken-bytecode-when-using-generic
   };
 
   /**

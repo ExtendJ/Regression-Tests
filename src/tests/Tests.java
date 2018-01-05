@@ -62,6 +62,7 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
     "run/generics/container_04", // https://bitbucket.org/extendj/extendj/issues/273/broken-bytecode-when-using-generic
+    "generics/constructor_10p", // https://bitbucket.org/extendj/extendj/issues/274/failure-to-parse-generic-constructor
   };
 
   /**

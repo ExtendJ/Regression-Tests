@@ -61,7 +61,6 @@ public interface Tests {
     "jsr335/lambda/type_inf_09p", // True Java 8 type inference is needed.
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
-    "jsr335/diamond/nested_01p", // https://bitbucket.org/extendj/extendj/issues/266/stack-overflow-caused-by-nested-diamond
     "run/generics/container_01", // https://bitbucket.org/extendj/extendj/issues/270/broken-bytecode-when-using-generic-type-in
     "run/generics/container_02", // https://bitbucket.org/extendj/extendj/issues/271/broken-bytecode-when-using-generic-type-in
     "run/generics/container_03", // https://bitbucket.org/extendj/extendj/issues/272/broken-bytecode-when-using-generic-type-in
@@ -114,7 +113,7 @@ public interface Tests {
    * changed since Java 7 and no longer work the same way.
    */
   String[] EXCLUDE_JAVA8 = {
-    "jsr334/diamond/diamond_18",
+    "jsr334/diamond/diamond_18f",
     "generics/inference_07f", // More powerful type inference in Java 8.
     "generics/method_17p",
     "generics/method_25f", // Changed error message.

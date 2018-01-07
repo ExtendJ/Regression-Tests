@@ -1,4 +1,5 @@
 // Test return type inference.
+// https://bitbucket.org/extendj/extendj/issues/217/failure-in-lambda-return-type-inference
 // .result: COMPILE_PASS
 import java.util.function.Function;
 

@@ -116,7 +116,60 @@ public class TestUtil {
      */
     public void containsExactly(String message, Iterable<T> expected) {
       if (!isEqualCollection(subject, expected)) {
-        error("%s Expected: %s, was: %s", message, expected, subject);
+        String newln = System.getProperty("line.separator", "\n");
+        StringBuilder expectedSb = new StringBuilder();
+        StringBuilder actualSb = new StringBuilder();
+        expectedSb.append("[");
+        actualSb.append("[");
+        Map<Object, Integer> map = new java.util.HashMap<Object, Integer>();
+        for (Object o : subject) {
+          Integer val = map.get(o);
+          int count = (val == null) ? 0 : val;
+          map.put(o, count + 1);
+        }
+        for (Object o : expected) {
+          Integer val = map.get(o);
+          int count;
+          boolean missing = false;
+          if (val != null) {
+            count = val;
+            if (count == 0) {
+              missing = true;
+            } else {
+              map.put(o, count - 1);
+            }
+          } else {
+            missing = true;
+          }
+          expectedSb.append(newln);
+          if (missing) {
+            expectedSb.append("--  ");
+          } else {
+            expectedSb.append("    ");
+          }
+          expectedSb.append("" + o);
+        }
+        for (Object o : subject) {
+          Integer val = map.get(o);
+          int count = (val == null) ? 0 : val;
+          boolean extra = count != 0;
+          actualSb.append(newln);
+          if (extra) {
+            actualSb.append("++  ");
+          } else {
+            actualSb.append("    ");
+          }
+          actualSb.append("" + o);
+        }
+        if (expectedSb.length() > 1) {
+          expectedSb.append(newln);
+          expectedSb.append("]");
+        }
+        if (actualSb.length() > 1) {
+          actualSb.append(newln);
+          actualSb.append("]");
+        }
+        error("%s Expected: %s, but was: %s", message, expectedSb.toString(), actualSb.toString());
       }
     }
 

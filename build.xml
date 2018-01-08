@@ -51,7 +51,7 @@ suites using -Dproperty=value
 			nowarn="true"
 			destdir="runtime/classes"
 			includeantruntime="false">
-			<src path="framework/runtime"/>
+			<src path="framework"/>
 		</javac>
 	</target>
 

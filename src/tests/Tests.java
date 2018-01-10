@@ -63,6 +63,7 @@ public interface Tests {
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
     "extendj/generics/container_01f", // Needs an error message (crash during code generation).
     "pkg/static_import_05f", // https://bitbucket.org/extendj/extendj/issues/287/static-import-declaration-imports-too-much
+    "api/jsr335/lambda_01p", // https://bitbucket.org/extendj/extendj/issues/286/strange-bytecode-generated-for-anonymous
   };
 
   /**

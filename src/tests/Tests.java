@@ -62,7 +62,6 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
     "extendj/generics/container_01f", // Needs an error message (crash during code generation).
-    "pkg/static_import_05f", // https://bitbucket.org/extendj/extendj/issues/287/static-import-declaration-imports-too-much
     "api/jsr335/lambda_01p", // https://bitbucket.org/extendj/extendj/issues/286/strange-bytecode-generated-for-anonymous
     "jsr334/twr/multi_03p", // https://bitbucket.org/extendj/extendj/issues/288/stack-map-error-for-twr-statement-with
   };

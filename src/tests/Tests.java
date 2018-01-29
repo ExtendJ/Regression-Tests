@@ -94,6 +94,7 @@ public interface Tests {
     "api/jsr334",
     "pretty-print/jsr334",
     "method/overload_04p",  // Uses @SafeVarargs annotation introduced in Java 7.
+    "api/modifiers_02p",  // ACC_SYNTHETIC added for fields.
   };
 
   /**

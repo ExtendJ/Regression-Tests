@@ -238,6 +238,10 @@ public class TestRunner {
 
     List<String> cmd = new ArrayList<String>();
     cmd.add("java");
+    if (props.getProperty("execDebug", "").equals("true")) {
+      // Start the compiled code in debug mode (suspended).
+      cmd.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
+    }
     cmd.add("-classpath");
     cmd.add(classpath);
 

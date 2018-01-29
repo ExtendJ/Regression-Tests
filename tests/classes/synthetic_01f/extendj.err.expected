@@ -1,0 +1,2 @@
+tests/classes/synthetic_01f/Test.java:9: error: can not assign field b of type boolean a value of type Unknown
+tests/classes/synthetic_01f/Test.java:9,34: error: no field named $assertionsDisabled is accessible

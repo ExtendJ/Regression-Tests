@@ -10,6 +10,7 @@ Test Properties:
     compiler        the compiler to test (extendj or javac)
     verbose         set to "true" to get verbose output
     debug           set to "true" to attach debugger for each test
+    execDebug       set to "true" to attach debugger to compiled test code
 
 Set any of the test properties to override the values for the specific test
 suites using -Dproperty=value
@@ -21,6 +22,7 @@ suites using -Dproperty=value
 	<property name="compiler" value=""/>
 	<property name="verbose" value=""/>
 	<property name="debug" value=""/>
+	<property name="execDebug" value=""/>
 	<property name="fork" value=""/>
 
 	<target name="build"
@@ -70,6 +72,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
@@ -92,6 +95,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
@@ -114,6 +118,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<classpath>
 				<pathelement path="bin"/>
 				<pathelement path="lib/junit-${junit.version}.jar"/>
@@ -135,6 +140,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
@@ -157,6 +163,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
@@ -179,6 +186,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>
@@ -201,6 +209,7 @@ suites using -Dproperty=value
 			<sysproperty key="compiler" value="${compiler}"/>
 			<sysproperty key="verbose" value="${verbose}"/>
 			<sysproperty key="debug" value="${debug}"/>
+			<sysproperty key="execDebug" value="${execDebug}"/>
 			<sysproperty key="fork" value="${fork}"/>
 			<classpath>
 				<pathelement path="bin"/>

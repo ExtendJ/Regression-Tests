@@ -129,7 +129,9 @@ compared to the file `out.expected`.
 Each test can be configured to halt at any of the above steps by using the
 `result` option in the `Test.properties` file:
 
-* `COMPILE_FAIL` = The generated code fails to compile
+* `COMPILE_FAIL` = The generated code fails to compile.
+  If the test includes a file `extendj.err.expected`, then ExtendJ's error
+  output must match that file.
 * `COMPILE_PASS` = The generated code compiles without error
 * `COMPILE_OUTPUT` = The compiler generated the expected output
 * `COMPILE_ERR_OUTPUT` = The compiler generated the expected error message

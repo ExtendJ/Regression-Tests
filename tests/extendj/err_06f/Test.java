@@ -3,8 +3,6 @@
 // .result: COMPILE_FAIL
 public class Test {
   void fail() {
-    go(missing());
+    int x = missing();
   }
-
-  void go(String s) { }
 }

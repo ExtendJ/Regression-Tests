@@ -62,6 +62,8 @@ public interface Tests {
     "curious", // Curious type inference problems in Java 8. Don't even work with javac.
     "jsr335/diamond/generics_01p", // https://bitbucket.org/extendj/extendj/issues/267/diamond-constructor-inference-fails-if
     "extendj/generics/container_01f", // Needs an error message (crash during code generation).
+    "generics/method_26f", // TODO: add an issue for this.
+    "jsr335/misc/error_01f", // Does not give good error messages.
   };
 
   /**

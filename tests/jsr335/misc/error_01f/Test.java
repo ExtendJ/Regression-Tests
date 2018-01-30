@@ -3,11 +3,11 @@
 // .result: COMPILE_FAIL
 public class Test {
   public static void main(String[] args) {
-    assertEqulas(10, ident("bar")); // Error: assertEquals is not declared!
+    assertEqulas(10, ident("bar")); // Error: assertEqulas is not declared!
   }
 
   static <U, V> V ident(U t) {
-    return t;
+    return (V) t;
   }
 }
 

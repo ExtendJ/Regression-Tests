@@ -1,4 +1,2 @@
 tests/extendj/err_01f/A.java:3,16: error: no visible type named List
-tests/extendj/err_01f/Test.java:6: error: no method named println(Unknown) in java.io.PrintStream matches. However, there is a method println(boolean)
-tests/extendj/err_01f/Test.java:6: error: no method named s(Unknown) in A matches. However, there is a method s(String[])
 tests/extendj/err_01f/Test.java:6,26: error: no field named arsg is accessible

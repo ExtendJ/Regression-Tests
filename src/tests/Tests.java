@@ -64,6 +64,7 @@ public interface Tests {
     "extendj/generics/container_01f", // Needs an error message (crash during code generation).
     "generics/method_26f", // TODO: add an issue for this.
     "jsr335/misc/error_01f", // Does not give good error messages.
+    "name/access_03p", // https://bitbucket.org/extendj/extendj/issues/299/ambigous-name-resolution-incorrectly
   };
 
   /**

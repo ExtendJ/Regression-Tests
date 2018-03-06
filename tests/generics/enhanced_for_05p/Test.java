@@ -8,7 +8,7 @@ public class Test {
     }
   }
 
-  <T> Iterable<T> myIterable() {
+  <U> Iterable<U> myIterable() {
     return null;
   }
 }

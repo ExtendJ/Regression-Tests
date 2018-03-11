@@ -1,6 +1,4 @@
 tests/extendj/jsr335/lambda_type_err01f/Test.java:5: error: type argument 1 is of type ? extends String which is not within the bounds of type parameter I (I extends R)
-tests/extendj/jsr335/lambda_type_err01f/Test.java:5: error: can not assign field fun1b of type Fun1<? extends String, ?> a value of type Unknown
 tests/extendj/jsr335/lambda_type_err01f/Test.java:5: error: Found no matching method in the interface Fun1<? extends String, ?> for this lambda expression.
 tests/extendj/jsr335/lambda_type_err01f/Test.java:6: error: type argument 1 is of type java.lang.String which is not within the bounds of type parameter I (I extends R)
-tests/extendj/jsr335/lambda_type_err01f/Test.java:7: error: can not assign field fun2 of type Fun2<java.lang.String, ?> a value of type Unknown
 tests/extendj/jsr335/lambda_type_err01f/Test.java:7: error: Found no matching method in the interface Fun2<java.lang.String, ?> for this lambda expression.

@@ -54,6 +54,7 @@ task test7(type: Test) {
 		'test': System.getProperty('test', ''),
 		'fork': System.getProperty('fork', 'false'),
 		'debug': System.getProperty('debug', 'false'),
+		'verbose': System.getProperty('verbose', 'false'),
 	]
 }
 
@@ -70,6 +71,7 @@ task test8(type: Test) {
 		'test': System.getProperty('test', ''),
 		'fork': System.getProperty('fork', 'false'),
 		'debug': System.getProperty('debug', 'false'),
+		'verbose': System.getProperty('verbose', 'false'),
 	]
 }
 

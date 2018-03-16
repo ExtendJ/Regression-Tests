@@ -4,7 +4,7 @@
 public class Test {
     int i = 0;
 
-    public <T extends Test> T a() {
+    public <U extends Test> U a() {
         return b();
     }
 

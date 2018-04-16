@@ -134,6 +134,7 @@ Each test can be configured to halt at any of the above steps by using the
   output must match that file.
 * `COMPILE_PASS` = The generated code compiles without error
 * `COMPILE_OUTPUT` = The compiler generated the expected output
+* `COMPILE_WARNING` = Compilation passed but the compiler printed some warnings (on stderr).
 * `COMPILE_ERR_OUTPUT` = The compiler generated the expected error message
 * `EXEC_FAIL`    = The compiled code returns with non-zero exit status when
   executed and prints nothing on standard error

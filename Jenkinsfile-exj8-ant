@@ -1,0 +1,23 @@
+#!/usr/bin/env groovy
+
+node {
+	env.JAVA_HOME="${tool 'oracle-jdk-8'}"
+	env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
+
+	stage('Checkout') {
+		checkout scm
+	}
+
+	stage('Copy Artifact') {
+		copyArtifacts filter: 'java8/extendj.jar',
+				fingerprintArtifacts: true,
+				projectName: 'ExtendJ-Ant',
+				selector: lastSuccessful(),
+				flatten: true
+	}
+
+	stage('Test') {
+		sh "./gradlew test8 --rerun-tasks"
+		junit 'build/test-results/**/*.xml'
+	}
+}
